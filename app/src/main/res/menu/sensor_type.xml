@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/pir"
+        android:title="PIR"
+        />
+
+    <item
+        android:id="@+id/swict_btn"
+        android:title="Switch"
+        />
+
+    <item
+        android:id="@+id/day_light"
+        android:title="Day Light"
+        />
+
+
+</menu>
