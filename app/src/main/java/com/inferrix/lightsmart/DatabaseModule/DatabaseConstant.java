@@ -47,6 +47,15 @@ public class DatabaseConstant {
     public static final String COLUMN_DEVICE_ITEM_EIGET = "DEVICE_ITEM_EIGET";
     public static final String COLUMN_DEVICE_TYPE_CODE = "DEVICE_TYPE_CODE";
     public static final String COLUMN_DEVICE_MAC_ADDRESSS = "DEVICE_MAC_ADDRESS";
+    public static final String COLUMN_DEVICE_LUX_LEVEL_ONE = "DEVICE_LUX_LEVEL_ONE";
+    public static final String COLUMN_DEVICE_LUX_LEVEL_TWO = "DEVICE_LUX_LEVEL_TWO";
+    public static final String COLUMN_DEVICE_LUX_LEVEL_THREE = "DEVICE_LUX_LEVEL_THREE";
+    public static final String COLUMN_DEVICE_LUX_LEVEL_FOUR= "DEVICE_LUX_LEVEL_FOUR";
+    public static final String COLUMN_DEVICE_LUX_LEVEL_FIVE= "DEVICE_LUX_LEVEL_FIVE";
+    public static final String COLUMN_DEVICE_DIMMING_LEVEL_ONE = "DEVICE_DIMMING_LEVEL_ONE";
+    public static final String COLUMN_DEVICE_DIMMING_LEVEL_TWO = "DEVICE_DIMMING_LEVEL_TWO";
+    public static final String COLUMN_DEVICE_DIMMING_LEVEL_THREE = "DEVICE_DIMMING_LEVEL_THREE";
+    public static final String COLUMN_DEVICE_DIMMING_LEVEL_Four= "DEVICE_DIMMING_LEVEL_FOUR";
 //    public static final String COLUMN_DEVICE_TAG_NUMBER = "DEVICE_TAG";
     public static final String COLUMN_DEVICE_PROGRESS = "DEVICE_PROGRESS";   //// Device dim progress
 
@@ -125,6 +134,15 @@ public class DatabaseConstant {
             COLUMN_DEVICE_ITEM_EIGET + " TEXT ," +
             COLUMN_DEVICE_TYPE_CODE + " TEXT ," +
             COLUMN_DEVICE_MAC_ADDRESSS + " TEXT ," +
+            COLUMN_DEVICE_LUX_LEVEL_ONE + " TEXT ," +
+            COLUMN_DEVICE_LUX_LEVEL_TWO + " TEXT ," +
+            COLUMN_DEVICE_LUX_LEVEL_THREE + " TEXT ," +
+            COLUMN_DEVICE_LUX_LEVEL_FOUR+ " TEXT ," +
+            COLUMN_DEVICE_LUX_LEVEL_FIVE + " TEXT ," +
+            COLUMN_DEVICE_DIMMING_LEVEL_ONE + " TEXT ," +
+            COLUMN_DEVICE_DIMMING_LEVEL_TWO + " TEXT ," +
+            COLUMN_DEVICE_DIMMING_LEVEL_THREE + " TEXT ," +
+            COLUMN_DEVICE_DIMMING_LEVEL_Four + " TEXT ," +
             COLUMN_DERIVE_TYPE + " TEXT ," +
             COLUMN_GROUP_SITE_ID + " INTEGER DEFAULT 0 ," +
             COLUMN_GROUP_BUILDINGID + " INTEGER DEFAULT 0 ," +

@@ -108,13 +108,22 @@ public class RoomLightListAdapter extends BaseAdapter implements AdvertiseResult
         ViewHolder viewHolder = new ViewHolder(convertView);
         DeviceClass deviceClass = arrayList.get(position);
         viewHolder.lightDeviceName.setText(deviceClass.getDeviceName());
+        if (deviceClass.getTypeCode().equalsIgnoreCase("533")){
+            viewHolder.lightDetails.setImageResource(R.mipmap.moko);
+        }else if (deviceClass.getTypeCode().equalsIgnoreCase("55811")&& deviceClass.getMacAddress().startsWith("E2:15")){
+            viewHolder.lightDetails.setImageResource(R.mipmap.switches);
+        }else if (deviceClass.getTypeCode().equalsIgnoreCase("55811")&& deviceClass.getMacAddress().startsWith("E5:00")) {
+            viewHolder.lightDetails.setImageResource(R.mipmap.pir);
+        }else {
+            viewHolder.lightDetails.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
+        }
         viewHolder.lightDetails.setBackground(activity.getResources().getDrawable(deviceClass.getMasterStatus()==0?R.drawable.white_circle_border:R.drawable.yellow_circle));
-        viewHolder.lightDetails.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
-            intent.putExtra(Constants.LIGHT_DETAIL_KEY, deviceClass);
-            activity.startActivity(intent);
-        });
+//        viewHolder.lightDetails.setOnClickListener(v -> {
+//            Intent intent = new Intent(activity, HelperActivity.class);
+//            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
+//            intent.putExtra(Constants.LIGHT_DETAIL_KEY, deviceClass);
+//            activity.startActivity(intent);
+//        });
 
         viewHolder.lightAdd.setOnClickListener(v -> {
            showAlert(position);
@@ -223,7 +232,8 @@ public class RoomLightListAdapter extends BaseAdapter implements AdvertiseResult
 //            acceptRequest(2,position);
             dialog1.dismiss();
             ByteQueue byteQueue=new ByteQueue();
-            byteQueue.push(RxMethodType.ADD_GROUP);
+            byteQueue.push(RxMethodType.ADD_ROOM_GROUP);
+            byteQueue.push(0x01);
             byteQueue.pushU4B(deviceClass.getDeviceUID());
             byteQueue.push(groupDetailsClass.getRoomGroupId());
             AdvertiseTask advertiseTask;

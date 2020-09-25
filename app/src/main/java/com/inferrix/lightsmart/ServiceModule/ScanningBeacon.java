@@ -129,7 +129,7 @@ public class ScanningBeacon implements BeaconConsumer {
                                 byteQueue2.push(encodeId1);
                                 int methodType=byteQueue1.pop();
                                 Log.w("MethodType",methodType+"");
-                                if(methodType==0x4d){
+                                if(methodType==0x4f){
                                     byte[] bytes1=byteQueue1.pop4B();
                                     ArrayUtilities.reverse(bytes1);
                                     String nodeUid=bytesToHex(bytes1);

@@ -344,9 +344,11 @@ public class SqlHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery( "select * from "+ tableName +" where "+COLUMN_ID+"='"+id+"'", null );
     }
+
+
+
     //************************  GET DATA ***************************************/
-    public Cursor getAllGroup()
-    {
+    public Cursor getAllGroup() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery( "select * from "+ GROUP_TABLE_NAME /*+" where "+COLUMN_ID+"='"+id+"'"*/, null );
     }
@@ -391,6 +393,13 @@ public class SqlHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery( "select * from "+ ADD_DEVICE_TABLE +" where "+COLUMN_GROUP_ID+"='"+id+"'", null );
     }
+
+    public Cursor getLightInAllGroup(int  id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery( "select * from "+ GROUP_TABLE_NAME +" where "+COLUMN_DEVICE_UID+"='"+id+"'", null );
+    }
+
 
     public Cursor getLightInSiteGroup(int  id)
     {

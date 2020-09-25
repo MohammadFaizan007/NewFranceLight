@@ -300,7 +300,6 @@ public class DashboardFragment extends Fragment {
         groupedLightAdapter.setList(groupedLightArrayList);
     }
 
-
     public void getDevice() {
         deviceList = new ArrayList<>();
         Cursor cursor = sqlHelper.getAllDevice(DatabaseConstant.ADD_DEVICE_TABLE);
@@ -309,11 +308,24 @@ public class DashboardFragment extends Fragment {
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("16")) {
                     DeviceClass deviceClass = new DeviceClass();
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+                    deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
+                    deviceClass.setLuxLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO)));
+                    deviceClass.setLuxLevelThree(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE)));
+                    deviceClass.setLuxLevelFour(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FOUR)));
+                    deviceClass.setLuxLevelFive(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FIVE)));
+                    deviceClass.setDimmingLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_ONE)));
+                    deviceClass.setDimmingLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_TWO)));
+                    deviceClass.setDimmingLevelThre(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_THREE)));
+                    deviceClass.setDimmingLevelFour(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_Four)));
                     deviceClass.setTypeCode(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)));
                     deviceClass.setDeviceUID(cursor.getLong(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
                     deviceClass.setDeriveType(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DERIVE_TYPE)));
                     deviceClass.setDeviceDimming(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_PROGRESS)));
                     deviceClass.setGroupId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ID)));
+                    deviceClass.setGroupSiteId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_SITE_ID)));
+                    deviceClass.setGroupBuildingId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_BUILDINGID)));
+                    deviceClass.setGroupLevelId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_LEVELID)));
+                    deviceClass.setGroupRoomId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ROOMID)));
                     deviceClass.setMasterStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS)));
                     deviceClass.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_STATUS)) == 1);
                     deviceList.add(deviceClass);
@@ -333,11 +345,24 @@ public class DashboardFragment extends Fragment {
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("533")) {
                     DeviceClass deviceClass = new DeviceClass();
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+                    deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
+                    deviceClass.setLuxLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO)));
+                    deviceClass.setLuxLevelThree(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE)));
+                    deviceClass.setLuxLevelFour(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FOUR)));
+                    deviceClass.setLuxLevelFive(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FIVE)));
+                    deviceClass.setDimmingLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_ONE)));
+                    deviceClass.setDimmingLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_TWO)));
+                    deviceClass.setDimmingLevelThre(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_THREE)));
+                    deviceClass.setDimmingLevelFour(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_Four)));
                     deviceClass.setTypeCode(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)));
                     deviceClass.setDeviceUID(cursor.getLong(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
                     deviceClass.setDeriveType(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DERIVE_TYPE)));
                     deviceClass.setDeviceDimming(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_PROGRESS)));
                     deviceClass.setGroupId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ID)));
+                    deviceClass.setGroupSiteId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_SITE_ID)));
+                    deviceClass.setGroupBuildingId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_BUILDINGID)));
+                    deviceClass.setGroupLevelId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_LEVELID)));
+                    deviceClass.setGroupRoomId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ROOMID)));
                     deviceClass.setMasterStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS)));
                     deviceClass.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_STATUS)) == 1);
                     deviceList.add(deviceClass);
@@ -357,11 +382,24 @@ public class DashboardFragment extends Fragment {
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("55811") && cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS)).startsWith("E2:15")) {
                     DeviceClass deviceClass = new DeviceClass();
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+                    deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
+                    deviceClass.setLuxLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO)));
+                    deviceClass.setLuxLevelThree(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE)));
+                    deviceClass.setLuxLevelFour(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FOUR)));
+                    deviceClass.setLuxLevelFive(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FIVE)));
+                    deviceClass.setDimmingLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_ONE)));
+                    deviceClass.setDimmingLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_TWO)));
+                    deviceClass.setDimmingLevelThre(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_THREE)));
+                    deviceClass.setDimmingLevelFour(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_Four)));
                     deviceClass.setTypeCode(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)));
                     deviceClass.setDeviceUID(cursor.getLong(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
                     deviceClass.setDeriveType(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DERIVE_TYPE)));
                     deviceClass.setDeviceDimming(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_PROGRESS)));
                     deviceClass.setGroupId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ID)));
+                    deviceClass.setGroupSiteId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_SITE_ID)));
+                    deviceClass.setGroupBuildingId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_BUILDINGID)));
+                    deviceClass.setGroupLevelId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_LEVELID)));
+                    deviceClass.setGroupRoomId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ROOMID)));
                     deviceClass.setMasterStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS)));
                     deviceClass.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_STATUS)) == 1);
                     deviceList.add(deviceClass);
@@ -381,11 +419,24 @@ public class DashboardFragment extends Fragment {
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("55811") && cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS)).startsWith("E5:00")) {
                     DeviceClass deviceClass = new DeviceClass();
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+                    deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
+                    deviceClass.setLuxLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO)));
+                    deviceClass.setLuxLevelThree(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE)));
+                    deviceClass.setLuxLevelFour(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FOUR)));
+                    deviceClass.setLuxLevelFive(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FIVE)));
+                    deviceClass.setDimmingLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_ONE)));
+                    deviceClass.setDimmingLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_TWO)));
+                    deviceClass.setDimmingLevelThre(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_THREE)));
+                    deviceClass.setDimmingLevelFour(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_Four)));
                     deviceClass.setTypeCode(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)));
                     deviceClass.setDeviceUID(cursor.getLong(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
                     deviceClass.setDeriveType(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DERIVE_TYPE)));
                     deviceClass.setDeviceDimming(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_PROGRESS)));
                     deviceClass.setGroupId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ID)));
+                    deviceClass.setGroupSiteId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_SITE_ID)));
+                    deviceClass.setGroupBuildingId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_BUILDINGID)));
+                    deviceClass.setGroupLevelId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_LEVELID)));
+                    deviceClass.setGroupRoomId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ROOMID)));
                     deviceClass.setMasterStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS)));
                     deviceClass.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_STATUS)) == 1);
                     deviceList.add(deviceClass);

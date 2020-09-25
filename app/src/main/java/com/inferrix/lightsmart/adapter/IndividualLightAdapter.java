@@ -106,22 +106,15 @@ public class IndividualLightAdapter extends BaseAdapter implements AdvertiseResu
         ViewHolder viewHolder = new ViewHolder(convertView);
         DeviceClass deviceClass=arrayList.get(position);
 
-//        if (deviceClass.getTypeCode().equalsIgnoreCase("16")){
-//            DeviceClass deviceClass1 = new DeviceClass();
-//            deviceClass.ad
-//        }
-//        if (deviceClass.getTypeCode().equalsIgnoreCase("16")){
-//            viewHolder.dashboardDeviceName.setText(deviceClass.getDeviceName());
-//        }else{
-//            viewHolder.dashboardDeviceName.setVisibility(View.GONE);
-//        }
-//        Log.e("INDI========",deviceClass.getTypeCode());
         viewHolder.dashboardDeviceName.setText(deviceClass.getDeviceName());
-        viewHolder.lightDetails.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
-//        viewHolder.lightDetails.setBackground(activity.getResources().getDrawable(deviceClass.getMasterStatus()==0?R.drawable.white_circle_border:R.drawable.yellow_circle));
+//        viewHolder.lightDetails.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
+        viewHolder.lightDetails.setBackground(activity.getResources().getDrawable(deviceClass.getMasterStatus()==0?R.drawable.white_circle_border:R.drawable.yellow_circle));
         viewHolder.lightDetails.setOnClickListener(v -> {
             Intent intent = new Intent(activity, HelperActivity.class);
             intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
+            intent.putExtra("type", "light");
+            intent.putExtra("name", deviceClass.getDeviceName());
+            intent.putExtra("pos", position);
             intent.putExtra(Constants.LIGHT_DETAIL_KEY,deviceClass);
             activity.startActivity(intent);
         });
@@ -143,6 +136,7 @@ public class IndividualLightAdapter extends BaseAdapter implements AdvertiseResu
                 AdvertiseTask advertiseTask;
                 ByteQueue byteQueue=new ByteQueue();
                 byteQueue.push(requestCode);       ////State Command
+                byteQueue.push(0x01);
                 byteQueue.pushU4B(deviceClass.getDeviceUID());      ////  12 is static vale for Node id
 //                byteQueue.push(0x00);                                    ///0x00 – OFF    0x01 – ON
 //                scannerTask.setRequestCode(TxMethodType.LIGHT_STATE_COMMAND_RESPONSE);
@@ -221,6 +215,7 @@ public class IndividualLightAdapter extends BaseAdapter implements AdvertiseResu
                 requestCode=LIGHT_LEVEL_COMMAND;
                 ByteQueue byteQueue=new ByteQueue();
                 byteQueue.push(requestCode);   //// Light Level Command method type
+                byteQueue.push(0x01);
                 byteQueue.pushU4B(deviceDetail.getDeviceUID());   ////deviceDetail.getGroupId()   node id;
                 byteQueue.push(seekBarProgress[0]);    ////0x00-0x64
 //            scannerTask.setRequestCode(TxMethodType.LIGHT_LEVEL_COMMAND_RESPONSE);

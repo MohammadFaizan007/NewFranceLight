@@ -41,17 +41,20 @@ import com.inferrix.lightsmart.ServiceModule.AdvertiseTask;
 import com.inferrix.lightsmart.ServiceModule.ScannerTask;
 import com.inferrix.lightsmart.activity.AppHelper;
 import com.inferrix.lightsmart.constant.Constants;
+import com.inferrix.lightsmart.fragments.AddGroupFragment;
 import com.niftymodaldialogeffects.Effectstype;
 import com.niftymodaldialogeffects.NiftyDialogBuilder;
 import com.nightonke.jellytogglebutton.JellyToggleButton;
 import com.nightonke.jellytogglebutton.State;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS;
+import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ALL_GROUP_INFO;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.LIGHT_STATE_COMMAND_RESPONSE;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.SELECT_MASTER_RESPONSE;
 import static com.inferrix.lightsmart.activity.AppHelper.sqlHelper;
@@ -316,34 +319,43 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
                 return;
             }
 
-            Log.e("TYPE_CODE=====>",beconDeviceClass.getTypeCode().toString());
+            Log.e("TYPE_CODE=====>", beconDeviceClass.getTypeCode().toString());
             ContentValues contentValues = new ContentValues();
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_UID, beconDeviceClass.getBeaconUID());
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_NAME, deviceName.getText().toString());
             contentValues.put(DatabaseConstant.COLUMN_DERIVE_TYPE, beconDeviceClass.getDeriveType());
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_ONE,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_TWO,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_THREE,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_FOUR,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_FIVE,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_SIX,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_SEVEN,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_EIGET,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_ONE,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_TWO,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_THREE,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_FOUR,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_FIVE,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_SIX,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_SEVEN,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_EIGET,"");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE,beconDeviceClass.getTypeCode());
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS,beconDeviceClass.getDeviceMacAddress());
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_ONE, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_TWO, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_THREE, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_FOUR, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_FIVE, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_SIX, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_SEVEN, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_EIGET, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_ONE, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_TWO, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_THREE, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_FOUR, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_FIVE, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_SIX, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_SEVEN, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_EIGET, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FOUR, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FIVE, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_ONE, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_TWO, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_THREE, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_Four, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE, beconDeviceClass.getTypeCode());
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS, beconDeviceClass.getDeviceMacAddress());
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_STATUS, beconDeviceClass.getDeriveType() == 0 ? 1 : 0);
-            contentValues.put(DatabaseConstant.COLUMN_GROUP_SITE_ID,((SiteGroupDetailsClass)site_spinner.getSelectedItem()).getGroupSiteId());
-            contentValues.put(DatabaseConstant.COLUMN_GROUP_BUILDINGID,((BuildingGroupDetailsClass)building_spinner.getSelectedItem()).getGroupBuildingId());
-            contentValues.put(DatabaseConstant.COLUMN_GROUP_LEVELID,((LevelGroupDetailsClass)level_spinner.getSelectedItem()).getGroupLevelId());
-            contentValues.put(DatabaseConstant.COLUMN_GROUP_ROOMID,((RoomGroupDetailsClass)room_spinner.getSelectedItem()).getRoomGroupId());
+            contentValues.put(DatabaseConstant.COLUMN_GROUP_SITE_ID, ((SiteGroupDetailsClass) site_spinner.getSelectedItem()).getGroupSiteId());
+            contentValues.put(DatabaseConstant.COLUMN_GROUP_BUILDINGID, ((BuildingGroupDetailsClass) building_spinner.getSelectedItem()).getGroupBuildingId());
+            contentValues.put(DatabaseConstant.COLUMN_GROUP_LEVELID, ((LevelGroupDetailsClass) level_spinner.getSelectedItem()).getGroupLevelId());
+            contentValues.put(DatabaseConstant.COLUMN_GROUP_ROOMID, ((RoomGroupDetailsClass) room_spinner.getSelectedItem()).getRoomGroupId());
             contentValues.put(DatabaseConstant.COLUMN_GROUP_ID, ((GroupDetailsClass) group_spinner.getSelectedItem()).getGroupId());
 //            Log.w("Selected group",((GroupDetailsClass) spinner.getSelectedItem()).getGroupId()+"");
             if (sqlHelper.insertData(DatabaseConstant.ADD_DEVICE_TABLE, contentValues) < 0) {
@@ -355,6 +367,47 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
                 arrayList.get(position).setAdded(true);
                 arrayList.get(position).setDeviceName(deviceName.getText().toString());
                 Toast.makeText(activity, "Device  added successfully.", Toast.LENGTH_SHORT).show();
+                AdvertiseTask advertiseTask;
+                ByteQueue byteQueue = new ByteQueue();
+                byteQueue.push(ALL_GROUP_INFO);
+                byteQueue.push(0x01);
+                byteQueue.pushU4B(beconDeviceClass.getBeaconUID());
+                if (site_spinner.getSelectedItem().equals("No Site Group")) {
+                } else {
+                    byteQueue.push(((SiteGroupDetailsClass) site_spinner.getSelectedItem()).getGroupSiteId());
+                }
+                if (building_spinner.getSelectedItem().equals("No Building Group")) {
+                } else {
+                    byteQueue.push(((BuildingGroupDetailsClass) building_spinner.getSelectedItem()).getGroupBuildingId());
+                }
+                if (level_spinner.getSelectedItem().equals("No Level Group")) {
+                } else {
+                    byteQueue.push(((LevelGroupDetailsClass) level_spinner.getSelectedItem()).getGroupLevelId());
+                }
+
+                if (room_spinner.getSelectedItem().equals("No Room Group")) {
+                } else {
+                    byteQueue.push(((RoomGroupDetailsClass) room_spinner.getSelectedItem()).getRoomGroupId());
+                }
+//                if (group_spinner.getSelectedItem().equals("No Group")) {
+//                    ArrayList<Integer> arr = new ArrayList<Integer>();
+//                    for (int i = 1; i <= arr.size(); i++) {
+//                        arr.add(groupDetailsClasses.get(i).getGroupId());
+//                        Log.e("ARRAY", arr.toString());
+//                    }
+//                }
+
+//                byteQueue.push((groupDetailsClasses.get().getGroupId()));
+//                if (group_spinner.getSelectedItem().equals("No Group")) {
+//                } else {
+//                    byteQueue.push(((GroupDetailsClass) group_spinner.getSelectedItem()).getGroupId());
+//                }
+                advertiseTask = new AdvertiseTask(this, activity, 5 * 1000);
+                animatedProgress.setText("Uploading");
+                advertiseTask.setByteQueue(byteQueue);
+                Log.e("Check>>>>", byteQueue.toString());
+                advertiseTask.startAdvertising();
+
                 dialog.cancel();
 //                NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(activity);
 //                dialogBuilder
@@ -418,7 +471,10 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
                 groupData.setGroupName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_NAME)));
                 groupData.setGroupStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_STATUS)) == 1);
                 groupDetailsClasses.add(groupData);
+
                 // do what ever you want here
+//                for (int i = 1 ; i<=groupData.getGroupId();i++);
+
             }
             while (cursor.moveToNext());
         }
@@ -432,7 +488,7 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
         groupRoomDetailsClasses.clear();
         RoomGroupDetailsClass noGroupData = new RoomGroupDetailsClass();
         noGroupData.setRoomGroupId(0);
-        noGroupData.setGroupRoomName("No Group");
+        noGroupData.setGroupRoomName("No Room");
         noGroupData.setGroupStatus(true);
         groupRoomDetailsClasses.add(noGroupData);
         Cursor cursor = sqlHelper.getAllRoomGroup();
@@ -458,7 +514,7 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
         groupSiteDetailsClasses.clear();
         SiteGroupDetailsClass noGroupData = new SiteGroupDetailsClass();
         noGroupData.setGroupSiteId(0);
-        noGroupData.setGroupSiteName("No Group");
+        noGroupData.setGroupSiteName("No Site");
         noGroupData.setGroupSiteStatus(true);
         groupSiteDetailsClasses.add(noGroupData);
         Cursor cursorS = sqlHelper.getAllSiteGroup();
@@ -484,7 +540,7 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
         groupBuildingDetailsClasses.clear();
         BuildingGroupDetailsClass noGroupData = new BuildingGroupDetailsClass();
         noGroupData.setGroupBuildingId(0);
-        noGroupData.setGroupBuildingName("No Group");
+        noGroupData.setGroupBuildingName("No Building");
         noGroupData.setBuildingGroupStatus(true);
         groupBuildingDetailsClasses.add(noGroupData);
         Cursor cursorB = sqlHelper.getAllBuildingGroup();
@@ -511,7 +567,7 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
         groupLevelDetailsClasses.clear();
         LevelGroupDetailsClass noGroupData = new LevelGroupDetailsClass();
         noGroupData.setGroupLevelId(0);
-        noGroupData.setGroupLevelName("No Group");
+        noGroupData.setGroupLevelName("No Level");
         noGroupData.setLevelGroupStatus(true);
         groupLevelDetailsClasses.add(noGroupData);
         Cursor cursorB = sqlHelper.getAllLevelGroup();
@@ -563,19 +619,24 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
             viewHolder.addDeviceUid.setText(beconDeviceClass.getDeviceUid());
             viewHolder.statusSwitch.setVisibility(View.GONE);
         }
-        if (beconDeviceClass.getiBeaconUuid().equalsIgnoreCase("533")){
+        if (beconDeviceClass.getiBeaconUuid().equalsIgnoreCase("533")) {
             viewHolder.review1.setImageResource(R.mipmap.moko);
             viewHolder.statusSwitch.setVisibility(View.GONE);
 
-        }else if (beconDeviceClass.getiBeaconUuid().equalsIgnoreCase("55811")&& beconDeviceClass.getDeviceMacAddress().startsWith("E5:00")){
+        } else if (beconDeviceClass.getiBeaconUuid().equalsIgnoreCase("55811") && beconDeviceClass.getDeviceMacAddress().startsWith("E5:00")) {
             viewHolder.review1.setImageResource(R.mipmap.pir);
             viewHolder.statusSwitch.setVisibility(View.GONE);
-        }else if (beconDeviceClass.getiBeaconUuid().equalsIgnoreCase("55811")){
+        } else if (beconDeviceClass.getiBeaconUuid().equalsIgnoreCase("55811")) {
             viewHolder.review1.setImageResource(R.mipmap.switches);
             viewHolder.statusSwitch.setVisibility(View.GONE);
 
-        }else {
+        } else {
             viewHolder.review1.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
+        }
+        if (beconDeviceClass.getTypeCode().equalsIgnoreCase("16")) {
+            viewHolder.statusSwitch.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.statusSwitch.setVisibility(View.GONE);
         }
         viewHolder.statusSwitch.setOnStateChangeListener(new JellyToggleButton.OnStateChangeListener() {
             @Override
@@ -585,25 +646,22 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
 //                    Log.w("Advertise","state is same");
                     return;
                 }
-                requestCode = RxMethodType.LIGHT_STATE_COMMAND;
+                requestCode = RxMethodType.LIGHT_STATE_NEW_COMMAND;
                 AdvertiseTask advertiseTask;
                 ByteQueue byteQueue = new ByteQueue();
                 byteQueue.push(requestCode);       ////State Command
+                byteQueue.push(0x01);
                 byteQueue.pushU4B(beconDeviceClass.getBeaconUID());      ////  12 is static vale for Node id
 //                byteQueue.push(0x00);                                    ///0x00 – OFF    0x01 – ON
 //                scannerTask.setRequestCode(TxMethodType.LIGHT_STATE_COMMAND_RESPONSE);
                 Log.w(TAG, state + "");
                 switch (state) {
                     case LEFT:
-                        //// remove group method type
-//                        byteQueue.pushS4B(12);
-//                        Log.w("SwitchStatus","Left");
                         byteQueue.push(0x00);   //0x00 – OFF    0x01 – ON
                         arrayList.get(position).setStatus(false);
 
                         break;
                     case RIGHT:
-//                        Log.w("SwitchStatus","Right");
                         byteQueue.push(0x01);   //0x00 – OFF    0x01 – ON
                         arrayList.get(position).setStatus(true);
                         break;
@@ -618,6 +676,7 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
                 selectedPosition = position;
                 advertiseTask = new AdvertiseTask(AddDeviceListAdapter.this, activity, 5 * 1000);
                 advertiseTask.setByteQueue(byteQueue);
+                Log.e("LIGHT====>", byteQueue.toString());
                 advertiseTask.setSearchRequestCode(LIGHT_STATE_COMMAND_RESPONSE);
                 advertiseTask.startAdvertising();
             }

@@ -116,12 +116,12 @@
                     <ImageView
                         android:id="@+id/viewDetail1"
                         android:layout_width="0dp"
-                        android:layout_height="20dp"
+                        android:layout_height="30dp"
                         android:layout_weight=".1"
-                        android:layout_marginTop="@dimen/_18sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:layout_marginRight="@dimen/_5sdp"
-                        android:background="@drawable/pluse_ic"/>
+                        android:background="@drawable/plus_ic"/>
 
                 </LinearLayout>
 
@@ -236,12 +236,12 @@
                     <ImageView
                         android:id="@+id/viewDetail2"
                         android:layout_width="0dp"
-                        android:layout_height="20dp"
+                        android:layout_height="30dp"
                         android:layout_weight=".1"
-                        android:layout_marginTop="@dimen/_18sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:layout_marginRight="@dimen/_5sdp"
-                        android:background="@drawable/pluse_ic"/>
+                        android:background="@drawable/plus_ic"/>
 
                 </LinearLayout>
 
@@ -266,7 +266,7 @@
 <!--                    android:layout_gravity="end"-->
 <!--                    android:layout_marginTop="-50dp"-->
 <!--                    android:layout_marginEnd="@dimen/_5sdp"-->
-<!--                    android:background="@drawable/pluse_ic"/>-->
+<!--                    android:background="@drawable/plus_ic"/>-->
 
             </LinearLayout>
 
@@ -375,12 +375,12 @@
                         <ImageView
                             android:id="@+id/viewDetail3"
                             android:layout_width="0dp"
-                            android:layout_height="20dp"
+                            android:layout_height="30dp"
                             android:layout_weight=".1"
-                            android:layout_marginTop="@dimen/_18sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_marginRight="@dimen/_5sdp"
-                            android:background="@drawable/pluse_ic"/>
+                            android:background="@drawable/plus_ic"/>
                     </LinearLayout>
 
 <!--                    <Button-->
@@ -404,7 +404,7 @@
 <!--                        android:layout_gravity="end"-->
 <!--                        android:layout_marginTop="-50dp"-->
 <!--                        android:layout_marginEnd="@dimen/_5sdp"-->
-<!--                        android:background="@drawable/pluse_ic"/>-->
+<!--                        android:background="@drawable/plus_ic"/>-->
 
                 </LinearLayout>
 
@@ -513,12 +513,12 @@
                         <ImageView
                             android:id="@+id/viewDetail4"
                             android:layout_width="0dp"
-                            android:layout_height="20dp"
+                            android:layout_height="30dp"
                             android:layout_weight=".1"
-                            android:layout_marginTop="@dimen/_18sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_marginRight="@dimen/_5sdp"
-                            android:background="@drawable/pluse_ic"/>
+                            android:background="@drawable/plus_ic"/>
                     </LinearLayout>
 
 <!--                    <Button-->
@@ -542,7 +542,7 @@
 <!--                        android:layout_gravity="end"-->
 <!--                        android:layout_marginTop="-50dp"-->
 <!--                        android:layout_marginEnd="@dimen/_5sdp"-->
-<!--                        android:background="@drawable/pluse_ic"/>-->
+<!--                        android:background="@drawable/plus_ic"/>-->
 
                 </LinearLayout>
 
@@ -651,12 +651,12 @@
                         <ImageView
                             android:id="@+id/viewDetail5"
                             android:layout_width="0dp"
-                            android:layout_height="20dp"
+                            android:layout_height="30dp"
                             android:layout_weight=".1"
-                            android:layout_marginTop="@dimen/_18sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_marginRight="@dimen/_5sdp"
-                            android:background="@drawable/pluse_ic"/>
+                            android:background="@drawable/plus_ic"/>
 
                     </LinearLayout>
 
@@ -681,7 +681,7 @@
 <!--                        android:layout_gravity="end"-->
 <!--                        android:layout_marginTop="-50dp"-->
 <!--                        android:layout_marginEnd="@dimen/_5sdp"-->
-<!--                        android:background="@drawable/pluse_ic"/>-->
+<!--                        android:background="@drawable/plus_ic"/>-->
 
                 </LinearLayout>
 
@@ -790,12 +790,12 @@
                         <ImageView
                             android:id="@+id/viewDetail6"
                             android:layout_width="0dp"
-                            android:layout_height="20dp"
+                            android:layout_height="30dp"
                             android:layout_weight=".1"
-                            android:layout_marginTop="@dimen/_18sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_marginRight="@dimen/_5sdp"
-                            android:background="@drawable/pluse_ic"/>
+                            android:background="@drawable/plus_ic"/>
                     </LinearLayout>
 
 <!--                    <Button-->
@@ -819,7 +819,7 @@
 <!--                        android:layout_gravity="end"-->
 <!--                        android:layout_marginTop="-50dp"-->
 <!--                        android:layout_marginEnd="@dimen/_5sdp"-->
-<!--                        android:background="@drawable/pluse_ic"/>-->
+<!--                        android:background="@drawable/plus_ic"/>-->
 
                 </LinearLayout>
 
@@ -927,12 +927,12 @@
                         <ImageView
                             android:id="@+id/viewDetail7"
                             android:layout_width="0dp"
-                            android:layout_height="20dp"
+                            android:layout_height="30dp"
                             android:layout_weight=".1"
-                            android:layout_marginTop="@dimen/_18sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_marginRight="@dimen/_5sdp"
-                            android:background="@drawable/pluse_ic"/>
+                            android:background="@drawable/plus_ic"/>
 
                     </LinearLayout>
 
@@ -957,7 +957,7 @@
 <!--                        android:layout_gravity="end"-->
 <!--                        android:layout_marginTop="-50dp"-->
 <!--                        android:layout_marginEnd="@dimen/_5sdp"-->
-<!--                        android:background="@drawable/pluse_ic"/>-->
+<!--                        android:background="@drawable/plus_ic"/>-->
 
                 </LinearLayout>
 
@@ -1066,11 +1066,11 @@
                         <ImageView
                             android:id="@+id/viewDetail8"
                             android:layout_width="0dp"
-                            android:layout_height="20dp"
+                            android:layout_height="30dp"
                             android:layout_weight=".1"
                             android:visibility="invisible"
                             android:layout_marginTop="@dimen/_15sdp"
-                            android:background="@drawable/pluse_ic"/>
+                            android:background="@drawable/plus_ic"/>
 
                     </LinearLayout>
 
@@ -1095,7 +1095,7 @@
 <!--                        android:layout_gravity="end"-->
 <!--                        android:layout_marginTop="-50dp"-->
 <!--                        android:layout_marginEnd="@dimen/_5sdp"-->
-<!--                        android:background="@drawable/pluse_ic"/>-->
+<!--                        android:background="@drawable/plus_ic"/>-->
 
                 </LinearLayout>
 

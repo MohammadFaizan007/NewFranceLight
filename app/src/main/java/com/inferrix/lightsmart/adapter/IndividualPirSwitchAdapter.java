@@ -112,6 +112,9 @@ public class IndividualPirSwitchAdapter extends BaseAdapter implements Advertise
         viewHolder.lightDetails.setOnClickListener(v -> {
             Intent intent = new Intent(activity, HelperActivity.class);
             intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
+            intent.putExtra("type", "pir");
+            intent.putExtra("name", deviceClass.getDeviceName());
+            intent.putExtra("pos", position);
             intent.putExtra(Constants.LIGHT_DETAIL_KEY,deviceClass);
             activity.startActivity(intent);
         });

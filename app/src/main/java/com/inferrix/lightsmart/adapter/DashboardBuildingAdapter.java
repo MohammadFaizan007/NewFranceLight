@@ -44,11 +44,13 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_BUILDING_GROUP_PROGRESS;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_PROGRESS;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_STATUS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_PROGRESS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_STATUS;
+import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_BUILDINGSTATUS;
+import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.GROUP_SITE_BUILDING_COMMAND;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.GROUP_STATE_COMMAND;
+import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LIGHT_LEVEL_BUILDING_GROUP_COMMAND;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LIGHT_LEVEL_GROUP_COMMAND;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.GROUP_STATE_COMMAND_RESPONSE;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.LIGHT_LEVEL_GROUP_COMMAND_RESPONSE;
@@ -132,12 +134,12 @@ public class DashboardBuildingAdapter extends BaseAdapter implements AdvertiseRe
                 String hex = Integer.toHexString(seekBarProgress);
                 Log.w(TAG,hex+" "+String.format("%02X", seekBarProgress));
                 AdvertiseTask advertiseTask;
-                requestCode=LIGHT_LEVEL_GROUP_COMMAND;
+                requestCode=LIGHT_LEVEL_BUILDING_GROUP_COMMAND;
                 ByteQueue byteQueue=new ByteQueue();
                 byteQueue.push(requestCode);   //// Light Level Command method type
+                byteQueue.push(0x02);
                 byteQueue.push(arrayList.get(index).getGroupBuildingId());   ////deviceDetail.getGroupId()   node id;
                 byteQueue.push(seekBarProgress);    ////0x00-0x64
-                byteQueue.pushU3B(0x00);
                 advertiseTask=new AdvertiseTask(DashboardBuildingAdapter.this,activity,5*1000);
                 advertiseTask.setByteQueue(byteQueue);
                 advertiseTask.setSearchRequestCode(LIGHT_LEVEL_GROUP_COMMAND_RESPONSE);
@@ -213,7 +215,8 @@ public class DashboardBuildingAdapter extends BaseAdapter implements AdvertiseRe
                 AdvertiseTask advertiseTask;
                 selectedPosition=position;
                 ByteQueue byteQueue=new ByteQueue();
-                byteQueue.push(GROUP_STATE_COMMAND);       ////State Group Command method type
+                byteQueue.push(GROUP_SITE_BUILDING_COMMAND);       ////State Group Command method type
+                byteQueue.push(0x02);
                 byteQueue.push(deviceClass.getGroupBuildingId( ));
                 Log.w("DashboardItemAdapter",state+"");
                 switch (state)
@@ -242,7 +245,6 @@ public class DashboardBuildingAdapter extends BaseAdapter implements AdvertiseRe
                         return;
 
                 }
-                byteQueue.pushU3B(0x00);
                 advertiseTask=new AdvertiseTask(DashboardBuildingAdapter.this,activity,5*1000);
                 advertiseTask.setByteQueue(byteQueue);
                 advertiseTask.setSearchRequestCode(GROUP_STATE_COMMAND_RESPONSE);
@@ -299,15 +301,15 @@ public class DashboardBuildingAdapter extends BaseAdapter implements AdvertiseRe
                 if(status==0) {
                     boolean groupStatus = !arrayList.get(selectedPosition).getBuildingGroupStatus();
 
-                    contentValues.put(COLUMN_GROUP_STATUS, groupStatus);
-                    contentValues.put(COLUMN_GROUP_PROGRESS, groupStatus ? 100 : 0);
+                    contentValues.put(COLUMN_GROUP_BUILDINGSTATUS, groupStatus);
+                    contentValues.put(COLUMN_BUILDING_GROUP_PROGRESS, groupStatus ? 100 : 0);
 
                     deviceContentValue.put(COLUMN_DEVICE_STATUS, groupStatus);
                     deviceContentValue.put(COLUMN_DEVICE_PROGRESS, groupStatus ? 100 : 0);
 
                     arrayList.get(selectedPosition).setBuildingGroupStatus(groupStatus);
                     arrayList.get(selectedPosition).setBuildingGroupDimming(groupStatus ? 100 : 0);
-                    Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
+                    Log.w("DashGroup", AppHelper.sqlHelper.updateBuildingGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
                     Log.w("DashGroup12", AppHelper.sqlHelper.updateGroupDevice(arrayList.get(selectedPosition).getGroupBuildingId(), deviceContentValue) + "");
                 }
                 else {
@@ -319,14 +321,14 @@ public class DashboardBuildingAdapter extends BaseAdapter implements AdvertiseRe
             case LIGHT_LEVEL_GROUP_COMMAND_RESPONSE:
                 int lightStatus = byteQueue.pop();
                 if(lightStatus==0) {
-                    contentValues.put(COLUMN_GROUP_PROGRESS, seekBarProgress);
-                    contentValues.put(COLUMN_GROUP_STATUS, 1);
+                    contentValues.put(COLUMN_BUILDING_GROUP_PROGRESS, seekBarProgress);
+                    contentValues.put(COLUMN_GROUP_BUILDINGSTATUS, 1);
 
                     deviceContentValue.put(COLUMN_DEVICE_STATUS, 1);
                     deviceContentValue.put(COLUMN_DEVICE_PROGRESS, seekBarProgress);
                     arrayList.get(selectedPosition).setBuildingGroupDimming(seekBarProgress);
                     arrayList.get(selectedPosition).setBuildingGroupStatus(true);
-                    Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
+                    Log.w("DashGroup", AppHelper.sqlHelper.updateBuildingGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
                     Log.w("DashGroup12", AppHelper.sqlHelper.updateGroupDevice(arrayList.get(selectedPosition).getGroupBuildingId(), deviceContentValue) + "");
                 }
                 notifyDataSetChanged();
@@ -359,8 +361,8 @@ public class DashboardBuildingAdapter extends BaseAdapter implements AdvertiseRe
                 case GROUP_STATE_COMMAND_RESPONSE:
                     boolean groupStatus = !arrayList.get(selectedPosition).getBuildingGroupStatus();
 
-                    contentValues.put(COLUMN_GROUP_STATUS, groupStatus);
-                    contentValues.put(COLUMN_GROUP_PROGRESS, groupStatus ? 100 : 0);
+                    contentValues.put(COLUMN_GROUP_BUILDINGSTATUS, groupStatus);
+                    contentValues.put(COLUMN_BUILDING_GROUP_PROGRESS, groupStatus ? 100 : 0);
 
                     deviceContentValue.put(COLUMN_DEVICE_STATUS,groupStatus);
                     deviceContentValue.put(COLUMN_DEVICE_PROGRESS, groupStatus ? 100 : 0);
@@ -368,14 +370,14 @@ public class DashboardBuildingAdapter extends BaseAdapter implements AdvertiseRe
                     arrayList.get(selectedPosition).setBuildingGroupStatus(groupStatus);
                     arrayList.get(selectedPosition).setBuildingGroupDimming(groupStatus ? 100 : 0);
 
-                    Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
+                    Log.w("DashGroup", AppHelper.sqlHelper.updateBuildingGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
                     Log.w("DashGroup12", AppHelper.sqlHelper.updateGroupDevice(arrayList.get(selectedPosition).getGroupBuildingId(), deviceContentValue) + "");
                     break;
 
                 case LIGHT_LEVEL_GROUP_COMMAND_RESPONSE:
 
-                    contentValues.put(COLUMN_GROUP_STATUS,true);
-                    contentValues.put(COLUMN_GROUP_PROGRESS, seekBarProgress);
+                    contentValues.put(COLUMN_GROUP_BUILDINGSTATUS,true);
+                    contentValues.put(COLUMN_BUILDING_GROUP_PROGRESS, seekBarProgress);
 
                     deviceContentValue.put(COLUMN_DEVICE_STATUS,true);
                     deviceContentValue.put(COLUMN_DEVICE_PROGRESS, seekBarProgress);
@@ -383,7 +385,7 @@ public class DashboardBuildingAdapter extends BaseAdapter implements AdvertiseRe
                     arrayList.get(selectedPosition).setBuildingGroupDimming(seekBarProgress);
                     arrayList.get(selectedPosition).setBuildingGroupStatus(true);
 
-                    Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
+                    Log.w("DashGroup", AppHelper.sqlHelper.updateBuildingGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
                     Log.w("DashGroup12", AppHelper.sqlHelper.updateGroupDevice(arrayList.get(selectedPosition).getGroupBuildingId(), deviceContentValue) + "");
                     notifyDataSetChanged();
                     break;
@@ -425,15 +427,15 @@ public class DashboardBuildingAdapter extends BaseAdapter implements AdvertiseRe
 
                 boolean groupStatus = !arrayList.get(selectedPosition).getBuildingGroupStatus();
 
-                contentValues.put(COLUMN_GROUP_STATUS, groupStatus);
-                contentValues.put(COLUMN_GROUP_PROGRESS, groupStatus ? 100 : 0);
+                contentValues.put(COLUMN_GROUP_BUILDINGSTATUS, groupStatus);
+                contentValues.put(COLUMN_BUILDING_GROUP_PROGRESS, groupStatus ? 100 : 0);
 
                 deviceContentValue.put(COLUMN_DEVICE_STATUS, groupStatus);
                 deviceContentValue.put(COLUMN_DEVICE_PROGRESS, groupStatus ? 100 : 0);
 
                 arrayList.get(selectedPosition).setBuildingGroupStatus(groupStatus);
                 arrayList.get(selectedPosition).setBuildingGroupDimming(groupStatus ? 100 : 0);
-                Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
+                Log.w("DashGroup", AppHelper.sqlHelper.updateBuildingGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
                 Log.w("DashGroup12", AppHelper.sqlHelper.updateGroupDevice(arrayList.get(selectedPosition).getGroupBuildingId(), deviceContentValue) + "");
                 Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
@@ -441,14 +443,14 @@ public class DashboardBuildingAdapter extends BaseAdapter implements AdvertiseRe
                 break;
 
             case LIGHT_LEVEL_GROUP_COMMAND_RESPONSE:
-                contentValues.put(COLUMN_GROUP_PROGRESS, seekBarProgress);
-                contentValues.put(COLUMN_GROUP_STATUS, 1);
+                contentValues.put(COLUMN_BUILDING_GROUP_PROGRESS, seekBarProgress);
+                contentValues.put(COLUMN_GROUP_BUILDINGSTATUS, 1);
 
                 deviceContentValue.put(COLUMN_DEVICE_STATUS, 1);
                 deviceContentValue.put(COLUMN_DEVICE_PROGRESS, seekBarProgress);
                 arrayList.get(selectedPosition).setBuildingGroupDimming(seekBarProgress);
                 arrayList.get(selectedPosition).setBuildingGroupStatus(true);
-                Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
+                Log.w("DashGroup", AppHelper.sqlHelper.updateBuildingGroup(arrayList.get(selectedPosition).getGroupBuildingId(), contentValues) + "");
                 Log.w("DashGroup12", AppHelper.sqlHelper.updateGroupDevice(arrayList.get(selectedPosition).getGroupBuildingId(), deviceContentValue) + "");
                 Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();

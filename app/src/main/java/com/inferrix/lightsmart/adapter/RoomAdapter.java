@@ -51,8 +51,8 @@ import butterknife.ButterKnife;
 
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_PROGRESS;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_STATUS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_PROGRESS;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_STATUS;
+import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_ROOM_GROUP_PROGRESS;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.GROUP_STATE_COMMAND;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LIGHT_LEVEL_GROUP_COMMAND;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.GROUP_STATE_COMMAND_RESPONSE;
@@ -95,7 +95,7 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
             do {
                 RoomGroupDetailsClass groupData = new RoomGroupDetailsClass();
                 groupData.setRoomGroupId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ROOMID)));
-                groupData.setGroupDimming(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_ROOM_GROUP_PROGRESS)));
+                groupData.setGroupDimming(cursor.getInt(cursor.getColumnIndex(COLUMN_ROOM_GROUP_PROGRESS)));
                 groupData.setGroupRoomName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_DEVICE_ROOMNAME)));
                 groupData.setGroupStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ROOMSTATUS)) == 1);
                 arrayList.add(groupData);
@@ -177,7 +177,7 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
                 Log.w(TAG,seekBarProgress+"");
                 ContentValues contentValues=new ContentValues();
                 arrayList.get(index).setGroupDimming(seekBarProgress);
-                contentValues.put(COLUMN_GROUP_PROGRESS,seekBarProgress);
+                contentValues.put(COLUMN_ROOM_GROUP_PROGRESS,seekBarProgress);
                 String hex = Integer.toHexString(seekBarProgress);
                 Log.w(TAG,hex+" "+String.format("%02X", seekBarProgress));
                 requestCode=LIGHT_LEVEL_GROUP_COMMAND;
@@ -192,7 +192,7 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
                 advertiseTask.setSearchRequestCode(LIGHT_LEVEL_GROUP_COMMAND_RESPONSE);
                 advertiseTask.startAdvertising();
 
-                Log.w(TAG, AppHelper.sqlHelper.updateGroup(groupDetails.getRoomGroupId(),contentValues)+"");
+                Log.w(TAG, AppHelper.sqlHelper.updateRoomGroup(groupDetails.getRoomGroupId(),contentValues)+"");
 
             }
         });
@@ -201,7 +201,7 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
 //            Log.w(TAG,seekBarProgress+"");
 //            ContentValues contentValues=new ContentValues();
 //            arrayList.get(index).setGroupDimming(seekBarProgress);
-//            contentValues.put(COLUMN_GROUP_PROGRESS,seekBarProgress);
+//            contentValues.put(COLUMN_ROOM_GROUP_PROGRESS,seekBarProgress);
 //            String hex = Integer.toHexString(seekBarProgress);
 //            Log.w(TAG,hex+" "+String.format("%02X", seekBarProgress));
 //            requestCode=LIGHT_LEVEL_GROUP_COMMAND;
@@ -216,7 +216,7 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
 //            advertiseTask.setSearchRequestCode(LIGHT_LEVEL_GROUP_COMMAND_RESPONSE);
 //            advertiseTask.startAdvertising();
 //
-//            Log.w(TAG, AppHelper.sqlHelper.updateGroup(groupDetails.getGroupId(),contentValues)+"");
+//            Log.w(TAG, AppHelper.sqlHelper.updateRoomGroup(groupDetails.getGroupId(),contentValues)+"");
 //            dialog.dismiss();
 //        });
         groupName.setText(groupDetails.getGroupRoomName());
@@ -288,8 +288,8 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
         switch (resultCode)
         {
             case LIGHT_LEVEL_GROUP_COMMAND_RESPONSE:
-                contentValues.put(COLUMN_GROUP_PROGRESS,seekBarProgress);
-                Log.w(TAG,AppHelper.sqlHelper.updateGroup(arrayList.get(selectedPosition).getRoomGroupId(),contentValues)+"");
+                contentValues.put(COLUMN_ROOM_GROUP_PROGRESS,seekBarProgress);
+                Log.w(TAG,AppHelper.sqlHelper.updateRoomGroup(arrayList.get(selectedPosition).getRoomGroupId(),contentValues)+"");
                 break;
         }
         animatedProgress.hideProgress();
@@ -302,8 +302,8 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
         switch (successCode)
         {
             case LIGHT_LEVEL_GROUP_COMMAND_RESPONSE:
-                contentValues.put(COLUMN_GROUP_PROGRESS,seekBarProgress);
-                Log.w(TAG,AppHelper.sqlHelper.updateGroup(arrayList.get(selectedPosition).getRoomGroupId(),contentValues)+"");
+                contentValues.put(COLUMN_ROOM_GROUP_PROGRESS,seekBarProgress);
+                Log.w(TAG,AppHelper.sqlHelper.updateRoomGroup(arrayList.get(selectedPosition).getRoomGroupId(),contentValues)+"");
                 break;
         }
         animatedProgress.hideProgress();

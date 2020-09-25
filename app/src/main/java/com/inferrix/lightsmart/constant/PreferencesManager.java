@@ -3,6 +3,12 @@ package com.inferrix.lightsmart.constant;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
 
 public class PreferencesManager {
 
@@ -182,6 +188,36 @@ public class PreferencesManager {
 
     public void setItemEight(String value) {
         mPref.edit().putString(ITEM_EIGHT, value).apply();
+    }
+
+
+    public <T> void setList(String key, List<T> list) {
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        set(key, json);
+    }
+
+    public void set(String key, String value) {
+        if (mPref != null) {
+            SharedPreferences.Editor prefsEditor = mPref.edit();
+            prefsEditor.putString(key, value);
+            prefsEditor.commit();
+        }
+    }
+
+    public List<String> getList(String key) {
+//        if (setSharedPreferences != null) {
+
+        Gson gson = new Gson();
+        List<String> companyList;
+
+        String string = mPref.getString(key, null);
+        Type type = new TypeToken<List<String>>() {
+        }.getType();
+        companyList = gson.fromJson(string, type);
+        return companyList;
+//        }
+//        return null;
     }
 
 

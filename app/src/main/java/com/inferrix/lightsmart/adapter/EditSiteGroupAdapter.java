@@ -292,13 +292,13 @@ public class EditSiteGroupAdapter extends BaseAdapter implements ReceiverResultI
 //
 //                    showDialog(position);
 
-//            });
-        viewHolder.lightDetail.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
-            intent.putExtra(Constants.LIGHT_DETAIL_KEY,deviceClass);
-            activity.startActivity(intent);
-        });
+////            });
+//        viewHolder.lightDetail.setOnClickListener(v -> {
+//            Intent intent = new Intent(activity, HelperActivity.class);
+//            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
+//            intent.putExtra(Constants.LIGHT_DETAIL_KEY,deviceClass);
+//            activity.startActivity(intent);
+//        });
             viewHolder.groupName.setText(deviceClass.getDeviceName());
 
         return convertView;
@@ -319,9 +319,11 @@ public class EditSiteGroupAdapter extends BaseAdapter implements ReceiverResultI
 //            acceptRequest(2,position);
             dialog1.dismiss();
             ByteQueue byteQueue=new ByteQueue();
-            byteQueue.push(RxMethodType.REMOVE_GROUP);
+            byteQueue.push(RxMethodType.REMOVE_SITE_GROUP);
+            byteQueue.push(0x01);
             byteQueue.pushU4B(deviceClass.getDeviceUID());
-            byteQueue.push(groupDetailsClass.getGroupSiteId());
+            byteQueue.push(0x00);
+//            byteQueue.push(groupDetailsClass.getGroupSiteId());
             AdvertiseTask advertiseTask;
             advertiseTask=new AdvertiseTask(this,activity,5*1000);
             advertiseTask.setByteQueue(byteQueue);

@@ -15,4 +15,19 @@ public class TxMethodType {
     public static final int LIGHT_LEVEL_GROUP_RESPONSE=0x5a;
     public static final int LIGHT_LEVEL_GROUP_COMMAND_RESPONSE=0x5b;
     public static final int SELECT_MASTER_RESPONSE=0x5c;
+    public static final int UNSELECT_MASTER_RESPONSE=0x5d;
+
+
+
+    public static final int LIGHT_LEVEL_SITE_GROUP_RESPONSE=0x6a;
+    public static final int LIGHT_LEVEL_SITE_GROUP_COMMAND_RESPONSE=0x6b;
+
+    public static final int LIGHT_LEVEL_BUILDING_GROUP_RESPONSE=0x7a;
+    public static final int LIGHT_LEVEL_BUILDING_GROUP_COMMAND_RESPONSE=0x7b;
+
+    public static final int LIGHT_LEVEL_LEVEL_GROUP_RESPONSE=0x8a;
+    public static final int LIGHT_LEVEL_LEVEL_GROUP_COMMAND_RESPONSE=0x8b;
+
+    public static final int LIGHT_LEVEL_ROOM_GROUP_RESPONSE=0x9a;
+    public static final int LIGHT_LEVEL_ROOM_GROUP_COMMAND_RESPONSE=0x9b;
 }

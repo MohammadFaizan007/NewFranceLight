@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.inferrix.lightsmart.R;
 import com.inferrix.lightsmart.constant.Constants;
 import com.inferrix.lightsmart.fragments.AddDeviceFragment;
+import com.inferrix.lightsmart.fragments.AddGroupFragment;
 import com.inferrix.lightsmart.fragments.AssociateAddFragment;
 import com.inferrix.lightsmart.fragments.AssociateFragment;
 import com.inferrix.lightsmart.fragments.CreateGroup;
@@ -151,12 +152,12 @@ public class HelperActivity extends AppCompatActivity /*implements BeaconConsume
                     loadFragment(associateAddFragment);
                     break;
 //
-//                case Constants.READ_DETAILS:
-//                    DetailsFragment detailsFragment=new DetailsFragment();
-//                    detailsFragment.setDeviceData(intent.getParcelableExtra(Constants.LIGHT_DETAIL_KEY));
-//                    setTitle("Light Details");
-//                    loadFragment(detailsFragment);
-//                    break;
+                case Constants.READ_DETAILS:
+                    AddGroupFragment detailsFragment=new AddGroupFragment();
+                    detailsFragment.setDeviceData(intent.getParcelableExtra(Constants.LIGHT_DETAIL_KEY));
+                    setTitle("Edit All Group");
+                    loadFragment(detailsFragment);
+                    break;
 
             }
         }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -56,6 +57,8 @@ public class CreateGroup extends Fragment implements AdvertiseResultInterface, R
 //    CreateGroupAdapter createGroupAdapter;
     @BindView(R.id.group_save)
     Button groupSave;
+    @BindView(R.id.textView4)
+    TextView textView4;
     @BindView(R.id.create_group_name)
     EditText groupName;
 
@@ -84,6 +87,17 @@ public class CreateGroup extends Fragment implements AdvertiseResultInterface, R
 //        createGroupAdapter = new CreateGroupAdapter(activity);
 //        createGroupDeviceList.setAdapter(createGroupAdapter);
         scannerTask=new ScannerTask(activity,this);
+        if (Type.equalsIgnoreCase("site")){
+            textView4.setText("CREATE SITE GROUP");
+        }else if (Type.equalsIgnoreCase("building")){
+            textView4.setText("CREATE BUILDING GROUP");
+        }else if (Type.equalsIgnoreCase("level")){
+            textView4.setText("CREATE LEVEL GROUP");
+        }else if (Type.equalsIgnoreCase("room")){
+            textView4.setText("CREATE ROOM GROUP");
+        }else if (Type.equalsIgnoreCase("group")){
+            textView4.setText("CREATE GROUP");
+        }
 //        getDevice();
         return view;
     }

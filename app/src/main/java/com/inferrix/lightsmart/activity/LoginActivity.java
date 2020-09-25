@@ -91,7 +91,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.appCompatButtonLogin:
-                verifyFromSQLite();
+                if (textInputEditTextEmail.getText().toString().equals("Inferrix.com") && textInputEditTextPassword.getText().toString().equals("123456")) {
+                    Intent accountsIntent = new Intent(activity, MainActivity.class);
+                    startActivity(accountsIntent);
+                } else {
+                    Toast.makeText(LoginActivity.this, "Wrong Email or Password", Toast.LENGTH_SHORT).show();
+
+                }
+//                if(!textInputEditTextEmail.getText().toString().equalsIgnoreCase("Inferrix.com")){
+//                    textInputEditTextEmail.setError("Username is not entered");
+//                    textInputEditTextEmail.requestFocus();
+//                }else {
+//                }
+//                if(!textInputEditTextPassword.getText().toString().equalsIgnoreCase("123456")){
+//                    textInputEditTextPassword.setError("Password is not entered");
+//                    textInputEditTextPassword.requestFocus();
+//                }else {
+//                }
+//
+//                if (Validation()) {
+//                    if (textInputEditTextEmail.getText().toString().length()==2){
+//                        login();
+//                    }else {
+//                        Toast.makeText(LoginActivity.this, "Wrong Email or Password", Toast.LENGTH_SHORT).show();
+//
+//                    }
+//
+//                }
+//                verifyFromSQLite();
                 break;
             case R.id.textViewLinkRegister:
                 // Navigate to RegisterActivity
@@ -99,6 +126,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intentRegister);
                 break;
         }
+    }
+
+    private void login() {
+        Intent accountsIntent = new Intent(activity, MainActivity.class);
+        accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
+        emptyInputEditText();
+        startActivity(accountsIntent);
+
     }
 
     /**
@@ -127,6 +162,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(LoginActivity.this, "Wrong Email or Password", Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    private boolean Validation() {
+        if (textInputEditTextEmail.getText().toString().equals("Inferrix.com")) {
+
+//            showError("Please enter old password", etOldPswd);
+////            etOldPswd.setError("Please enter old password");
+            return false;
+        } else if (textInputEditTextPassword.getText().toString().equals("123456")) {
+//            showError("Old password and new password matched",etNewPswd);
+            return false;
+//        } else if (!etNewPswd.getText().toString().equals(etConfrmPswd.getText().toString())) {
+//            showError("New password and confirm password not matched",etNewPswd);
+////            etNewPswd.setError("Password not matched");
+//            return false;
+        }
+        return true;
     }
 
     /**

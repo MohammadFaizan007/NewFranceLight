@@ -135,9 +135,10 @@ public class DashboardItemAdapter extends BaseAdapter implements AdvertiseResult
                 requestCode=LIGHT_LEVEL_GROUP_COMMAND;
                 ByteQueue byteQueue=new ByteQueue();
                 byteQueue.push(requestCode);   //// Light Level Command method type
+                byteQueue.push(0x02);
                 byteQueue.push(arrayList.get(index).getGroupId());   ////deviceDetail.getGroupId()   node id;
                 byteQueue.push(seekBarProgress);    ////0x00-0x64
-                byteQueue.pushU3B(0x00);
+                Log.e("CheckLEVEL===>",byteQueue.toString());
                 advertiseTask=new AdvertiseTask(DashboardItemAdapter.this,activity,5*1000);
                 advertiseTask.setByteQueue(byteQueue);
                 advertiseTask.setSearchRequestCode(LIGHT_LEVEL_GROUP_COMMAND_RESPONSE);
@@ -214,6 +215,7 @@ public class DashboardItemAdapter extends BaseAdapter implements AdvertiseResult
                 selectedPosition=position;
                 ByteQueue byteQueue=new ByteQueue();
                 byteQueue.push(GROUP_STATE_COMMAND);       ////State Group Command method type
+                byteQueue.push(0x02);
                 byteQueue.push(deviceClass.getGroupId( ));
                 Log.w("DashboardItemAdapter",state+"");
                 switch (state)
@@ -242,7 +244,8 @@ public class DashboardItemAdapter extends BaseAdapter implements AdvertiseResult
                         return;
 
                 }
-                byteQueue.pushU3B(0x00);
+
+                Log.e("CheckON/OFF===>",byteQueue.toString());
                 advertiseTask=new AdvertiseTask(DashboardItemAdapter.this,activity,5*1000);
                 advertiseTask.setByteQueue(byteQueue);
                 advertiseTask.setSearchRequestCode(GROUP_STATE_COMMAND_RESPONSE);

@@ -68,9 +68,6 @@ public class LightListAdapter extends BaseAdapter implements AdvertiseResultInte
 
 
     }
-
-
-
     public void setList(List<DeviceClass> arrayList1) {
         arrayList.clear();
 
@@ -106,13 +103,22 @@ public class LightListAdapter extends BaseAdapter implements AdvertiseResultInte
         ViewHolder viewHolder = new ViewHolder(convertView);
         DeviceClass deviceClass = arrayList.get(position);
         viewHolder.lightDeviceName.setText(deviceClass.getDeviceName());
+        if (deviceClass.getTypeCode().equalsIgnoreCase("533")){
+            viewHolder.lightDetails.setImageResource(R.mipmap.moko);
+        }else if (deviceClass.getTypeCode().equalsIgnoreCase("55811")&& deviceClass.getMacAddress().startsWith("E2:15")){
+            viewHolder.lightDetails.setImageResource(R.mipmap.switches);
+        }else if (deviceClass.getTypeCode().equalsIgnoreCase("55811")&& deviceClass.getMacAddress().startsWith("E5:00")) {
+            viewHolder.lightDetails.setImageResource(R.mipmap.pir);
+        }else {
+            viewHolder.lightDetails.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
+        }
         viewHolder.lightDetails.setBackground(activity.getResources().getDrawable(deviceClass.getMasterStatus()==0?R.drawable.white_circle_border:R.drawable.yellow_circle));
-        viewHolder.lightDetails.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
-            intent.putExtra(Constants.LIGHT_DETAIL_KEY, deviceClass);
-            activity.startActivity(intent);
-        });
+//        viewHolder.lightDetails.setOnClickListener(v -> {
+//            Intent intent = new Intent(activity, HelperActivity.class);
+//            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
+//            intent.putExtra(Constants.LIGHT_DETAIL_KEY, deviceClass);
+//            activity.startActivity(intent);
+//        });
 
         viewHolder.lightAdd.setOnClickListener(v -> {
            showAlert(position);
@@ -153,16 +159,12 @@ public class LightListAdapter extends BaseAdapter implements AdvertiseResultInte
 
     @Override
     public void onStop(String stopMessage, int resultCode) {
-//        scannerTask.setRequestCode(resultCode);
-//        scannerTask.start();
-//        Log.w(TAG, "Advertising stop");
         if (animatedProgress != null)
             animatedProgress.hideProgress();
         ContentValues contentValues = new ContentValues();
 
         switch (resultCode) {
             case ADD_GROUP_RESPONSE:
-
                 contentValues.put(COLUMN_GROUP_ID, groupDetailsClass.getGroupId());
                 Log.w("DashGroup", AppHelper.sqlHelper.updateDevice(arrayList.get(selectedPosition).getDeviceUID(), contentValues) + "");
                 arrayList.remove(selectedPosition);
@@ -189,8 +191,7 @@ public class LightListAdapter extends BaseAdapter implements AdvertiseResultInte
 
         switch (successCode) {
             case ADD_GROUP_RESPONSE:
-                if (status == 0)
-                {
+                if (status == 0) {
                     contentValues.put(COLUMN_GROUP_ID, groupDetailsClass.getGroupId());
                     Log.w("DashGroup", AppHelper.sqlHelper.updateDevice(arrayList.get(selectedPosition).getDeviceUID(), contentValues)+"");
                     arrayList.remove(selectedPosition);
@@ -209,10 +210,6 @@ public class LightListAdapter extends BaseAdapter implements AdvertiseResultInte
 
 //            animatedProgress.showProgress();
         DeviceClass deviceClass=arrayList.get(position);
-
-
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage("Are you sure to add "+deviceClass.getDeviceName()+" to group "+groupDetailsClass.getGroupName())
                 .setTitle("Add to group");
@@ -222,11 +219,13 @@ public class LightListAdapter extends BaseAdapter implements AdvertiseResultInte
             dialog1.dismiss();
             ByteQueue byteQueue=new ByteQueue();
             byteQueue.push(RxMethodType.ADD_GROUP);
+            byteQueue.push(0x01);
             byteQueue.pushU4B(deviceClass.getDeviceUID());
             byteQueue.push(groupDetailsClass.getGroupId());
             AdvertiseTask advertiseTask;
             advertiseTask=new AdvertiseTask(this,activity,5*1000);
             advertiseTask.setByteQueue(byteQueue);
+            Log.e("Add===>",byteQueue.toString());
             advertiseTask.setSearchRequestCode(ADD_GROUP_RESPONSE);
             advertiseTask.startAdvertising();
 

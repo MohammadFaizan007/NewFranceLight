@@ -79,7 +79,7 @@
                     android:layout_weight=".5"
                     android:background="@drawable/rect_btn_bg_darkprimary"
                     android:padding="5dp"
-                    android:text="Create Site Group"
+                    android:text="Create Site"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="12sp" />
@@ -93,7 +93,7 @@
                     android:layout_weight=".5"
                     android:background="@drawable/rect_btn_bg_darkprimary"
                     android:padding="5dp"
-                    android:text="Create Building Group"
+                    android:text="Create Building"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="12sp" />
@@ -120,7 +120,7 @@
                     android:layout_weight=".5"
                     android:background="@drawable/rect_btn_bg_darkprimary"
                     android:padding="5dp"
-                    android:text="Create Level Group"
+                    android:text="Create Level"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="12sp" />
@@ -134,7 +134,7 @@
                     android:layout_weight=".5"
                     android:background="@drawable/rect_btn_bg_darkprimary"
                     android:padding="5dp"
-                    android:text="Create room Group"
+                    android:text="Create room"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="12sp" />
@@ -144,13 +144,13 @@
 
             <Button
                 android:id="@+id/create_new_group"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_130sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/rect_btn_bg_darkprimary"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:text="Create New Group"
+                android:text="Create Group"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"

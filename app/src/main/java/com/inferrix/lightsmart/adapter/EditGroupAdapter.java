@@ -287,7 +287,7 @@ public class EditGroupAdapter extends BaseAdapter implements ReceiverResultInter
         }else {
             viewHolder.lightDetail.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
         }
-//            viewHolder.lightDetail.setBackground(activity.getResources().getDrawable(deviceClass.getMasterStatus()==0?R.drawable.white_circle_border:R.drawable.yellow_circle));
+            viewHolder.lightDetail.setBackground(activity.getResources().getDrawable(deviceClass.getMasterStatus()==0?R.drawable.white_circle_border:R.drawable.yellow_circle));
             viewHolder.removeDevice.setOnClickListener(view -> {
 
                     showAlert(position);
@@ -299,12 +299,12 @@ public class EditGroupAdapter extends BaseAdapter implements ReceiverResultInter
 //                    showDialog(position);
 
 //            });
-        viewHolder.lightDetail.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
-            intent.putExtra(Constants.LIGHT_DETAIL_KEY,deviceClass);
-            activity.startActivity(intent);
-        });
+//        viewHolder.lightDetail.setOnClickListener(v -> {
+//            Intent intent = new Intent(activity, HelperActivity.class);
+//            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
+//            intent.putExtra(Constants.LIGHT_DETAIL_KEY,deviceClass);
+//            activity.startActivity(intent);
+//        });
             viewHolder.groupName.setText(deviceClass.getDeviceName());
 
         return convertView;
@@ -326,11 +326,14 @@ public class EditGroupAdapter extends BaseAdapter implements ReceiverResultInter
             dialog1.dismiss();
             ByteQueue byteQueue=new ByteQueue();
             byteQueue.push(RxMethodType.REMOVE_GROUP);
+            byteQueue.push(0x01);
             byteQueue.pushU4B(deviceClass.getDeviceUID());
-            byteQueue.push(groupDetailsClass.getGroupId());
+            byteQueue.push(0x00);
+//            byteQueue.push(groupDetailsClass.getGroupId());
             AdvertiseTask advertiseTask;
             advertiseTask=new AdvertiseTask(this,activity,5*1000);
             advertiseTask.setByteQueue(byteQueue);
+            Log.e("Remove=>",byteQueue.toString());
             advertiseTask.setSearchRequestCode(REMOVE_GROUP_RESPONSE);
             advertiseTask.startAdvertising();
 

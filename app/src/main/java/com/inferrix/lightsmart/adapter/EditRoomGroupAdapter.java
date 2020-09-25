@@ -280,6 +280,15 @@ public class EditRoomGroupAdapter extends BaseAdapter implements ReceiverResultI
             DeviceClass deviceClass=arrayList.get(position);
             ViewHolder viewHolder=new ViewHolder(convertView);
             viewHolder.removeDevice.setText("Remove");
+        if (deviceClass.getTypeCode().equalsIgnoreCase("533")){
+            viewHolder.lightDetail.setImageResource(R.mipmap.moko);
+        }else if (deviceClass.getTypeCode().equalsIgnoreCase("55811")&& deviceClass.getMacAddress().startsWith("E2:15")){
+            viewHolder.lightDetail.setImageResource(R.mipmap.switches);
+        }else if (deviceClass.getTypeCode().equalsIgnoreCase("55811")&& deviceClass.getMacAddress().startsWith("E5:00")) {
+            viewHolder.lightDetail.setImageResource(R.mipmap.pir);
+        }else {
+            viewHolder.lightDetail.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
+        }
             viewHolder.lightDetail.setBackground(activity.getResources().getDrawable(deviceClass.getMasterStatus()==0?R.drawable.white_circle_border:R.drawable.yellow_circle));
             viewHolder.removeDevice.setOnClickListener(view -> {
 
@@ -292,12 +301,12 @@ public class EditRoomGroupAdapter extends BaseAdapter implements ReceiverResultI
 //                    showDialog(position);
 
 //            });
-        viewHolder.lightDetail.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
-            intent.putExtra(Constants.LIGHT_DETAIL_KEY,deviceClass);
-            activity.startActivity(intent);
-        });
+//        viewHolder.lightDetail.setOnClickListener(v -> {
+//            Intent intent = new Intent(activity, HelperActivity.class);
+//            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
+//            intent.putExtra(Constants.LIGHT_DETAIL_KEY,deviceClass);
+//            activity.startActivity(intent);
+//        });
             viewHolder.groupName.setText(deviceClass.getDeviceName());
 
         return convertView;
@@ -318,9 +327,11 @@ public class EditRoomGroupAdapter extends BaseAdapter implements ReceiverResultI
 //            acceptRequest(2,position);
             dialog1.dismiss();
             ByteQueue byteQueue=new ByteQueue();
-            byteQueue.push(RxMethodType.REMOVE_GROUP);
+            byteQueue.push(RxMethodType.REMOVE_ROOM_GROUP);
+            byteQueue.push(0x01);
             byteQueue.pushU4B(deviceClass.getDeviceUID());
-            byteQueue.push(groupDetailsClass.getRoomGroupId());
+            byteQueue.push(0x00);
+//            byteQueue.push(groupDetailsClass.getRoomGroupId());
             AdvertiseTask advertiseTask;
             advertiseTask=new AdvertiseTask(this,activity,5*1000);
             advertiseTask.setByteQueue(byteQueue);

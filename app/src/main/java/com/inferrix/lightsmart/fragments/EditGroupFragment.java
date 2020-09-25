@@ -153,7 +153,7 @@ public class EditGroupFragment extends Fragment implements ReceiverResultInterfa
 
     public void getDevice() {
         ArrayList<DeviceClass> deviceList = new ArrayList<>();
-        Cursor cursor = sqlHelper.getNonGroupDevice(DatabaseConstant.ADD_DEVICE_TABLE);
+        Cursor cursor = sqlHelper.getAllDevice(DatabaseConstant.ADD_DEVICE_TABLE);
         if (cursor.moveToFirst()) {
             do {
                 DeviceClass deviceClass = new DeviceClass();
@@ -561,6 +561,7 @@ public class EditGroupFragment extends Fragment implements ReceiverResultInterfa
                 AdvertiseTask advertiseTask;
                 ByteQueue byteQueue = new ByteQueue();
                 byteQueue.push(RxMethodType.GROUP_STATE_COMMAND);       ////State Command
+                byteQueue.push(0x02);
                 byteQueue.push(groupDetailsClass.getGroupId());      ////  12 is static vale for Node id
 //                byteQueue.push(0x00);                                    ///0x00 – OFF    0x01 – ON
 //                scannerTask.setRequestCode(TxMethodType.LIGHT_STATE_COMMAND_RESPONSE);
@@ -587,7 +588,6 @@ public class EditGroupFragment extends Fragment implements ReceiverResultInterfa
                         return;
 
                 }
-                byteQueue.pushU3B(0x00);
                 advertiseTask = new AdvertiseTask(EditGroupFragment.this, activity,5*1000);
                 advertiseTask.setByteQueue(byteQueue);
                 advertiseTask.setSearchRequestCode(TxMethodType.GROUP_STATE_COMMAND_RESPONSE);
@@ -632,9 +632,9 @@ public class EditGroupFragment extends Fragment implements ReceiverResultInterfa
                 AdvertiseTask advertiseTask;
                 ByteQueue byteQueue = new ByteQueue();
                 byteQueue.push(LIGHT_LEVEL_GROUP_COMMAND);   //// Light Level Command method type
+                byteQueue.push(0x02);
                 byteQueue.push(groupDetailsClass.getGroupId());   ////deviceDetail.getGroupId()   node id;
                 byteQueue.push(levelProgress);    ////0x00-0x64
-                byteQueue.pushU3B(0x00);
 //            scannerTask.setRequestCode(TxMethodType.LIGHT_LEVEL_COMMAND_RESPONSE);
                 advertiseTask = new AdvertiseTask(EditGroupFragment.this, activity,5*1000);
                 advertiseTask.setByteQueue(byteQueue);

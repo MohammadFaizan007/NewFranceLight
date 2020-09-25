@@ -16,6 +16,8 @@ import androidx.core.content.ContextCompat;
 import static android.view.View.LAYER_TYPE_SOFTWARE;
 
 public class Constants {
+    public static final String ATTRIBUTE_TYPE = "attribute_type";
+    public static final String LUX_LEVEL_TYPE = "lux_level_type";
     public final static String MAIN_KEY="HelperLoad";
     public final static String GROUP_DETAIL_KEY="GroupDetail";
     public final static String LIGHT_DETAIL_KEY="LightDetail";

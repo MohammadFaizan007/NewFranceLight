@@ -378,7 +378,7 @@ public class ByteQueue implements Cloneable {
     }
 
     public byte[] popAll() {
-        byte[] data = new byte[size];
+        byte[] data = new byte[20];
         pop(data, 0, data.length);
         return data;
     }

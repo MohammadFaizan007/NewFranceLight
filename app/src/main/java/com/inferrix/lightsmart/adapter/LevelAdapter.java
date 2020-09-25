@@ -51,7 +51,6 @@ import butterknife.ButterKnife;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_BUILDING_GROUP_PROGRESS;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_PROGRESS;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_STATUS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_PROGRESS;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_STATUS;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_LEVEL_GROUP_PROGRESS;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.GROUP_STATE_COMMAND;
@@ -178,7 +177,7 @@ public class LevelAdapter extends BaseAdapter implements Filterable, AdvertiseRe
                 Log.w(TAG,seekBarProgress+"");
                 ContentValues contentValues=new ContentValues();
                 arrayList.get(index).setLevelGroupDimming(seekBarProgress);
-                contentValues.put(COLUMN_GROUP_PROGRESS,seekBarProgress);
+                contentValues.put(COLUMN_LEVEL_GROUP_PROGRESS,seekBarProgress);
                 String hex = Integer.toHexString(seekBarProgress);
                 Log.w(TAG,hex+" "+String.format("%02X", seekBarProgress));
                 requestCode=LIGHT_LEVEL_GROUP_COMMAND;
@@ -193,7 +192,7 @@ public class LevelAdapter extends BaseAdapter implements Filterable, AdvertiseRe
                 advertiseTask.setSearchRequestCode(LIGHT_LEVEL_GROUP_COMMAND_RESPONSE);
                 advertiseTask.startAdvertising();
 
-                Log.w(TAG, AppHelper.sqlHelper.updateGroup(groupDetails.getGroupLevelId(),contentValues)+"");
+                Log.w(TAG, AppHelper.sqlHelper.updateLevelGroup(groupDetails.getGroupLevelId(),contentValues)+"");
 
             }
         });
@@ -202,7 +201,7 @@ public class LevelAdapter extends BaseAdapter implements Filterable, AdvertiseRe
 //            Log.w(TAG,seekBarProgress+"");
 //            ContentValues contentValues=new ContentValues();
 //            arrayList.get(index).setGroupDimming(seekBarProgress);
-//            contentValues.put(COLUMN_GROUP_PROGRESS,seekBarProgress);
+//            contentValues.put(COLUMN_LEVEL_GROUP_PROGRESS,seekBarProgress);
 //            String hex = Integer.toHexString(seekBarProgress);
 //            Log.w(TAG,hex+" "+String.format("%02X", seekBarProgress));
 //            requestCode=LIGHT_LEVEL_GROUP_COMMAND;
@@ -217,7 +216,7 @@ public class LevelAdapter extends BaseAdapter implements Filterable, AdvertiseRe
 //            advertiseTask.setSearchRequestCode(LIGHT_LEVEL_GROUP_COMMAND_RESPONSE);
 //            advertiseTask.startAdvertising();
 //
-//            Log.w(TAG, AppHelper.sqlHelper.updateGroup(groupDetails.getGroupId(),contentValues)+"");
+//            Log.w(TAG, AppHelper.sqlHelper.updateLevelGroup(groupDetails.getGroupId(),contentValues)+"");
 //            dialog.dismiss();
 //        });
         groupName.setText(groupDetails.getGroupLevelName());
@@ -289,8 +288,8 @@ public class LevelAdapter extends BaseAdapter implements Filterable, AdvertiseRe
         switch (resultCode)
         {
             case LIGHT_LEVEL_GROUP_COMMAND_RESPONSE:
-                contentValues.put(COLUMN_GROUP_PROGRESS,seekBarProgress);
-                Log.w(TAG,AppHelper.sqlHelper.updateGroup(arrayList.get(selectedPosition).getGroupLevelId(),contentValues)+"");
+                contentValues.put(COLUMN_LEVEL_GROUP_PROGRESS,seekBarProgress);
+                Log.w(TAG,AppHelper.sqlHelper.updateLevelGroup(arrayList.get(selectedPosition).getGroupLevelId(),contentValues)+"");
                 break;
         }
         animatedProgress.hideProgress();
@@ -303,8 +302,8 @@ public class LevelAdapter extends BaseAdapter implements Filterable, AdvertiseRe
         switch (successCode)
         {
             case LIGHT_LEVEL_GROUP_COMMAND_RESPONSE:
-                contentValues.put(COLUMN_GROUP_PROGRESS,seekBarProgress);
-                Log.w(TAG,AppHelper.sqlHelper.updateGroup(arrayList.get(selectedPosition).getGroupLevelId(),contentValues)+"");
+                contentValues.put(COLUMN_LEVEL_GROUP_PROGRESS,seekBarProgress);
+                Log.w(TAG,AppHelper.sqlHelper.updateLevelGroup(arrayList.get(selectedPosition).getGroupLevelId(),contentValues)+"");
                 break;
         }
         animatedProgress.hideProgress();

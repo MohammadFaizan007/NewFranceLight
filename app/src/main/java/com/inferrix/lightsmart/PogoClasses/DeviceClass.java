@@ -29,7 +29,20 @@ public class DeviceClass implements Parcelable {
     String itemEight="";
     String typeCode="";
     String macAddress="";
+    String luxLevelOne="";
+    String luxLevelTwo="";
+    String luxLevelThree="";
+    String luxLevelFour="";
+    String luxLevelFive="";
+    String dimmingLevelOne="";
+    String dimmingLevelTwo="";
+    String dimmingLevelThre="";
+    String dimmingLevelFour="";
     int groupId=0;
+    int groupSiteId=0;
+    int groupBuildingId=0;
+    int groupLevelId=0;
+    int groupRoomId=0;
     int masterStatus=0;
     int deviceDimming=0;
     boolean status=true;
@@ -84,6 +97,35 @@ public class DeviceClass implements Parcelable {
 
     public void setGroupId(int groupId) {
         this.groupId = groupId;
+    }
+
+    public int getGroupSiteId() {
+        return groupSiteId;
+    }
+
+    public void setGroupSiteId(int groupSiteId) {
+        this.groupSiteId = groupSiteId;
+    }
+    public int getGroupBuildingId() {
+        return groupBuildingId;
+    }
+
+    public void setGroupBuildingId(int groupBuildingId) {
+        this.groupBuildingId = groupBuildingId;
+    }
+    public int getGroupLevelId() {
+        return groupLevelId;
+    }
+
+    public void setGroupLevelId(int groupLevelId) {
+        this.groupLevelId = groupLevelId;
+    }
+    public int getGroupRoomId() {
+        return groupRoomId;
+    }
+
+    public void setGroupRoomId(int groupRoomId) {
+        this.groupRoomId = groupRoomId;
     }
 
     public int getDeviceDimming() {
@@ -241,6 +283,72 @@ public class DeviceClass implements Parcelable {
         return macAddress;
     }
 
+    public void setLuxLevelOne(String luxLevelOne) {
+        this.luxLevelOne = luxLevelOne;
+    }
+
+    public String getLuxLevelOne() {
+        return luxLevelOne;
+    }
+    public void setLuxLevelTwo(String luxLevelTwo) {
+        this.luxLevelTwo = luxLevelTwo;
+    }
+
+    public String getLuxLevelTwo() {
+        return luxLevelTwo;
+    }
+    public void setLuxLevelThree(String luxLevelThree) {
+        this.luxLevelThree = luxLevelThree;
+    }
+
+    public String getLuxLevelThree() {
+        return luxLevelThree;
+    }
+    public void setLuxLevelFour(String luxLevelFour) {
+        this.luxLevelFour = luxLevelFour;
+    }
+
+    public String getLuxLevelFour() {
+        return luxLevelFour;
+    }
+    public void setLuxLevelFive(String luxLevelFive) {
+        this.luxLevelFive = luxLevelFive;
+    }
+
+    public String getLuxLevelFive() {
+        return luxLevelFive;
+    }
+    public void setDimmingLevelOne(String dimmingLevelOne) {
+        this.dimmingLevelOne = dimmingLevelOne;
+    }
+
+    public String getDimmingLevelOne() {
+        return dimmingLevelOne;
+    }
+    public void setDimmingLevelTwo(String dimmingLevelTwo) {
+        this.dimmingLevelTwo = dimmingLevelTwo;
+    }
+
+    public String getDimmingLevelTwo() {
+        return dimmingLevelTwo;
+    }
+
+    public void setDimmingLevelThre(String dimmingLevelThre) {
+        this.dimmingLevelThre = dimmingLevelThre;
+    }
+
+    public String getDimmingLevelThre() {
+        return dimmingLevelThre;
+    }
+
+    public void setDimmingLevelFour(String dimmingLevelFour) {
+        this.dimmingLevelFour = dimmingLevelFour;
+    }
+
+    public String getDimmingLevelFour() {
+        return dimmingLevelFour;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -269,7 +377,20 @@ public class DeviceClass implements Parcelable {
         dest.writeString(this.itemEight);
         dest.writeString(this.typeCode);
         dest.writeString(this.macAddress);
+        dest.writeString(this.luxLevelOne);
+        dest.writeString(this.luxLevelTwo);
+        dest.writeString(this.luxLevelThree);
+        dest.writeString(this.luxLevelFour);
+        dest.writeString(this.luxLevelFive);
+        dest.writeString(this.dimmingLevelOne);
+        dest.writeString(this.dimmingLevelTwo);
+        dest.writeString(this.dimmingLevelThre);
+        dest.writeString(this.dimmingLevelFour);
         dest.writeInt(this.groupId);
+        dest.writeInt(this.groupSiteId);
+        dest.writeInt(this.groupBuildingId);
+        dest.writeInt(this.groupLevelId);
+        dest.writeInt(this.groupRoomId);
         dest.writeInt(this.deviceDimming);
         dest.writeByte(this.status ? (byte) 1 : (byte) 0);
     }
@@ -299,7 +420,20 @@ public class DeviceClass implements Parcelable {
         this.itemEight = in.readString();
         this.typeCode = in.readString();
         this.macAddress = in.readString();
+        this.luxLevelOne = in.readString();
+        this.luxLevelTwo = in.readString();
+        this.luxLevelThree = in.readString();
+        this.luxLevelFour = in.readString();
+        this.luxLevelFive = in.readString();
+        this.dimmingLevelOne = in.readString();
+        this.dimmingLevelTwo = in.readString();
+        this.dimmingLevelThre = in.readString();
+        this.dimmingLevelFour = in.readString();
         this.groupId = in.readInt();
+        this.groupSiteId = in.readInt();
+        this.groupBuildingId = in.readInt();
+        this.groupLevelId = in.readInt();
+        this.groupRoomId = in.readInt();
         this.deviceDimming = in.readInt();
         this.status = in.readByte() != 0;
     }

@@ -55,9 +55,10 @@ import butterknife.Unbinder;
 
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_PROGRESS;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_STATUS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_PROGRESS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_STATUS;
+import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_ROOMSTATUS;
+import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_ROOM_GROUP_PROGRESS;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LIGHT_LEVEL_GROUP_COMMAND;
+import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LIGHT_LEVEL_ROOM_GROUP_COMMAND;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.GROUP_STATE_COMMAND_RESPONSE;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.GROUP_STATE_RESPONSE;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.LIGHT_LEVEL_GROUP_COMMAND_RESPONSE;
@@ -351,8 +352,8 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
             case GROUP_STATE_COMMAND_RESPONSE:
 
                 boolean groupState = !(groupDetailsClass.getGroupStatus());
-                contentValues.put(COLUMN_GROUP_STATUS, groupState);
-                contentValues.put(COLUMN_GROUP_PROGRESS, groupState ? 100 : 0);
+                contentValues.put(COLUMN_GROUP_ROOMSTATUS, groupState);
+                contentValues.put(COLUMN_ROOM_GROUP_PROGRESS, groupState ? 100 : 0);
 
                 this.groupStatus.setChecked(groupState);
                 groupDetailsClass.setGroupStatus(groupState);
@@ -361,7 +362,7 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
                 deviceContentValue.put(COLUMN_DEVICE_STATUS, groupState);
                 deviceContentValue.put(COLUMN_DEVICE_PROGRESS, groupState ? 100 : 0);
                 edit_group_status.setText(String.format("Group Status:%s", groupDetailsClass.getGroupStatus() ? "On" : "Off"));
-                Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(groupDetailsClass.getRoomGroupId(), contentValues) + "");
+                Log.w("DashGroup", AppHelper.sqlHelper.updateRoomGroup(groupDetailsClass.getRoomGroupId(), contentValues) + "");
                 Log.w("DashGroup12", AppHelper.sqlHelper.updateGroupDevice(groupDetailsClass.getRoomGroupId(), deviceContentValue) + "");
                 getLightInGroup();
                 Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show();
@@ -371,14 +372,14 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
 //            case LIGHT_LEVEL_GROUP_RESPONSE:
 //
 //
-//                Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(groupDetailsClass.getGroupId(), contentValues) + "");
+//                Log.w("DashGroup", AppHelper.sqlHelper.updateRoomGroup(groupDetailsClass.getGroupId(), contentValues) + "");
 //                showAlert(String.format("Light level of %s is %s", groupDetailsClass.getGroupName(), groupDetailsClass.getGroupDimming()));
 //                break;
 
             case LIGHT_LEVEL_GROUP_COMMAND_RESPONSE:
 
-                contentValues.put(COLUMN_GROUP_PROGRESS, levelProgress);
-                contentValues.put(COLUMN_GROUP_STATUS, 1);
+                contentValues.put(COLUMN_ROOM_GROUP_PROGRESS, levelProgress);
+                contentValues.put(COLUMN_GROUP_ROOMSTATUS, 1);
 
                 deviceContentValue.put(COLUMN_DEVICE_STATUS, 1);
                 deviceContentValue.put(COLUMN_DEVICE_PROGRESS, levelProgress);
@@ -389,7 +390,7 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
                 if (!(this.groupStatus.isChecked()))
                     this.groupStatus.setChecked(groupDetailsClass.getGroupStatus());
                 edit_group_status.setText(String.format("Group Status:%s", groupDetailsClass.getGroupStatus() ? "On" : "Off"));
-                Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(groupDetailsClass.getRoomGroupId(), contentValues) + " , " + levelProgress);
+                Log.w("DashGroup", AppHelper.sqlHelper.updateRoomGroup(groupDetailsClass.getRoomGroupId(), contentValues) + " , " + levelProgress);
                 Log.w("DashGroup12", AppHelper.sqlHelper.updateGroupDevice(groupDetailsClass.getRoomGroupId(), deviceContentValue) + "");
                 getLightInGroup();
                 Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show();
@@ -419,13 +420,13 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
                 groupId = byteQueue.pop();
                 lightStatus = byteQueue.pop();
                 Log.w("Scann", "," + lightStatus);
-                contentValues.put(COLUMN_GROUP_STATUS, lightStatus == 1);
+                contentValues.put(COLUMN_GROUP_ROOMSTATUS, lightStatus == 1);
 
                 if (groupDetailsClass.getGroupStatus() != (lightStatus == 1)) {
 
                     this.groupStatus.setChecked(lightStatus == 1);
                     groupDetailsClass.setGroupStatus(lightStatus == 1);
-                    contentValues.put(COLUMN_GROUP_PROGRESS, lightStatus == 1 ? 100 : 0);
+                    contentValues.put(COLUMN_ROOM_GROUP_PROGRESS, lightStatus == 1 ? 100 : 0);
                     groupDetailsClass.setGroupDimming(lightStatus == 1 ? 100 : 0);
 
 //                    deviceContentValue.put(COLUMN_DEVICE_STATUS,lightStatus == 1);
@@ -434,7 +435,7 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
 
                 edit_group_status.setText(String.format("Group Status:%s", groupDetailsClass.getGroupStatus() ? "On" : "Off"));
                 showAlert(String.format("%s is %s.", groupDetailsClass.getGroupRoomName(), groupDetailsClass.getGroupStatus() ? "On" : "Off"));
-                Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(groupDetailsClass.getRoomGroupId(), contentValues) + "");
+                Log.w("DashGroup", AppHelper.sqlHelper.updateRoomGroup(groupDetailsClass.getRoomGroupId(), contentValues) + "");
 //                Log.w("DashGroup12", AppHelper.sqlHelper.updateGroupDevice(groupDetailsClass.getGroupId(), deviceContentValue) + "");
 //                getLightInGroup();
 //
@@ -445,8 +446,8 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
                 Log.w("Scann", "," + lightStatus);
                 if (lightStatus == 0) {
                     boolean groupState = !(groupDetailsClass.getGroupStatus());
-                    contentValues.put(COLUMN_GROUP_STATUS, groupState);
-                    contentValues.put(COLUMN_GROUP_PROGRESS, groupState ? 100 : 0);
+                    contentValues.put(COLUMN_GROUP_ROOMSTATUS, groupState);
+                    contentValues.put(COLUMN_ROOM_GROUP_PROGRESS, groupState ? 100 : 0);
 
                     this.groupStatus.setChecked(groupState);
                     groupDetailsClass.setGroupStatus(groupState);
@@ -455,7 +456,7 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
                     deviceContentValue.put(COLUMN_DEVICE_STATUS, groupState);
                     deviceContentValue.put(COLUMN_DEVICE_PROGRESS, groupState ? 100 : 0);
                     edit_group_status.setText(String.format("Group Status:%s", groupDetailsClass.getGroupStatus() ? "On" : "Off"));
-                    Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(groupDetailsClass.getRoomGroupId(), contentValues) + "");
+                    Log.w("DashGroup", AppHelper.sqlHelper.updateRoomGroup(groupDetailsClass.getRoomGroupId(), contentValues) + "");
                     Log.w("DashGroup12", AppHelper.sqlHelper.updateGroupDevice(groupDetailsClass.getRoomGroupId(), deviceContentValue) + "");
                     getLightInGroup();
                     Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show();
@@ -470,8 +471,8 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
                 groupId = byteQueue.pop();
                 lightStatus = byteQueue.pop();
                 Log.w("Scann", "," + lightStatus);
-                contentValues.put(COLUMN_GROUP_PROGRESS, lightStatus);
-                contentValues.put(COLUMN_GROUP_STATUS, lightStatus>1?1:0);
+                contentValues.put(COLUMN_ROOM_GROUP_PROGRESS, lightStatus);
+                contentValues.put(COLUMN_GROUP_ROOMSTATUS, lightStatus>1?1:0);
                 groupDetailsClass.setGroupDimming(lightStatus);
                 groupDetailsClass.setGroupStatus(lightStatus>1);
 
@@ -485,7 +486,7 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
                         this.groupStatus.setChecked(false);
                 }
                 edit_group_status.setText(String.format("Group Status:%s", groupDetailsClass.getGroupStatus() ? "On" : "Off"));
-                Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(groupDetailsClass.getRoomGroupId(), contentValues) + "");
+                Log.w("DashGroup", AppHelper.sqlHelper.updateRoomGroup(groupDetailsClass.getRoomGroupId(), contentValues) + "");
                 showAlert(String.format("Light level of %s is %s", groupDetailsClass.getGroupRoomName(), groupDetailsClass.getGroupDimming()));
                 break;
 
@@ -495,8 +496,8 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
                 Log.w("LEVEL_GROUP_COMMAND_R", "," + lightStatus + "," + levelProgress);
                 if (lightStatus == 0)   //// success
                 {
-                    contentValues.put(COLUMN_GROUP_PROGRESS, levelProgress);
-                    contentValues.put(COLUMN_GROUP_STATUS, 1);
+                    contentValues.put(COLUMN_ROOM_GROUP_PROGRESS, levelProgress);
+                    contentValues.put(COLUMN_GROUP_ROOMSTATUS, 1);
 
                     deviceContentValue.put(COLUMN_DEVICE_STATUS, 1);
                     deviceContentValue.put(COLUMN_DEVICE_PROGRESS, levelProgress);
@@ -507,7 +508,7 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
                     if (!(this.groupStatus.isChecked()))
                         this.groupStatus.setChecked(groupDetailsClass.getGroupStatus());
                     edit_group_status.setText(String.format("Group Status:%s", groupDetailsClass.getGroupStatus() ? "On" : "Off"));
-                    Log.w("DashGroup", AppHelper.sqlHelper.updateGroup(groupDetailsClass.getRoomGroupId(), contentValues) + " , " + levelProgress);
+                    Log.w("DashGroup", AppHelper.sqlHelper.updateRoomGroup(groupDetailsClass.getRoomGroupId(), contentValues) + " , " + levelProgress);
                     Log.w("DashGroup12", AppHelper.sqlHelper.updateGroupDevice(groupDetailsClass.getRoomGroupId(), deviceContentValue) + "");
                     getLightInGroup();
                 } else
@@ -568,7 +569,8 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
 
                 AdvertiseTask advertiseTask;
                 ByteQueue byteQueue = new ByteQueue();
-                byteQueue.push(RxMethodType.GROUP_STATE_COMMAND);       ////State Command
+                byteQueue.push(RxMethodType.GROUP_SITE_ROOM_COMMAND);       ////State Command
+                byteQueue.push(0x02);
                 byteQueue.push(groupDetailsClass.getRoomGroupId());      ////  12 is static vale for Node id
 //                byteQueue.push(0x00);                                    ///0x00 – OFF    0x01 – ON
 //                scannerTask.setRequestCode(TxMethodType.LIGHT_STATE_COMMAND_RESPONSE);
@@ -595,7 +597,7 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
                         return;
 
                 }
-                byteQueue.pushU3B(0x00);
+//                byteQueue.pushU3B(0x00);
                 advertiseTask = new AdvertiseTask(EditGroupRoomFragment.this, activity,5*1000);
                 advertiseTask.setByteQueue(byteQueue);
                 advertiseTask.setSearchRequestCode(TxMethodType.GROUP_STATE_COMMAND_RESPONSE);
@@ -639,10 +641,11 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
                 Log.w("IndividualLight", hex + " " + String.format("%02X", levelProgress));
                 AdvertiseTask advertiseTask;
                 ByteQueue byteQueue = new ByteQueue();
-                byteQueue.push(LIGHT_LEVEL_GROUP_COMMAND);   //// Light Level Command method type
+                byteQueue.push(LIGHT_LEVEL_ROOM_GROUP_COMMAND);   //// Light Level Command method type
+                byteQueue.push(0x02);
                 byteQueue.push(groupDetailsClass.getRoomGroupId());   ////deviceDetail.getGroupId()   node id;
                 byteQueue.push(levelProgress);    ////0x00-0x64
-                byteQueue.pushU3B(0x00);
+//                byteQueue.pushU3B(0x00);
 //            scannerTask.setRequestCode(TxMethodType.LIGHT_LEVEL_COMMAND_RESPONSE);
                 advertiseTask = new AdvertiseTask(EditGroupRoomFragment.this, activity,5*1000);
                 advertiseTask.setByteQueue(byteQueue);

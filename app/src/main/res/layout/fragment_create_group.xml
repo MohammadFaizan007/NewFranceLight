@@ -15,7 +15,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
-        android:text="CREATE GROUP"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/_18sdp"
         android:textStyle="bold"

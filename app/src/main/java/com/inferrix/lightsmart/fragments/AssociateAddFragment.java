@@ -2,6 +2,7 @@ package com.inferrix.lightsmart.fragments;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.PopupMenu;
@@ -171,14 +175,14 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
         if (deviceClass.getNumberOne().equalsIgnoreCase("")){
             uid_no1.setHint("No address associated");
         }else {
-            uid_no1.setHint(deviceClass.getNumberOne());
+            uid_no1.setText(deviceClass.getNumberOne());
         }
 
         if (deviceClass.getNumberTwo().equalsIgnoreCase("")){
             uid_no2.setHint("No address associated");
             card_two.setVisibility(View.GONE);
         }else {
-            uid_no2.setHint(deviceClass.getNumberTwo());
+            uid_no2.setText(deviceClass.getNumberTwo());
             card_two.setVisibility(View.VISIBLE);
             viewDetail1.setBackgroundResource(R.drawable.minus_ic);
         }
@@ -187,7 +191,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             uid_no3.setHint("No address associated");
             card_three.setVisibility(View.GONE);
         }else {
-            uid_no3.setHint(deviceClass.getNumberThree());
+            uid_no3.setText(deviceClass.getNumberThree());
             card_three.setVisibility(View.VISIBLE);
             viewDetail2.setBackgroundResource(R.drawable.minus_ic);
         }
@@ -196,7 +200,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             uid_no4.setHint("No address associated");
             card_four.setVisibility(View.GONE);
         }else {
-            uid_no4.setHint(deviceClass.getNumberFour());
+            uid_no4.setText(deviceClass.getNumberFour());
             card_four.setVisibility(View.VISIBLE);
             viewDetail3.setBackgroundResource(R.drawable.minus_ic);
         }
@@ -205,7 +209,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             uid_no5.setHint("No address associated");
             card_five.setVisibility(View.GONE);
         }else {
-            uid_no5.setHint(deviceClass.getNumberFive());
+            uid_no5.setText(deviceClass.getNumberFive());
             card_five.setVisibility(View.VISIBLE);
             viewDetail4.setBackgroundResource(R.drawable.minus_ic);
         }
@@ -214,7 +218,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             uid_no6.setHint("No address associated");
             card_six.setVisibility(View.GONE);
         }else {
-            uid_no6.setHint(deviceClass.getNumberSix());
+            uid_no6.setText(deviceClass.getNumberSix());
             card_six.setVisibility(View.VISIBLE);
             viewDetail5.setBackgroundResource(R.drawable.minus_ic);
         }
@@ -223,7 +227,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             uid_no7.setHint("No address associated");
             card_seven.setVisibility(View.GONE);
         }else {
-            uid_no7.setHint(deviceClass.getNumberSeven());
+            uid_no7.setText(deviceClass.getNumberSeven());
             card_seven.setVisibility(View.VISIBLE);
             viewDetail6.setBackgroundResource(R.drawable.minus_ic);
         }
@@ -232,7 +236,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             uid_no8.setHint("No address associated");
             card_eight.setVisibility(View.GONE);
         }else {
-            uid_no8.setHint(deviceClass.getNumberEight());
+            uid_no8.setText(deviceClass.getNumberEight());
             card_eight.setVisibility(View.VISIBLE);
             viewDetail7.setBackgroundResource(R.drawable.minus_ic);
         }
@@ -309,7 +313,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             case R.id.viewDetail1:
                 if (card_two.getVisibility() == View.VISIBLE) {
                     card_two.setVisibility(View.GONE);
-                    viewDetail1.setBackgroundResource(R.drawable.pluse_ic);
+                    viewDetail1.setBackgroundResource(R.drawable.plus_ic);
                 } else {
                     card_two.setVisibility(View.VISIBLE);
                     viewDetail1.setBackgroundResource(R.drawable.minus_ic);
@@ -318,7 +322,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             case R.id.viewDetail2:
                 if (card_three.getVisibility() == View.VISIBLE) {
                     card_three.setVisibility(View.GONE);
-                    viewDetail2.setBackgroundResource(R.drawable.pluse_ic);
+                    viewDetail2.setBackgroundResource(R.drawable.plus_ic);
                 } else {
                     card_three.setVisibility(View.VISIBLE);
                     viewDetail2.setBackgroundResource(R.drawable.minus_ic);
@@ -328,7 +332,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             case R.id.viewDetail3:
                 if (card_four.getVisibility() == View.VISIBLE) {
                     card_four.setVisibility(View.GONE);
-                    viewDetail3.setBackgroundResource(R.drawable.pluse_ic);
+                    viewDetail3.setBackgroundResource(R.drawable.plus_ic);
                 } else {
                     card_four.setVisibility(View.VISIBLE);
                     viewDetail3.setBackgroundResource(R.drawable.minus_ic);
@@ -339,7 +343,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             case R.id.viewDetail4:
                 if (card_five.getVisibility() == View.VISIBLE) {
                     card_five.setVisibility(View.GONE);
-                    viewDetail4.setBackgroundResource(R.drawable.pluse_ic);
+                    viewDetail4.setBackgroundResource(R.drawable.plus_ic);
                 } else {
                     card_five.setVisibility(View.VISIBLE);
                     viewDetail4.setBackgroundResource(R.drawable.minus_ic);
@@ -350,7 +354,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             case R.id.viewDetail5:
                 if (card_six.getVisibility() == View.VISIBLE) {
                     card_six.setVisibility(View.GONE);
-                    viewDetail5.setBackgroundResource(R.drawable.pluse_ic);
+                    viewDetail5.setBackgroundResource(R.drawable.plus_ic);
                 } else {
                     card_six.setVisibility(View.VISIBLE);
                     viewDetail5.setBackgroundResource(R.drawable.minus_ic);
@@ -360,7 +364,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             case R.id.viewDetail6:
                 if (card_seven.getVisibility() == View.VISIBLE) {
                     card_seven.setVisibility(View.GONE);
-                    viewDetail6.setBackgroundResource(R.drawable.pluse_ic);
+                    viewDetail6.setBackgroundResource(R.drawable.plus_ic);
                 } else {
                     card_seven.setVisibility(View.VISIBLE);
                     viewDetail6.setBackgroundResource(R.drawable.minus_ic);
@@ -370,7 +374,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
             case R.id.viewDetail7:
                 if (card_eight.getVisibility() == View.VISIBLE) {
                     card_eight.setVisibility(View.GONE);
-                    viewDetail7.setBackgroundResource(R.drawable.pluse_ic);
+                    viewDetail7.setBackgroundResource(R.drawable.plus_ic);
                 } else {
                     card_eight.setVisibility(View.VISIBLE);
                     viewDetail7.setBackgroundResource(R.drawable.minus_ic);
@@ -483,14 +487,21 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 PopUp8.show();
                 break;
             case R.id.btn_submit1:
-                if (uid_no1.getText().toString().trim().length() < 1) {
-                    uid_no1.setError("Address can't empty");
+                if (uid_no1.getText().toString().length() == 0) {
+                    showError("Address one can't empty",uid_no1);
+                    return ;
+                } else if (select_item1.getText().toString().length()==0) {
+                    showError("Please select sensor type one",select_item1);
                     return;
                 }
-                else if (select_item1.getText().toString().length()<1){
-                    select_item1.setError("Please select sensor type");
-                    return;
-                }
+//                if (uid_no1.getText().toString().trim().length() < 1) {
+//                    uid_no1.setError("Address can't empty");
+//                    return;
+//                }
+//                if (select_item1.getText().toString().length()<1){
+//                    select_item1.setError("Please select sensor type");
+//                    return;
+//                }
                 ContentValues contentValues=new ContentValues();
                 contentValues.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_ONE,uid_no1.getText().toString());
                 contentValues.put(DatabaseConstant.COLUMN_DEVICE_ITEM_ONE,select_item1.getText().toString());
@@ -501,6 +512,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTask = new AdvertiseTask(activity);
                 ByteQueue byteQueue = new ByteQueue();
                 byteQueue.push(ADD_ASSOCIATE);
+                byteQueue.push(0x03);
                 byteQueue.pushU4B(deviceClass.getDeviceUID());
                 if (select_item1.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueue.push(0x11);
@@ -518,13 +530,20 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 advertiseTask.startAdvertising();
                 break;
             case R.id.btn_submit2:
-                if (uid_no2.getText().toString().trim().length() < 1) {
-                    uid_no2.setError("Address can't empty");
-                    return;
-                }else if (select_item2.getText().toString().length()<1){
-                    select_item2.setError("Please select sensor type");
+                if (uid_no2.getText().toString().length() == 0) {
+                    showError("Address two can't empty ",uid_no2);
+                    return ;
+                } else if (select_item2.getText().toString().length()==0) {
+                    showError("Please select sensor type two",select_item2);
                     return;
                 }
+//                if (uid_no2.getText().toString().trim().length() < 1) {
+//                    uid_no2.setError("Address can't empty");
+//                    return;
+//                }else if (select_item2.getText().toString().length()<1){
+//                    select_item2.setError("Please select sensor type");
+//                    return;
+//                }
                 ContentValues contentValues2=new ContentValues();
                 contentValues2.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_TWO,uid_no2.getText().toString());
                 contentValues2.put(DatabaseConstant.COLUMN_DEVICE_ITEM_TWO,select_item2.getText().toString());
@@ -534,6 +553,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTask2 = new AdvertiseTask(activity);
                 ByteQueue byteQueue2 = new ByteQueue();
                 byteQueue2.push(ADD_ASSOCIATE);
+                byteQueue2.push(0x03);
                 byteQueue2.pushU4B(deviceClass.getDeviceUID());
                 if (select_item2.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueue2.push(0x21);
@@ -551,13 +571,20 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 advertiseTask2.startAdvertising();
                 break;
             case R.id.btn_submit3:
-                if (uid_no3.getText().toString().trim().length() < 1) {
-                    uid_no3.setError("Address can't empty");
-                    return;
-                }else if (select_item3.getText().toString().length()<1){
-                    select_item3.setError("Please select sensor type");
+                if (uid_no3.getText().toString().length() == 0) {
+                    showError("Address three can't empty ",uid_no3);
+                    return ;
+                } else if (select_item3.getText().toString().length()==0) {
+                    showError("Please select sensor type three",select_item3);
                     return;
                 }
+//                if (uid_no3.getText().toString().trim().length() < 1) {
+//                    uid_no3.setError("Address can't empty");
+//                    return;
+//                }else if (select_item3.getText().toString().length()<1){
+//                    select_item3.setError("Please select sensor type");
+//                    return;
+//                }
                 ContentValues contentValues3=new ContentValues();
                 contentValues3.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_THREE,uid_no3.getText().toString());
                 contentValues3.put(DatabaseConstant.COLUMN_DEVICE_ITEM_THREE,select_item3.getText().toString());
@@ -567,6 +594,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTask3 = new AdvertiseTask(activity);
                 ByteQueue byteQueue3 = new ByteQueue();
                 byteQueue3.push(ADD_ASSOCIATE);
+                byteQueue3.push(0x03);
                 byteQueue3.pushU4B(deviceClass.getDeviceUID());
                 if (select_item3.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueue3.push(0x31);
@@ -584,13 +612,20 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 advertiseTask3.startAdvertising();
                 break;
             case R.id.btn_submit4:
-                if (uid_no4.getText().toString().trim().length() < 1) {
-                    uid_no4.setError("Address can't empty");
-                    return;
-                }else if (select_item4.getText().toString().length()<1){
-                    select_item4.setError("Please select sensor type");
+                if (uid_no4.getText().toString().length() == 0) {
+                    showError("Address four can't empty ",uid_no4);
+                    return ;
+                } else if (select_item4.getText().toString().length()==0) {
+                    showError("Please select sensor type four",select_item4);
                     return;
                 }
+//                if (uid_no4.getText().toString().trim().length() < 1) {
+//                    uid_no4.setError("Address can't empty");
+//                    return;
+//                }else if (select_item4.getText().toString().length()<1){
+//                    select_item4.setError("Please select sensor type");
+//                    return;
+//                }
                 ContentValues contentValues4=new ContentValues();
                 contentValues4.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_FOUR,uid_no4.getText().toString());
                 contentValues4.put(DatabaseConstant.COLUMN_DEVICE_ITEM_FOUR,select_item4.getText().toString());
@@ -600,6 +635,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTask4 = new AdvertiseTask(activity);
                 ByteQueue byteQueue4 = new ByteQueue();
                 byteQueue4.push(ADD_ASSOCIATE);
+                byteQueue4.push(0x03);
                 byteQueue4.pushU4B(deviceClass.getDeviceUID());
                 if (select_item4.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueue4.push(0x41);
@@ -617,13 +653,20 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 advertiseTask4.startAdvertising();
                 break;
             case R.id.btn_submit5:
-                if (uid_no5.getText().toString().trim().length() < 1) {
-                    uid_no5.setError("Address can't empty");
-                    return;
-                }else if (select_item5.getText().toString().length()<1){
-                    select_item5.setError("Please select sensor type");
+                if (uid_no5.getText().toString().length() == 0) {
+                    showError("Address five can't empty ",uid_no5);
+                    return ;
+                } else if (select_item5.getText().toString().length()==0) {
+                    showError("Please select sensor type five",select_item5);
                     return;
                 }
+//                if (uid_no5.getText().toString().trim().length() < 1) {
+//                    uid_no5.setError("Address can't empty");
+//                    return;
+//                }else if (select_item5.getText().toString().length()<1){
+//                    select_item5.setError("Please select sensor type");
+//                    return;
+//                }
                 ContentValues contentValues5=new ContentValues();
                 contentValues5.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_FIVE,uid_no5.getText().toString());
                 contentValues5.put(DatabaseConstant.COLUMN_DEVICE_ITEM_FIVE,select_item5.getText().toString());
@@ -633,6 +676,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTask5 = new AdvertiseTask(activity);
                 ByteQueue byteQueue5 = new ByteQueue();
                 byteQueue5.push(ADD_ASSOCIATE);
+                byteQueue5.push(0x03);
                 byteQueue5.pushU4B(deviceClass.getDeviceUID());
                 if (select_item5.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueue5.push(0x51);
@@ -650,13 +694,20 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 advertiseTask5.startAdvertising();
                 break;
             case R.id.btn_submit6:
-                if (uid_no6.getText().toString().trim().length() < 1) {
-                    uid_no6.setError("Address can't empty");
-                    return;
-                }else if (select_item6.getText().toString().length()<1){
-                    select_item6.setError("Please select sensor type");
+                if (uid_no6.getText().toString().length() == 0) {
+                    showError("Address six can't empty ",uid_no6);
+                    return ;
+                } else if (select_item6.getText().toString().length()==0) {
+                    showError("Please select sensor type six",select_item6);
                     return;
                 }
+//                if (uid_no6.getText().toString().trim().length() < 1) {
+//                    uid_no6.setError("Address can't empty");
+//                    return;
+//                }else if (select_item6.getText().toString().length()<1){
+//                    select_item6.setError("Please select sensor type");
+//                    return;
+//                }
                 ContentValues contentValues6=new ContentValues();
                 contentValues6.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_SIX,uid_no6.getText().toString());
                 contentValues6.put(DatabaseConstant.COLUMN_DEVICE_ITEM_SIX,select_item6.getText().toString());
@@ -666,6 +717,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTask6 = new AdvertiseTask(activity);
                 ByteQueue byteQueue6 = new ByteQueue();
                 byteQueue6.push(ADD_ASSOCIATE);
+                byteQueue6.push(0x03);
                 byteQueue6.pushU4B(deviceClass.getDeviceUID());
                 if (select_item6.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueue6.push(0x61);
@@ -683,13 +735,20 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 advertiseTask6.startAdvertising();
                 break;
             case R.id.btn_submit7:
-                if (uid_no7.getText().toString().trim().length() < 1) {
-                    uid_no7.setError("Address can't empty");
-                    return;
-                }else if (select_item7.getText().toString().length()<1){
-                    select_item7.setError("Please select sensor type");
+                if (uid_no7.getText().toString().length() == 0) {
+                    showError("Address seven can't empty ",uid_no7);
+                    return ;
+                } else if (select_item7.getText().toString().length()==0) {
+                    showError("Please select sensor type seven",select_item7);
                     return;
                 }
+//                if (uid_no7.getText().toString().trim().length() < 1) {
+//                    uid_no7.setError("Address can't empty");
+//                    return;
+//                }else if (select_item7.getText().toString().length()<1){
+//                    select_item7.setError("Please select sensor type");
+//                    return;
+//                }
                 ContentValues contentValues7=new ContentValues();
                 contentValues7.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_SEVEN,uid_no7.getText().toString());
                 contentValues7.put(DatabaseConstant.COLUMN_DEVICE_ITEM_SEVEN,select_item7.getText().toString());
@@ -699,6 +758,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTask7 = new AdvertiseTask(activity);
                 ByteQueue byteQueue7 = new ByteQueue();
                 byteQueue7.push(ADD_ASSOCIATE);
+                byteQueue7.push(0x03);
                 byteQueue7.pushU4B(deviceClass.getDeviceUID());
                 if (select_item7.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueue7.push(0x71);
@@ -716,13 +776,20 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 advertiseTask7.startAdvertising();
                 break;
             case R.id.btn_submit8:
-                if (uid_no8.getText().toString().trim().length() < 1) {
-                    uid_no8.setError("Address can't empty");
-                    return;
-                }else if (select_item8.getText().toString().length()<1){
-                    select_item8.setError("Please select sensor type");
+                if (uid_no8.getText().toString().length() == 0) {
+                    showError("Address eight can't empty ",uid_no8);
+                    return ;
+                } else if (select_item8.getText().toString().length()==0) {
+                    showError("Please select sensor type eight",select_item8);
                     return;
                 }
+//                if (uid_no8.getText().toString().trim().length() < 1) {
+//                    uid_no8.setError("Address can't empty");
+//                    return;
+//                }else if (select_item8.getText().toString().length()<1){
+//                    select_item8.setError("Please select sensor type");
+//                    return;
+//                }
                 ContentValues contentValues8=new ContentValues();
                 contentValues8.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_EIGET,uid_no8.getText().toString());
                 contentValues8.put(DatabaseConstant.COLUMN_DEVICE_ITEM_EIGET,select_item8.getText().toString());
@@ -733,6 +800,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTask8 = new AdvertiseTask(activity);
                 ByteQueue byteQueue8 = new ByteQueue();
                 byteQueue8.push(ADD_ASSOCIATE);
+                byteQueue8.push(0x03);
                 byteQueue8.pushU4B(deviceClass.getDeviceUID());
                 if (select_item8.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueue8.push(0x81);
@@ -750,6 +818,22 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 advertiseTask8.startAdvertising();
                 break;
             case R.id.btn_remove1:
+
+                if (uid_no1.getText().toString().length() == 0) {
+                    showError("Address one can't empty",uid_no1);
+                    return ;
+                } else if (select_item1.getText().toString().length()==0) {
+                    showError("Please select sensor type one",select_item1);
+                    return;
+                }
+
+//                if (uid_no1.getText().toString().trim().length() < 1) {
+//                    uid_no1.setError("Address can't empty");
+//                    return;
+//                }else if (select_item1.getText().toString().length()<1) {
+//                    select_item1.setError("Please select sensor type");
+//                    return;
+//                }
                 ContentValues contentValuesRemove=new ContentValues();
                 contentValuesRemove.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_ONE,"");
                 contentValuesRemove.put(DatabaseConstant.COLUMN_DEVICE_ITEM_ONE,"");
@@ -758,6 +842,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTask1 = new AdvertiseTask(activity);
                 ByteQueue byteQueue1 = new ByteQueue();
                 byteQueue1.push(REMOVE_ASSOCIATE);
+                byteQueue1.push(0x03);
                 byteQueue1.pushU4B(deviceClass.getDeviceUID());
                 if (select_item1.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueue1.push(0x11);
@@ -766,8 +851,11 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 } else if (select_item1.getText().toString().equalsIgnoreCase("Day Light")) {
                     byteQueue1.push(0x13);
                 }
-//                byteQueue1.push(PIR_INFO);
-                byteQueue1.pushU4B(Long.valueOf("12345678"));
+                if (deviceClass.getNumberOne().equalsIgnoreCase("")){
+                    byteQueue1.pushU4B(Long.valueOf(uid_no1.getText().toString().trim()));
+                }else {
+                    byteQueue1.pushU4B(Long.parseLong(deviceClass.getNumberOne()));
+                }
                 advertiseTask1 = new AdvertiseTask(AssociateAddFragment.this, activity, 5 * 1000);
                 animatedProgress.setText("Uploading");
                 advertiseTask1.setByteQueue(byteQueue1);
@@ -776,6 +864,13 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 advertiseTask1.startAdvertising();
                 break;
             case R.id.btn_remove2:
+                if (uid_no2.getText().toString().length() == 0) {
+                    showError("Address one can't empty",uid_no2);
+                    return ;
+                } else if (select_item2.getText().toString().length()==0) {
+                    showError("Please select sensor type one",select_item2);
+                    return;
+                }
                 ContentValues contentValuesRemove2=new ContentValues();
                 contentValuesRemove2.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_TWO,"");
                 contentValuesRemove2.put(DatabaseConstant.COLUMN_DEVICE_ITEM_TWO,"");
@@ -784,6 +879,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTaskRemove2 = new AdvertiseTask(activity);
                 ByteQueue byteQueueRemove2 = new ByteQueue();
                 byteQueueRemove2.push(REMOVE_ASSOCIATE);
+                byteQueueRemove2.push(0x03);
                 byteQueueRemove2.pushU4B(deviceClass.getDeviceUID());
                 if (select_item2.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueueRemove2.push(0x21);
@@ -792,18 +888,30 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 } else if (select_item2.getText().toString().equalsIgnoreCase("Day Light")) {
                     byteQueueRemove2.push(0x23);
                 }
+                if (deviceClass.getNumberTwo().equalsIgnoreCase("")){
+                    byteQueueRemove2.pushU4B(Long.valueOf(uid_no2.getText().toString().trim()));
+                }else {
+                    byteQueueRemove2.pushU4B(Long.parseLong(deviceClass.getNumberTwo()));
+                }
 //                byteQueue1.push(PIR_INFO);
-                byteQueueRemove2.pushU4B(Long.valueOf("12345678"));
+//                byteQueueRemove2.pushU4B(Long.parseLong(deviceClass.getNumberTwo()));
                 advertiseTaskRemove2 = new AdvertiseTask(AssociateAddFragment.this, activity, 5 * 1000);
                 animatedProgress.setText("Uploading");
                 advertiseTaskRemove2.setByteQueue(byteQueueRemove2);
                 Log.e("Check>>>>", byteQueueRemove2.toString());
                 advertiseTaskRemove2.setSearchRequestCode(REMOVE_ASSOCIATE);
                 advertiseTaskRemove2.startAdvertising();
-                card_two.setVisibility(View.GONE);
-                viewDetail1.setBackgroundResource(R.drawable.pluse_ic);
+//                card_two.setVisibility(View.GONE);
+//                viewDetail1.setBackgroundResource(R.drawable.plus_ic);
                 break;
             case R.id.btn_remove3:
+                if (uid_no3.getText().toString().length() == 0) {
+                    showError("Address one can't empty",uid_no3);
+                    return ;
+                } else if (select_item3.getText().toString().length()==0) {
+                    showError("Please select sensor type one",select_item3);
+                    return;
+                }
                 ContentValues contentValuesRemove3=new ContentValues();
                 contentValuesRemove3.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_THREE,"");
                 contentValuesRemove3.put(DatabaseConstant.COLUMN_DEVICE_ITEM_THREE,"");
@@ -812,6 +920,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTaskRemove3 = new AdvertiseTask(activity);
                 ByteQueue byteQueueRemove3 = new ByteQueue();
                 byteQueueRemove3.push(REMOVE_ASSOCIATE);
+                byteQueueRemove3.push(0x03);
                 byteQueueRemove3.pushU4B(deviceClass.getDeviceUID());
                 if (select_item3.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueueRemove3.push(0x31);
@@ -820,18 +929,30 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 } else if (select_item3.getText().toString().equalsIgnoreCase("Day Light")) {
                     byteQueueRemove3.push(0x33);
                 }
+                if (deviceClass.getNumberThree().equalsIgnoreCase("")){
+                    byteQueueRemove3.pushU4B(Long.valueOf(uid_no3.getText().toString().trim()));
+                }else {
+                    byteQueueRemove3.pushU4B(Long.parseLong(deviceClass.getNumberThree()));
+                }
 //                byteQueue1.push(PIR_INFO);
-                byteQueueRemove3.pushU4B(Long.valueOf("12345678"));
+//                byteQueueRemove3.pushU4B(Long.parseLong(deviceClass.getNumberThree()));
                 advertiseTaskRemove3 = new AdvertiseTask(AssociateAddFragment.this, activity, 5 * 1000);
                 animatedProgress.setText("Uploading");
                 advertiseTaskRemove3.setByteQueue(byteQueueRemove3);
                 Log.e("Check>>>>", byteQueueRemove3.toString());
                 advertiseTaskRemove3.setSearchRequestCode(REMOVE_ASSOCIATE);
                 advertiseTaskRemove3.startAdvertising();
-                card_three.setVisibility(View.GONE);
-                viewDetail2.setBackgroundResource(R.drawable.pluse_ic);
+//                card_three.setVisibility(View.GONE);
+//                viewDetail2.setBackgroundResource(R.drawable.plus_ic);
                 break;
             case R.id.btn_remove4:
+                if (uid_no4.getText().toString().length() == 0) {
+                    showError("Address one can't empty",uid_no4);
+                    return ;
+                } else if (select_item4.getText().toString().length()==0) {
+                    showError("Please select sensor type one",select_item4);
+                    return;
+                }
                 ContentValues contentValuesRemove4=new ContentValues();
                 contentValuesRemove4.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_FOUR,"");
                 contentValuesRemove4.put(DatabaseConstant.COLUMN_DEVICE_ITEM_FOUR,"");
@@ -840,6 +961,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTaskRemove4 = new AdvertiseTask(activity);
                 ByteQueue byteQueueRemove4 = new ByteQueue();
                 byteQueueRemove4.push(REMOVE_ASSOCIATE);
+                byteQueueRemove4.push(0x03);
                 byteQueueRemove4.pushU4B(deviceClass.getDeviceUID());
                 if (select_item4.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueueRemove4.push(0x41);
@@ -849,17 +971,29 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                     byteQueueRemove4.push(0x43);
                 }
 //                byteQueue1.push(PIR_INFO);
-                byteQueueRemove4.pushU4B(Long.valueOf("12345678"));
+//                byteQueueRemove4.pushU4B(Long.parseLong(deviceClass.getNumberFour()));
+                if (deviceClass.getNumberFour().equalsIgnoreCase("")){
+                    byteQueueRemove4.pushU4B(Long.valueOf(uid_no4.getText().toString().trim()));
+                }else {
+                    byteQueueRemove4.pushU4B(Long.parseLong(deviceClass.getNumberFour()));
+                }
                 advertiseTaskRemove4 = new AdvertiseTask(AssociateAddFragment.this, activity, 5 * 1000);
                 animatedProgress.setText("Uploading");
                 advertiseTaskRemove4.setByteQueue(byteQueueRemove4);
                 Log.e("Check>>>>", byteQueueRemove4.toString());
                 advertiseTaskRemove4.setSearchRequestCode(REMOVE_ASSOCIATE);
                 advertiseTaskRemove4.startAdvertising();
-                card_four.setVisibility(View.GONE);
-                viewDetail3.setBackgroundResource(R.drawable.pluse_ic);
+//                card_four.setVisibility(View.GONE);
+//                viewDetail3.setBackgroundResource(R.drawable.plus_ic);
                 break;
             case R.id.btn_remove5:
+                if (uid_no5.getText().toString().length() == 0) {
+                    showError("Address one can't empty",uid_no5);
+                    return ;
+                } else if (select_item5.getText().toString().length()==0) {
+                    showError("Please select sensor type one",select_item5);
+                    return;
+                }
                 ContentValues contentValuesRemove5=new ContentValues();
                 contentValuesRemove5.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_FIVE,"");
                 contentValuesRemove5.put(DatabaseConstant.COLUMN_DEVICE_ITEM_FIVE,"");
@@ -868,6 +1002,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTaskRemove5 = new AdvertiseTask(activity);
                 ByteQueue byteQueueRemove5 = new ByteQueue();
                 byteQueueRemove5.push(REMOVE_ASSOCIATE);
+                byteQueueRemove5.push(0x03);
                 byteQueueRemove5.pushU4B(deviceClass.getDeviceUID());
                 if (select_item5.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueueRemove5.push(0x51);
@@ -876,18 +1011,30 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 } else if (select_item5.getText().toString().equalsIgnoreCase("Day Light")) {
                     byteQueueRemove5.push(0x53);
                 }
+                if (deviceClass.getNumberFive().equalsIgnoreCase("")){
+                    byteQueueRemove5.pushU4B(Long.valueOf(uid_no5.getText().toString().trim()));
+                }else {
+                    byteQueueRemove5.pushU4B(Long.parseLong(deviceClass.getNumberFive()));
+                }
 //                byteQueue1.push(PIR_INFO);
-                byteQueueRemove5.pushU4B(Long.valueOf("12345678"));
+//                byteQueueRemove5.pushU4B(Long.parseLong(deviceClass.getNumberFive()));
                 advertiseTaskRemove5 = new AdvertiseTask(AssociateAddFragment.this, activity, 5 * 1000);
                 animatedProgress.setText("Uploading");
                 advertiseTaskRemove5.setByteQueue(byteQueueRemove5);
                 Log.e("Check>>>>", byteQueueRemove5.toString());
                 advertiseTaskRemove5.setSearchRequestCode(REMOVE_ASSOCIATE);
                 advertiseTaskRemove5.startAdvertising();
-                card_five.setVisibility(View.GONE);
-                viewDetail4.setBackgroundResource(R.drawable.pluse_ic);
+//                card_five.setVisibility(View.GONE);
+//                viewDetail4.setBackgroundResource(R.drawable.plus_ic);
                 break;
             case R.id.btn_remove6:
+                if (uid_no6.getText().toString().length() == 0) {
+                    showError("Address one can't empty",uid_no6);
+                    return ;
+                } else if (select_item6.getText().toString().length()==0) {
+                    showError("Please select sensor type one",select_item6);
+                    return;
+                }
                 ContentValues contentValuesRemove6=new ContentValues();
                 contentValuesRemove6.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_SIX,"");
                 contentValuesRemove6.put(DatabaseConstant.COLUMN_DEVICE_ITEM_SIX,"");
@@ -896,6 +1043,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTaskRemove6 = new AdvertiseTask(activity);
                 ByteQueue byteQueueRemove6 = new ByteQueue();
                 byteQueueRemove6.push(REMOVE_ASSOCIATE);
+                byteQueueRemove6.push(0x03);
                 byteQueueRemove6.pushU4B(deviceClass.getDeviceUID());
                 if (select_item6.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueueRemove6.push(0x61);
@@ -904,18 +1052,30 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 } else if (select_item6.getText().toString().equalsIgnoreCase("Day Light")) {
                     byteQueueRemove6.push(0x63);
                 }
+                if (deviceClass.getNumberSix().equalsIgnoreCase("")){
+                    byteQueueRemove6.pushU4B(Long.valueOf(uid_no6.getText().toString().trim()));
+                }else {
+                    byteQueueRemove6.pushU4B(Long.parseLong(deviceClass.getNumberSix()));
+                }
 //                byteQueue1.push(PIR_INFO);
-                byteQueueRemove6.pushU4B(Long.valueOf("12345678"));
+//                byteQueueRemove6.pushU4B(Long.parseLong(deviceClass.getNumberSix()));
                 advertiseTaskRemove6 = new AdvertiseTask(AssociateAddFragment.this, activity, 5 * 1000);
                 animatedProgress.setText("Uploading");
                 advertiseTaskRemove6.setByteQueue(byteQueueRemove6);
                 Log.e("Check>>>>", byteQueueRemove6.toString());
                 advertiseTaskRemove6.setSearchRequestCode(REMOVE_ASSOCIATE);
                 advertiseTaskRemove6.startAdvertising();
-                card_six.setVisibility(View.GONE);
-                viewDetail5.setBackgroundResource(R.drawable.pluse_ic);
+//                card_six.setVisibility(View.GONE);
+//                viewDetail5.setBackgroundResource(R.drawable.plus_ic);
                 break;
             case R.id.btn_remove7:
+                if (uid_no7.getText().toString().length() == 0) {
+                    showError("Address one can't empty",uid_no7);
+                    return ;
+                } else if (select_item7.getText().toString().length()==0) {
+                    showError("Please select sensor type one",select_item7);
+                    return;
+                }
                 ContentValues contentValuesRemove7=new ContentValues();
                 contentValuesRemove7.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_SEVEN,"");
                 contentValuesRemove7.put(DatabaseConstant.COLUMN_DEVICE_ITEM_SEVEN,"");
@@ -924,6 +1084,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTaskRemove7 = new AdvertiseTask(activity);
                 ByteQueue byteQueueRemove7 = new ByteQueue();
                 byteQueueRemove7.push(REMOVE_ASSOCIATE);
+                byteQueueRemove7.push(0x03);
                 byteQueueRemove7.pushU4B(deviceClass.getDeviceUID());
                 if (select_item7.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueueRemove7.push(0x71);
@@ -932,18 +1093,30 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 } else if (select_item7.getText().toString().equalsIgnoreCase("Day Light")) {
                     byteQueueRemove7.push(0x73);
                 }
+                if (deviceClass.getNumberSeven().equalsIgnoreCase("")){
+                    byteQueueRemove7.pushU4B(Long.valueOf(uid_no7.getText().toString().trim()));
+                }else {
+                    byteQueueRemove7.pushU4B(Long.parseLong(deviceClass.getNumberSeven()));
+                }
 //                byteQueue1.push(PIR_INFO);
-                byteQueueRemove7.pushU4B(Long.valueOf("12345678"));
+//                byteQueueRemove7.pushU4B(Long.parseLong(deviceClass.getNumberSeven()));
                 advertiseTaskRemove7 = new AdvertiseTask(AssociateAddFragment.this, activity, 5 * 1000);
                 animatedProgress.setText("Uploading");
                 advertiseTaskRemove7.setByteQueue(byteQueueRemove7);
                 Log.e("Check>>>>", byteQueueRemove7.toString());
                 advertiseTaskRemove7.setSearchRequestCode(REMOVE_ASSOCIATE);
                 advertiseTaskRemove7.startAdvertising();
-                card_seven.setVisibility(View.GONE);
-                viewDetail6.setBackgroundResource(R.drawable.pluse_ic);
+//                card_seven.setVisibility(View.GONE);
+//                viewDetail6.setBackgroundResource(R.drawable.plus_ic);
                 break;
             case R.id.btn_remove8:
+                if (uid_no8.getText().toString().length() == 0) {
+                    showError("Address one can't empty",uid_no8);
+                    return ;
+                } else if (select_item8.getText().toString().length()==0) {
+                    showError("Please select sensor type one",select_item8);
+                    return;
+                }
                 ContentValues contentValuesRemove8=new ContentValues();
                 contentValuesRemove8.put(DatabaseConstant.COLUMN_DEVICE_NUMBER_EIGET,"");
                 contentValuesRemove8.put(DatabaseConstant.COLUMN_DEVICE_ITEM_EIGET,"");
@@ -952,6 +1125,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 AdvertiseTask advertiseTaskRemove8 = new AdvertiseTask(activity);
                 ByteQueue byteQueueRemove8 = new ByteQueue();
                 byteQueueRemove8.push(REMOVE_ASSOCIATE);
+                byteQueueRemove8.push(0x03);
                 byteQueueRemove8.pushU4B(deviceClass.getDeviceUID());
                 if (select_item8.getText().toString().equalsIgnoreCase("PIR")) {
                     byteQueueRemove8.push(0x81);
@@ -960,16 +1134,21 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
                 } else if (select_item8.getText().toString().equalsIgnoreCase("Day Light")) {
                     byteQueueRemove8.push(0x83);
                 }
+                if (deviceClass.getNumberEight().equalsIgnoreCase("")){
+                    byteQueueRemove8.pushU4B(Long.valueOf(uid_no8.getText().toString().trim()));
+                }else {
+                    byteQueueRemove8.pushU4B(Long.parseLong(deviceClass.getNumberEight()));
+                }
 //                byteQueue1.push(PIR_INFO);
-                byteQueueRemove8.pushU4B(Long.valueOf("12345678"));
+//                byteQueueRemove8.pushU4B(Long.parseLong(deviceClass.getNumberEight()));
                 advertiseTaskRemove8 = new AdvertiseTask(AssociateAddFragment.this, activity, 5 * 1000);
                 animatedProgress.setText("Uploading");
                 advertiseTaskRemove8.setByteQueue(byteQueueRemove8);
                 Log.e("Check>>>>", byteQueueRemove8.toString());
                 advertiseTaskRemove8.setSearchRequestCode(REMOVE_ASSOCIATE);
                 advertiseTaskRemove8.startAdvertising();
-                card_eight.setVisibility(View.GONE);
-                viewDetail7.setBackgroundResource(R.drawable.pluse_ic);
+//                card_eight.setVisibility(View.GONE);
+//                viewDetail7.setBackgroundResource(R.drawable.plus_ic);
                 break;
 
         }
@@ -1143,6 +1322,35 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
     public void onResume() {
         super.onResume();
 //        hideKeyboard();
+    }
+
+    private void showError(String error_st, EditText editText) {
+        try {
+            Dialog error_dialog = new Dialog(activity);
+            error_dialog.setCanceledOnTouchOutside(false);
+            error_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            error_dialog.setContentView(R.layout.error_dialoge);
+            int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.90);
+            int height = (int) (getResources().getDisplayMetrics().heightPixels * 0.90);
+            error_dialog.getWindow().setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT);
+            error_dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            TextView error_text = error_dialog.findViewById(R.id.error_text);
+            Button ok_btn = error_dialog.findViewById(R.id.ok_btn);
+            error_text.setText(error_st);
+            error_dialog.show();
+            ok_btn.setOnClickListener(view -> {
+                error_dialog.dismiss();
+                requestFocus(editText);
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+           activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
     }
 
 }

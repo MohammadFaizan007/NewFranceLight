@@ -112,6 +112,9 @@ public class IndividualSwitchAdapter extends BaseAdapter implements AdvertiseRes
         viewHolder.lightDetails.setOnClickListener(v -> {
             Intent intent = new Intent(activity, HelperActivity.class);
             intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
+            intent.putExtra("type", "switch");
+            intent.putExtra("name", deviceClass.getDeviceName());
+            intent.putExtra("pos", position);
             intent.putExtra(Constants.LIGHT_DETAIL_KEY,deviceClass);
             activity.startActivity(intent);
         });

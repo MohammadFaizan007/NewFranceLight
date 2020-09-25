@@ -1,0 +1,1244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/lux_level_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/rounded_gray_border"
+                android:ems="7"
+                android:hint="Lux Level 1"
+                android:inputType="numberDecimal"
+                android:padding="8dp"
+                android:textSize="@dimen/app_text_size"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="5dp"
+                        android:weightSum="3">
+
+                        <EditText
+
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1.2"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/rounded_gray_border"
+                            android:hint="Select lux"
+                            android:inputType="numberDecimal"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="@dimen/app_text_size"
+                            android:padding="8dp"
+                            android:visibility="invisible"
+                            android:layout_marginBottom="@dimen/_10sdp"/>
+
+                        <EditText
+                            android:id="@+id/dimming_level1"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/rounded_gray_border"
+                            android:hint="Dimming 1"
+                            android:inputType="numberDecimal"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="@dimen/app_text_size"
+                            android:padding="8dp"
+                            android:layout_marginBottom="@dimen/_10sdp"/>
+                        <Button
+                            android:id="@+id/btn_submit1"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight=".8"
+                            android:layout_marginStart="5dp"
+                            android:background="@drawable/rect_btn_bg_darkprimary"
+                            android:text="Save"
+                            android:gravity="center"
+                            android:textColor="@color/white"/>
+                    </LinearLayout>
+
+            <EditText
+                android:id="@+id/lux_level_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/rounded_gray_border"
+                android:ems="7"
+                android:hint="Lux Level 2"
+                android:inputType="numberDecimal"
+                android:padding="8dp"
+                android:textSize="@dimen/app_text_size"
+                android:layout_marginTop="-5dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:weightSum="3">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.2"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/rounded_gray_border"
+                    android:hint="Select lux"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/app_text_size"
+                    android:padding="8dp"
+                    android:visibility="invisible"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/dimming_level2"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/rounded_gray_border"
+                    android:hint="Dimming 2"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/app_text_size"
+                    android:padding="8dp"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
+                <Button
+                    android:id="@+id/btn_submit2"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".8"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/rect_btn_bg_darkprimary"
+                    android:text="Save"
+                    android:gravity="center"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/lux_level_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/rounded_gray_border"
+                android:ems="7"
+                android:hint="Lux Level 3"
+                android:inputType="numberDecimal"
+                android:padding="8dp"
+                android:textSize="@dimen/app_text_size"
+                android:layout_marginTop="-5dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:weightSum="3">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.2"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/rounded_gray_border"
+                    android:hint="Select lux"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/app_text_size"
+                    android:padding="8dp"
+                    android:visibility="invisible"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/dimming_level3"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/rounded_gray_border"
+                    android:hint="Dimming 3"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/app_text_size"
+                    android:padding="8dp"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
+                <Button
+                    android:id="@+id/btn_submit3"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".8"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/rect_btn_bg_darkprimary"
+                    android:text="Save"
+                    android:gravity="center"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/lux_level_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/rounded_gray_border"
+                android:ems="7"
+                android:hint="Lux Level 4"
+                android:inputType="numberDecimal"
+                android:padding="8dp"
+                android:textSize="@dimen/app_text_size"
+                android:layout_marginTop="-5dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:weightSum="3">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.2"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/rounded_gray_border"
+                    android:hint="Select lux"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/app_text_size"
+                    android:padding="8dp"
+                    android:visibility="invisible"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
+
+                <EditText
+                    android:id="@+id/dimming_level4"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/rounded_gray_border"
+                    android:hint="Dimming 4"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/app_text_size"
+                    android:padding="8dp"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
+                <Button
+                    android:id="@+id/btn_submit4"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight=".8"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/rect_btn_bg_darkprimary"
+                    android:text="Save"
+                    android:gravity="center"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/lux_level_five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/rounded_gray_border"
+                android:ems="7"
+                android:hint="Lux Level 5"
+                android:inputType="numberDecimal"
+                android:padding="8dp"
+                android:textSize="@dimen/app_text_size"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="@dimen/_10sdp"/>
+
+
+            <!--&lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;                android:layout_weight=".3"&ndash;&gt;-->
+            <!--&lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
+            <!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:id="@+id/damperUid"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:text="NAME"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:id="@+id/damper"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:text="Site"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:id="@+id/site_tv"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:text="Building"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:id="@+id/Building_tv"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:text="Level"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:id="@+id/room_tv"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:text="Room"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:id="@+id/group_tv"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:text="Group"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--&lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;                android:layout_weight=".7"&ndash;&gt;-->
+            <!--&lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
+            <!--&lt;!&ndash;                <EditText&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:id="@+id/deviceName"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:hint="Please Enter Name"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:singleLine="true"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:textSize="16sp" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--&lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:id="@+id/site_spinner"&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--&lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--&lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:id="@+id/building_spinner"&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--&lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--&lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:id="@+id/level_spinner"&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--&lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--&lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:id="@+id/room_spinner"&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--&lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--&lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:id="@+id/group_spinner"&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--&lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+            <!--        </LinearLayout>-->
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:orientation="horizontal"-->
+            <!--                android:layout_marginTop="@dimen/_6sdp"-->
+            <!--                android:layout_marginLeft="5dp"-->
+            <!--                android:layout_marginRight="5dp"-->
+            <!--                android:weightSum="3">-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/select_item2"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_weight="1.2"-->
+            <!--                    android:layout_centerVertical="true"-->
+            <!--                    android:background="@drawable/rounded_gray_border"-->
+            <!--                    android:hint="Select lux"-->
+            <!--                    android:inputType="numberDecimal"-->
+            <!--                    android:layout_marginLeft="5dp"-->
+            <!--                    android:textSize="@dimen/app_text_size"-->
+            <!--                    android:ems="10"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:layout_marginBottom="@dimen/_10sdp"/>-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/edit_second"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:layout_centerVertical="true"-->
+            <!--                    android:background="@drawable/rounded_gray_border"-->
+            <!--                    android:hint="level %"-->
+            <!--                    android:inputType="numberDecimal"-->
+            <!--                    android:layout_marginLeft="5dp"-->
+            <!--                    android:textSize="@dimen/app_text_size"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:layout_marginBottom="@dimen/_10sdp"/>-->
+            <!--                <Button-->
+            <!--                    android:id="@+id/btn_submit2"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_weight=".8"-->
+            <!--                    android:layout_marginStart="5dp"-->
+            <!--                    android:background="@drawable/rect_btn_bg_darkprimary"-->
+            <!--                    android:text="Save"-->
+            <!--                    android:gravity="center"-->
+            <!--                    android:textColor="@color/white"/>-->
+
+
+            <!--                &lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_weight=".3"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/damperUid"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="NAME"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/damper"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Site"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/site_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Building"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/Building_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Level"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/room_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Room"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/group_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Group"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_weight=".7"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <EditText&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/deviceName"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:hint="Please Enter Name"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:singleLine="true"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/site_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/building_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/level_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/room_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/group_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+            <!--            </LinearLayout>-->
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:orientation="horizontal"-->
+            <!--                android:layout_marginTop="@dimen/_6sdp"-->
+            <!--                android:layout_marginLeft="5dp"-->
+            <!--                android:layout_marginRight="5dp"-->
+            <!--                android:weightSum="3">-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/select_item3"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_weight="1.2"-->
+            <!--                    android:layout_centerVertical="true"-->
+            <!--                    android:background="@drawable/rounded_gray_border"-->
+            <!--                    android:hint="Select lux"-->
+            <!--                    android:inputType="numberDecimal"-->
+            <!--                    android:layout_marginLeft="5dp"-->
+            <!--                    android:textSize="@dimen/app_text_size"-->
+            <!--                    android:ems="10"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:layout_marginBottom="@dimen/_10sdp"/>-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/edit_three"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:layout_centerVertical="true"-->
+            <!--                    android:background="@drawable/rounded_gray_border"-->
+            <!--                    android:hint="level %"-->
+            <!--                    android:inputType="numberDecimal"-->
+            <!--                    android:layout_marginLeft="5dp"-->
+            <!--                    android:textSize="@dimen/app_text_size"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:layout_marginBottom="@dimen/_10sdp"/>-->
+            <!--                <Button-->
+            <!--                    android:id="@+id/btn_submit3"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_weight=".8"-->
+            <!--                    android:layout_marginStart="5dp"-->
+            <!--                    android:background="@drawable/rect_btn_bg_darkprimary"-->
+            <!--                    android:text="Save"-->
+            <!--                    android:gravity="center"-->
+            <!--                    android:textColor="@color/white"/>-->
+
+
+            <!--                &lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_weight=".3"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/damperUid"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="NAME"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/damper"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Site"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/site_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Building"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/Building_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Level"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/room_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Room"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/group_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Group"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_weight=".7"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <EditText&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/deviceName"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:hint="Please Enter Name"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:singleLine="true"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/site_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/building_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/level_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/room_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/group_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+            <!--            </LinearLayout>-->
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:orientation="horizontal"-->
+            <!--                android:layout_marginTop="@dimen/_6sdp"-->
+            <!--                android:layout_marginLeft="5dp"-->
+            <!--                android:layout_marginRight="5dp"-->
+            <!--                android:weightSum="3">-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/select_item4"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_weight="1.2"-->
+            <!--                    android:layout_centerVertical="true"-->
+            <!--                    android:background="@drawable/rounded_gray_border"-->
+            <!--                    android:hint="Select lux"-->
+            <!--                    android:inputType="numberDecimal"-->
+            <!--                    android:layout_marginLeft="5dp"-->
+            <!--                    android:textSize="@dimen/app_text_size"-->
+            <!--                    android:ems="10"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:layout_marginBottom="@dimen/_10sdp"/>-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/edit_four"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:layout_centerVertical="true"-->
+            <!--                    android:background="@drawable/rounded_gray_border"-->
+            <!--                    android:hint="level %"-->
+            <!--                    android:inputType="numberDecimal"-->
+            <!--                    android:layout_marginLeft="5dp"-->
+            <!--                    android:textSize="@dimen/app_text_size"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:layout_marginBottom="@dimen/_10sdp"/>-->
+            <!--                <Button-->
+            <!--                    android:id="@+id/btn_submit4"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_weight=".8"-->
+            <!--                    android:layout_marginStart="5dp"-->
+            <!--                    android:background="@drawable/rect_btn_bg_darkprimary"-->
+            <!--                    android:text="Save"-->
+            <!--                    android:gravity="center"-->
+            <!--                    android:textColor="@color/white"/>-->
+
+
+            <!--                &lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_weight=".3"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/damperUid"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="NAME"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/damper"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Site"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/site_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Building"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/Building_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Level"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/room_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Room"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/group_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Group"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_weight=".7"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <EditText&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/deviceName"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:hint="Please Enter Name"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:singleLine="true"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/site_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/building_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/level_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/room_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/group_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+            <!--            </LinearLayout>-->
+
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:orientation="horizontal"-->
+            <!--                android:layout_marginTop="@dimen/_6sdp"-->
+            <!--                android:layout_marginLeft="5dp"-->
+            <!--                android:layout_marginRight="5dp"-->
+            <!--                android:weightSum="3">-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/select_item5"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_weight="1.2"-->
+            <!--                    android:layout_centerVertical="true"-->
+            <!--                    android:background="@drawable/rounded_gray_border"-->
+            <!--                    android:hint="Select lux"-->
+            <!--                    android:inputType="numberDecimal"-->
+            <!--                    android:layout_marginLeft="5dp"-->
+            <!--                    android:textSize="@dimen/app_text_size"-->
+            <!--                    android:ems="10"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:layout_marginBottom="@dimen/_10sdp"/>-->
+
+            <!--                <EditText-->
+            <!--                    android:id="@+id/edit_five"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:layout_centerVertical="true"-->
+            <!--                    android:background="@drawable/rounded_gray_border"-->
+            <!--                    android:hint="level %"-->
+            <!--                    android:inputType="numberDecimal"-->
+            <!--                    android:layout_marginLeft="5dp"-->
+            <!--                    android:textSize="@dimen/app_text_size"-->
+            <!--                    android:padding="8dp"-->
+            <!--                    android:layout_marginBottom="@dimen/_10sdp"/>-->
+            <!--                <Button-->
+            <!--                    android:id="@+id/btn_submit5"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="40dp"-->
+            <!--                    android:layout_weight=".8"-->
+            <!--                    android:layout_marginStart="5dp"-->
+            <!--                    android:background="@drawable/rect_btn_bg_darkprimary"-->
+            <!--                    android:text="Save"-->
+            <!--                    android:gravity="center"-->
+            <!--                    android:textColor="@color/white"/>-->
+
+
+            <!--                &lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_weight=".3"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/damperUid"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="NAME"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/damper"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Site"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/site_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Building"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/Building_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Level"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/room_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Room"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                <TextView&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/group_tv"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:text="Group"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textStyle="bold" />&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_width="0dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:layout_weight=".7"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <EditText&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:id="@+id/deviceName"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:hint="Please Enter Name"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:padding="8dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:singleLine="true"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textColor="@color/black"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:textSize="16sp" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/site_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/building_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/level_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/room_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                <RelativeLayout&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:layout_height="40dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:background="@drawable/border_square"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingStart="20dp"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    android:paddingEnd="10dp">&ndash;&gt;-->
+
+            <!--                &lt;!&ndash;                    <Spinner&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:id="@+id/group_spinner"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        android:layout_height="match_parent" />&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </RelativeLayout>&ndash;&gt;-->
+            <!--                &lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+            <!--            </LinearLayout>-->
+
+
+            <!--            <Button-->
+            <!--                android:id="@+id/btn_submit"-->
+            <!--                android:layout_width="200dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="center"-->
+            <!--                android:layout_marginStart="16dp"-->
+            <!--                android:layout_marginTop="16dp"-->
+            <!--                android:layout_marginEnd="16dp"-->
+            <!--                android:layout_marginBottom="16dp"-->
+            <!--                android:background="@drawable/rect_btn_bg_darkprimary"-->
+            <!--                android:text="Submit"-->
+            <!--                android:textColor="@color/white" />-->
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
