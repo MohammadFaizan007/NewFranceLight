@@ -18,6 +18,8 @@ import static android.view.View.LAYER_TYPE_SOFTWARE;
 public class Constants {
     public static final String ATTRIBUTE_TYPE = "attribute_type";
     public static final String LUX_LEVEL_TYPE = "lux_level_type";
+    public static final String LUX_LEVEL_TYPE_TWO = "lux_level_type_two";
+    public static final String ADD_ASSOCIATE_TYPE = "add_associate_type";
     public final static String MAIN_KEY="HelperLoad";
     public final static String GROUP_DETAIL_KEY="GroupDetail";
     public final static String LIGHT_DETAIL_KEY="LightDetail";
@@ -40,6 +42,7 @@ public class Constants {
     public final static int EDIT_BUILDING_GROUP=117;
     public final static int EDIT_LEVEL_GROUP=118;
     public final static int EDIT_ROOM_GROUP=119;
+    public final static int EDIT_LUX_LEVEL=120;
     public static String PWM="PWM Driver Cenzer";             ///0x00
     public static String PWM_INFERRIX="PWM Driver Inferrix";  ///0x02
     public static String VCC="0-10 V Controller Cenzer";      ///0x01

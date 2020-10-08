@@ -189,15 +189,15 @@ public class DashboardBuildingAdapter extends BaseAdapter implements AdvertiseRe
         BuildingGroupDetailsClass deviceClass=arrayList.get(position);
         viewHolder.dashboardDeviceName.setText(deviceClass.getGroupBuildingName());
         viewHolder.dashboardCustomize.setOnClickListener(view -> showDialog(position));
-        viewHolder.lightDetails.setOnClickListener(v -> {
-
-            Log.w("GroupDimming",deviceClass.getBuildingGroupDimming()+"");
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_BUILDING_GROUP);
-            intent.putExtra(Constants.BUILDIN_GROUP_DETAIL_KEY,arrayList.get(position));
-            activity.startActivity(intent);
-
-        });
+//        viewHolder.lightDetails.setOnClickListener(v -> {
+//
+//            Log.w("GroupDimming",deviceClass.getBuildingGroupDimming()+"");
+//            Intent intent = new Intent(activity, HelperActivity.class);
+//            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_BUILDING_GROUP);
+//            intent.putExtra(Constants.BUILDIN_GROUP_DETAIL_KEY,arrayList.get(position));
+//            activity.startActivity(intent);
+//
+//        });
 
         seekBarProgress=deviceClass.getBuildingGroupDimming();
         viewHolder.statusSwitch.setChecked(deviceClass.getBuildingGroupStatus());

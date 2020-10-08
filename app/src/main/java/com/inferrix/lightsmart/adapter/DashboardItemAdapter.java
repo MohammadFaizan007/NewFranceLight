@@ -188,15 +188,15 @@ public class DashboardItemAdapter extends BaseAdapter implements AdvertiseResult
         GroupDetailsClass deviceClass=arrayList.get(position);
         viewHolder.dashboardDeviceName.setText(deviceClass.getGroupName());
         viewHolder.dashboardCustomize.setOnClickListener(view -> showDialog(position));
-        viewHolder.lightDetails.setOnClickListener(v -> {
-
-            Log.w("GroupDimming",deviceClass.getGroupDimming()+"");
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_GROUP);
-            intent.putExtra(Constants.GROUP_DETAIL_KEY,arrayList.get(position));
-            activity.startActivity(intent);
-
-        });
+//        viewHolder.lightDetails.setOnClickListener(v -> {
+//
+//            Log.w("GroupDimming",deviceClass.getGroupDimming()+"");
+//            Intent intent = new Intent(activity, HelperActivity.class);
+//            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_GROUP);
+//            intent.putExtra(Constants.GROUP_DETAIL_KEY,arrayList.get(position));
+//            activity.startActivity(intent);
+//
+//        });
 
         seekBarProgress=deviceClass.getGroupDimming();
         viewHolder.statusSwitch.setChecked(deviceClass.getGroupStatus());

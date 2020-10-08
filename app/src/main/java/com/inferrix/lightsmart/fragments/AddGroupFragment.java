@@ -324,17 +324,18 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
                     } else {
                         byteQueue.push(((LevelGroupDetailsClass) levelSpinner.getSelectedItem()).getGroupLevelId());
                     }
-
-                    if (roomSpinner.getSelectedItem().equals("No Room Group")) {
-                    } else {
-                        byteQueue.push(((RoomGroupDetailsClass) roomSpinner.getSelectedItem()).getRoomGroupId());
-                    }
                     if (groupSpinner.getSelectedItem().equals("No Group")) {
 
                     } else {
 
                         byteQueue.push(((GroupDetailsClass) groupSpinner.getSelectedItem()).getGroupId());
                     }
+
+                    if (roomSpinner.getSelectedItem().equals("No Room Group")) {
+                    } else {
+                        byteQueue.push(((RoomGroupDetailsClass) roomSpinner.getSelectedItem()).getRoomGroupId());
+                    }
+
 
 //                    if (siteSpinner.getSelectedItemPosition() != spinnerSelectedPosition){
 //                        byteQueue.push(ADD_SITE_GROUP);

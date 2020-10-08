@@ -188,15 +188,15 @@ public class DashboardLevelAdapter extends BaseAdapter implements AdvertiseResul
         LevelGroupDetailsClass deviceClass=arrayList.get(position);
         viewHolder.dashboardDeviceName.setText(deviceClass.getGroupLevelName());
         viewHolder.dashboardCustomize.setOnClickListener(view -> showDialog(position));
-        viewHolder.lightDetails.setOnClickListener(v -> {
-
-            Log.w("GroupDimming",deviceClass.getLevelGroupDimming()+"");
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LEVEL_GROUP);
-            intent.putExtra(Constants.BUILDIN_GROUP_DETAIL_KEY,arrayList.get(position));
-            activity.startActivity(intent);
-
-        });
+//        viewHolder.lightDetails.setOnClickListener(v -> {
+//
+//            Log.w("GroupDimming",deviceClass.getLevelGroupDimming()+"");
+//            Intent intent = new Intent(activity, HelperActivity.class);
+//            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LEVEL_GROUP);
+//            intent.putExtra(Constants.BUILDIN_GROUP_DETAIL_KEY,arrayList.get(position));
+//            activity.startActivity(intent);
+//
+//        });
 
         seekBarProgress=deviceClass.getLevelGroupDimming();
         viewHolder.statusSwitch.setChecked(deviceClass.getLevelGroupStatus());

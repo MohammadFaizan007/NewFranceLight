@@ -189,15 +189,15 @@ public class DashboardRoomAdapter extends BaseAdapter implements AdvertiseResult
         RoomGroupDetailsClass deviceClass=arrayList.get(position);
         viewHolder.dashboardDeviceName.setText(deviceClass.getGroupRoomName());
         viewHolder.dashboardCustomize.setOnClickListener(view -> showDialog(position));
-        viewHolder.lightDetails.setOnClickListener(v -> {
+//        viewHolder.lightDetails.setOnClickListener(v -> {
+//
+//            Log.w("GroupDimming",deviceClass.getGroupDimming()+"");
+//            Intent intent = new Intent(activity, HelperActivity.class);
+//            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_ROOM_GROUP);
+//            intent.putExtra(Constants.BUILDIN_GROUP_DETAIL_KEY,arrayList.get(position));
+//            activity.startActivity(intent);
 
-            Log.w("GroupDimming",deviceClass.getGroupDimming()+"");
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_ROOM_GROUP);
-            intent.putExtra(Constants.BUILDIN_GROUP_DETAIL_KEY,arrayList.get(position));
-            activity.startActivity(intent);
-
-        });
+//        });
 
         seekBarProgress=deviceClass.getGroupDimming();
         viewHolder.statusSwitch.setChecked(deviceClass.getGroupStatus());

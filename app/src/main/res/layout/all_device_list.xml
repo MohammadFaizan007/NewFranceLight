@@ -11,7 +11,7 @@
         android:ellipsize="end"
         android:padding="5dp"
         android:singleLine="true"
-        android:text="Added device is here"
+        android:text="Added master device is here"
         android:textAllCaps="true"
         android:textSize="@dimen/medium_app_text_size"
         android:textColor="@color/black"/>

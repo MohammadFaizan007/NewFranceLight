@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -80,6 +81,8 @@ public class AssociateListAdapter extends BaseAdapter {
         DeviceClass deviceClass = arrayList.get(position);
         viewHolder.dashboard_deviceName.setText(deviceClass.getDeviceName());
         viewHolder.uid_no.setText(String.valueOf(deviceClass.getDeviceUID()));
+        viewHolder.light_details.setBackground(activity.getResources().getDrawable(deviceClass.getMasterStatus()==0?R.drawable.white_circle_border:R.drawable.yellow_circle));
+
 //        viewHolder.icon_delete.setOnClickListener(view -> {
 //            deleteDialog(position);
 
@@ -91,14 +94,21 @@ public class AssociateListAdapter extends BaseAdapter {
 //            activity.startActivity(intent);
 //
 //        });
-//
-        viewHolder.light_details.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.ADD_ASSOCIATE);
-            intent.putExtra(Constants.LIGHT_DETAIL_KEY, arrayList.get(position));
-            activity.startActivity(intent);
+        if (deviceClass.getMasterStatus()==1){
+            viewHolder.light_details.setOnClickListener(v -> {
+                Intent intent = new Intent(activity, HelperActivity.class);
+                intent.putExtra(Constants.MAIN_KEY, Constants.ADD_ASSOCIATE);
+                intent.putExtra("name", deviceClass.getDeviceName());
+                intent.putExtra("pos", position);
+                intent.putExtra(Constants.LIGHT_DETAIL_KEY, arrayList.get(position));
+                activity.startActivity(intent);
 
-        });
+            });
+        }else {
+//            Toast.makeText(activity, "Make Light as a master.", Toast.LENGTH_SHORT).show();
+        }
+
+
 
         return convertView;
     }

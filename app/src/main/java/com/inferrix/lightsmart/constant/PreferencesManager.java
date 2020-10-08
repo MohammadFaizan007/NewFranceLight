@@ -32,6 +32,18 @@ public class PreferencesManager {
     private static final String ITEM_SEVEN = "item_seven";
     private static final String ITEM_EIGHT = "item_eight";
 
+    private static final String LUX_LEVEL_ONE = "lux_level_one";
+    private static final String LUX_LEVEL_TWO = "lux_level_two";
+    private static final String LUX_LEVEL_THREE = "lux_level_three";
+    private static final String LUX_LEVEL_FOUR = "lux_level_four";
+    private static final String LUX_LEVEL_FIVE = "lux_level_five";
+
+    private static final String DIMMING_LEVEL_ONE = "dimming_level_one";
+    private static final String DIMMING_LEVEL_TWO = "dimming_level_two";
+    private static final String DIMMING_LEVEL_THREE = "dimming_level_three";
+    private static final String DIMMING_LEVEL_FOUR = "dimming_level_four";
+
+
 
 
 
@@ -190,6 +202,77 @@ public class PreferencesManager {
         mPref.edit().putString(ITEM_EIGHT, value).apply();
     }
 
+    public String getLuxLevelOne() {
+        return mPref.getString(LUX_LEVEL_ONE, "");
+    }
+
+    public void setLuxLevelOne(String value) {
+        mPref.edit().putString(LUX_LEVEL_ONE, value).apply();
+    }
+
+    public String getLuxLevelTwo() {
+        return mPref.getString(LUX_LEVEL_TWO, "");
+    }
+
+    public void setLuxLevelTwo(String value) {
+        mPref.edit().putString(LUX_LEVEL_TWO, value).apply();
+    }
+
+    public String getLuxLevelThree() {
+        return mPref.getString(LUX_LEVEL_THREE, "");
+    }
+
+    public void setLuxLevelThree(String value) {
+        mPref.edit().putString(LUX_LEVEL_THREE, value).apply();
+    }
+
+    public String getLuxLevelFour() {
+        return mPref.getString(LUX_LEVEL_FOUR, "");
+    }
+
+    public void setLuxLevelFour(String value) {
+        mPref.edit().putString(LUX_LEVEL_FOUR, value).apply();
+    }
+
+    public String getLuxLevelFive() {
+        return mPref.getString(LUX_LEVEL_FIVE, "");
+    }
+
+    public void setLuxLevelFive(String value) {
+        mPref.edit().putString(LUX_LEVEL_FIVE, value).apply();
+    }
+
+    public String getDimmingLevelOne() {
+        return mPref.getString(DIMMING_LEVEL_ONE, "");
+    }
+
+    public void setDimmingLevelOne(String value) {
+        mPref.edit().putString(DIMMING_LEVEL_ONE, value).apply();
+    }
+
+    public String getDimmingLevelTwo() {
+        return mPref.getString(DIMMING_LEVEL_TWO, "");
+    }
+
+    public void setDimmingLevelTwo(String value) {
+        mPref.edit().putString(DIMMING_LEVEL_TWO, value).apply();
+    }
+
+    public String getDimmingLevelThree() {
+        return mPref.getString(DIMMING_LEVEL_THREE, "");
+    }
+
+    public void setDimmingLevelThree(String value) {
+        mPref.edit().putString(DIMMING_LEVEL_THREE, value).apply();
+    }
+
+    public String getDimmingLevelFour() {
+        return mPref.getString(DIMMING_LEVEL_FOUR, "");
+    }
+
+    public void setDimmingLevelFour(String value) {
+        mPref.edit().putString(DIMMING_LEVEL_FOUR, value).apply();
+    }
 
     public <T> void setList(String key, List<T> list) {
         Gson gson = new Gson();

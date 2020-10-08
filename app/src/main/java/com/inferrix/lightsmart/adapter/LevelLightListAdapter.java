@@ -239,7 +239,7 @@ public class LevelLightListAdapter extends BaseAdapter implements AdvertiseResul
             AdvertiseTask advertiseTask;
             advertiseTask=new AdvertiseTask(this,activity,5*1000);
             advertiseTask.setByteQueue(byteQueue);
-            advertiseTask.setSearchRequestCode(ADD_GROUP_RESPONSE);
+//            advertiseTask.setSearchRequestCode(ADD_GROUP_RESPONSE);
             advertiseTask.startAdvertising();
 
         });

@@ -120,7 +120,7 @@ public class EditGroupLevelFragment extends Fragment implements ReceiverResultIn
         editGroupAdapter = new EditLevelGroupAdapter(activity, groupDetailsClass, this);
         lightListAdapter = new LevelLightListAdapter(activity, groupDetailsClass, this);
         editGroupDeviceList.setAdapter(editGroupAdapter);
-        availableGroupDevice.setAdapter(lightListAdapter);
+//        availableGroupDevice.setAdapter(lightListAdapter);
         groupNameText.setText(groupDetailsClass.getGroupLevelName());
         groupName.setText(groupDetailsClass.getGroupLevelName());
         scannerTask = new ScannerTask(activity, this);

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -13,6 +14,11 @@ import com.inferrix.lightsmart.PogoClasses.GroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.LevelGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.RoomGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.SiteGroupDetailsClass;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.ADD_DEVICE_TABLE;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_UID;
@@ -40,14 +46,19 @@ import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.GROUP_TABL
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.TABLE_USER;
 
 
-public class SqlHelper extends SQLiteOpenHelper
-{
-    String TAG1="SqlHelper";
-    public SqlHelper(Context context){
-        super(context,DATABASE_NAME,null,DATABASE_VERSION);
+public class SqlHelper extends SQLiteOpenHelper {
+    String TAG1 = "SqlHelper";
+
+    public SqlHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+    //context
+    private Context mContext;
+
     public SqlHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+        mContext = context;
     }
 
     @Override
@@ -64,9 +75,9 @@ public class SqlHelper extends SQLiteOpenHelper
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(DROP_TABLE+CREATE_USER_TABLE);
-        db.execSQL(DROP_TABLE+ ADD_DEVICE_TABLE);
-        db.execSQL(DROP_TABLE+ GROUP_TABLE_NAME);
+        db.execSQL(DROP_TABLE + CREATE_USER_TABLE);
+        db.execSQL(DROP_TABLE + ADD_DEVICE_TABLE);
+        db.execSQL(DROP_TABLE + GROUP_TABLE_NAME);
         db.execSQL(DROP_TABLE + CREATE_GROUP_SITE_TABLE);
         db.execSQL(DROP_TABLE + CREATE_GROUP_BUILDING_TABLE);
         db.execSQL(DROP_TABLE + CREATE_GROUP_LEVEL_TABLE);
@@ -81,11 +92,11 @@ public class SqlHelper extends SQLiteOpenHelper
 
     /************************  INSERT DATA ***********************************/
 
-    public long insertData(String tableName,ContentValues values) {
+    public long insertData(String tableName, ContentValues values) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        long a=db.insert(tableName, null, values);
+        long a = db.insert(tableName, null, values);
 //        Log.w(TAG1,"a="+a);
 //        Cursor cursor=get
 // AllData(tableName);
@@ -97,11 +108,10 @@ public class SqlHelper extends SQLiteOpenHelper
         return a;
     }
 
-    public boolean insertDataNotification(ContentValues values)
-    {
+    public boolean insertDataNotification(ContentValues values) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        long a=db.insert(GROUP_TABLE_NAME, null, values);
+        long a = db.insert(GROUP_TABLE_NAME, null, values);
 //        Log.w(TAG1,"a="+a);
 
         return a > 0;
@@ -201,59 +211,60 @@ public class SqlHelper extends SQLiteOpenHelper
     public boolean updateGroupDimming(int groupId, ContentValues args) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(GROUP_TABLE_NAME, args, COLUMN_GROUP_ID + "='" + groupId +"'", null) > 0;
+        return db.update(GROUP_TABLE_NAME, args, COLUMN_GROUP_ID + "='" + groupId + "'", null) > 0;
     }
 
     public boolean updateGroupDevice(int ID, ContentValues args) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(ADD_DEVICE_TABLE, args, COLUMN_GROUP_ID + "='" + ID+"'", null) > 0;
+        return db.update(ADD_DEVICE_TABLE, args, COLUMN_GROUP_ID + "='" + ID + "'", null) > 0;
     }
 
     public boolean updateGroup(int ID, ContentValues args) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(GROUP_TABLE_NAME, args, COLUMN_GROUP_ID + "='" + ID +"'", null) > 0;
+        return db.update(GROUP_TABLE_NAME, args, COLUMN_GROUP_ID + "='" + ID + "'", null) > 0;
     }
+
     public boolean updateSiteGroup(int ID, ContentValues args) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(GROUP_TABLE_SITE_NAME, args, COLUMN_GROUP_SITE_ID + "='" + ID +"'", null) > 0;
+        return db.update(GROUP_TABLE_SITE_NAME, args, COLUMN_GROUP_SITE_ID + "='" + ID + "'", null) > 0;
     }
 
     public boolean updateBuildingGroup(int ID, ContentValues args) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(GROUP_TABLE_BUILDING_NAME, args, COLUMN_GROUP_BUILDINGID+ "='" + ID +"'", null) > 0;
+        return db.update(GROUP_TABLE_BUILDING_NAME, args, COLUMN_GROUP_BUILDINGID + "='" + ID + "'", null) > 0;
     }
 
     public boolean updateLevelGroup(int ID, ContentValues args) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(GROUP_TABLE_LEVEL_NAME, args, COLUMN_GROUP_LEVELID+ "='" + ID +"'", null) > 0;
+        return db.update(GROUP_TABLE_LEVEL_NAME, args, COLUMN_GROUP_LEVELID + "='" + ID + "'", null) > 0;
     }
 
     public boolean updateRoomGroup(int ID, ContentValues args) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(GROUP_TABLE_ROOM_NAME, args, COLUMN_GROUP_ROOMID+ "='" + ID +"'", null) > 0;
+        return db.update(GROUP_TABLE_ROOM_NAME, args, COLUMN_GROUP_ROOMID + "='" + ID + "'", null) > 0;
     }
 
     public boolean updateDevice(long ID, ContentValues args) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(ADD_DEVICE_TABLE, args, COLUMN_DEVICE_UID + "='" + ID+"'", null) > 0;
+        return db.update(ADD_DEVICE_TABLE, args, COLUMN_DEVICE_UID + "='" + ID + "'", null) > 0;
     }
+
     public boolean updateDevice(String ID, ContentValues args) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(ADD_DEVICE_TABLE, args, COLUMN_DEVICE_UID + "='" + ID+"'", null) > 0;
+        return db.update(ADD_DEVICE_TABLE, args, COLUMN_DEVICE_UID + "='" + ID + "'", null) > 0;
     }
 
     public boolean removeLight(int groupId, ContentValues args) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.update(ADD_DEVICE_TABLE, args, COLUMN_GROUP_ID + "='" + groupId+"'", null) > 0;
+        return db.update(ADD_DEVICE_TABLE, args, COLUMN_GROUP_ID + "='" + groupId + "'", null) > 0;
     }
 
     //************************  GET DATA ***************************************/
 
-    public GroupDetailsClass getGroupDetails(int  groupId)
-    {
+    public GroupDetailsClass getGroupDetails(int groupId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor =  db.rawQuery( "select * from "+ GROUP_TABLE_NAME +" where "+COLUMN_GROUP_ID+"='"+groupId+"'" , null );  ///
+        Cursor cursor = db.rawQuery("select * from " + GROUP_TABLE_NAME + " where " + COLUMN_GROUP_ID + "='" + groupId + "'", null);  ///
         GroupDetailsClass groupData = new GroupDetailsClass();
         if (cursor.moveToFirst()) {
 
@@ -284,6 +295,7 @@ public class SqlHelper extends SQLiteOpenHelper
         cursor.close();
         return sitegroupData;
     }
+
     public BuildingGroupDetailsClass getBuildingGroupDetails(int groupId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from " + GROUP_TABLE_BUILDING_NAME + " where " + COLUMN_GROUP_BUILDINGID + "='" + groupId + "'", null);  ///
@@ -333,24 +345,21 @@ public class SqlHelper extends SQLiteOpenHelper
         return roomgroupData;
     }
 
-    public Cursor getDataNotification(String  from1)
-    {
+    public Cursor getDataNotification(String from1) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ GROUP_TABLE_NAME +" where "+ COLUMN_DEVICE_UID +"='"+from1+"'", null );
+        return db.rawQuery("select * from " + GROUP_TABLE_NAME + " where " + COLUMN_DEVICE_UID + "='" + from1 + "'", null);
     }
 
-    public Cursor getData(String tableName,String  id)
-    {
+    public Cursor getData(String tableName, String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ tableName +" where "+COLUMN_ID+"='"+id+"'", null );
+        return db.rawQuery("select * from " + tableName + " where " + COLUMN_ID + "='" + id + "'", null);
     }
-
 
 
     //************************  GET DATA ***************************************/
     public Cursor getAllGroup() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ GROUP_TABLE_NAME /*+" where "+COLUMN_ID+"='"+id+"'"*/, null );
+        return db.rawQuery("select * from " + GROUP_TABLE_NAME /*+" where "+COLUMN_ID+"='"+id+"'"*/, null);
     }
 
     public Cursor getAllRoomGroup() {
@@ -362,6 +371,7 @@ public class SqlHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("select * from " + GROUP_TABLE_SITE_NAME /*+" where "+COLUMN_ID+"='"+id+"'"*/, null);
     }
+
     public Cursor getAllBuildingGroup() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("select * from " + GROUP_TABLE_BUILDING_NAME /*+" where "+COLUMN_ID+"='"+id+"'"*/, null);
@@ -374,106 +384,89 @@ public class SqlHelper extends SQLiteOpenHelper
     }
 
 
-    public Cursor getAllDevice(String tableName)
-    {
+    public Cursor getAllDevice(String tableName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ tableName , null );  ///+" where "+COLUMN_GROUP_ID+"='"+0+"'"
+        return db.rawQuery("select * from " + tableName, null);  ///+" where "+COLUMN_GROUP_ID+"='"+0+"'"
     }
 
 
-    public Cursor getAllGroupLight()
-    {
+    public Cursor getAllGroupLight() {
         SQLiteDatabase db = this.getReadableDatabase();
 //        return db.rawQuery( "select * from (SELECT GroupTable.GROUP_NAME,GroupTable.GROUP_ID,AddDeviceTable.DEVICE_UID,AddDeviceTable.DEVICE_NAME FROM 'GroupTable' INNER JOIN 'AddDeviceTable' ON GroupTable.GROUP_ID=AddDeviceTable.GROUP_ID) ORDER BY  GROUP_ID ASC", null );
-        return db.rawQuery( "select * from (SELECT GroupTable.GROUP_NAME,GroupTable.GROUP_ID,AddDeviceTable.DEVICE_UID,AddDeviceTable.DEVICE_NAME,AddDeviceTable.MASTER_STATUS FROM 'GroupTable' INNER JOIN 'AddDeviceTable' ON GroupTable.GROUP_ID=AddDeviceTable.GROUP_ID) ORDER BY  GROUP_ID ASC", null );
+        return db.rawQuery("select * from (SELECT GroupTable.GROUP_NAME,GroupTable.GROUP_ID,AddDeviceTable.DEVICE_UID,AddDeviceTable.DEVICE_NAME,AddDeviceTable.MASTER_STATUS FROM 'GroupTable' INNER JOIN 'AddDeviceTable' ON GroupTable.GROUP_ID=AddDeviceTable.GROUP_ID) ORDER BY  GROUP_ID ASC", null);
     }
+
     //select *from (SELECT GroupTable.GROUP_NAME,GroupTable.GROUP_ID,AddDeviceTable.DEVICE_UID,AddDeviceTable.DEVICE_NAME FROM 'GroupTable' INNER JOIN 'AddDeviceTable' ON GroupTable.GROUP_ID=AddDeviceTable.GROUP_ID) order by  GROUP_ID ASC;
-    public Cursor getLightInGroup(int  id)
-    {
+    public Cursor getLightInGroup(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ ADD_DEVICE_TABLE +" where "+COLUMN_GROUP_ID+"='"+id+"'", null );
+        return db.rawQuery("select * from " + ADD_DEVICE_TABLE + " where " + COLUMN_GROUP_ID + "='" + id + "'", null);
     }
 
-    public Cursor getLightInAllGroup(int  id)
-    {
+    public Cursor getLightInAllGroup(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ GROUP_TABLE_NAME +" where "+COLUMN_DEVICE_UID+"='"+id+"'", null );
-    }
-
-
-    public Cursor getLightInSiteGroup(int  id)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ ADD_DEVICE_TABLE +" where "+COLUMN_GROUP_SITE_ID+"='"+id+"'", null );
-    }
-
-    public Cursor getLightInBuildingeGroup(int  id)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ ADD_DEVICE_TABLE +" where "+COLUMN_GROUP_BUILDINGID+"='"+id+"'", null );
-    }
-
-    public Cursor getLightInLevelGroup(int  id)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ ADD_DEVICE_TABLE +" where "+COLUMN_GROUP_LEVELID+"='"+id+"'", null );
-    }
-
-    public Cursor getLightInRoomGroup(int  id)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ ADD_DEVICE_TABLE +" where "+COLUMN_GROUP_ROOMID+"='"+id+"'", null );
-    }
-
-    public Cursor getNonGroupDevice(String tableName)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ tableName +" where "+COLUMN_GROUP_ID+"='"+0+"'" , null );  ///
-    }
-
-    public Cursor getNonSiteGroupDevice(String tableName)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ tableName +" where "+COLUMN_GROUP_SITE_ID+"='"+0+"'" , null );  ///
-    }
-
-    public Cursor getNonBuldingGroupDevice(String tableName)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ tableName +" where "+COLUMN_GROUP_BUILDINGID+"='"+0+"'" , null );  ///
-    }
-
-    public Cursor getNonLevelGroupDevice(String tableName)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ tableName +" where "+COLUMN_GROUP_LEVELID+"='"+0+"'" , null );  ///
-    }
-
-    public Cursor getNonRoomGroupDevice(String tableName)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery( "select * from "+ tableName +" where "+COLUMN_GROUP_ROOMID+"='"+0+"'" , null );  ///
+        return db.rawQuery("select * from " + GROUP_TABLE_NAME + " where " + COLUMN_DEVICE_UID + "='" + id + "'", null);
     }
 
 
+    public Cursor getLightInSiteGroup(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from " + ADD_DEVICE_TABLE + " where " + COLUMN_GROUP_SITE_ID + "='" + id + "'", null);
+    }
+
+    public Cursor getLightInBuildingeGroup(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from " + ADD_DEVICE_TABLE + " where " + COLUMN_GROUP_BUILDINGID + "='" + id + "'", null);
+    }
+
+    public Cursor getLightInLevelGroup(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from " + ADD_DEVICE_TABLE + " where " + COLUMN_GROUP_LEVELID + "='" + id + "'", null);
+    }
+
+    public Cursor getLightInRoomGroup(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from " + ADD_DEVICE_TABLE + " where " + COLUMN_GROUP_ROOMID + "='" + id + "'", null);
+    }
+
+    public Cursor getNonGroupDevice(String tableName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from " + tableName + " where " + COLUMN_GROUP_ID + "='" + 0 + "'", null);  ///
+    }
+
+    public Cursor getNonSiteGroupDevice(String tableName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from " + tableName + " where " + COLUMN_GROUP_SITE_ID + "='" + 0 + "'", null);  ///
+    }
+
+    public Cursor getNonBuldingGroupDevice(String tableName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from " + tableName + " where " + COLUMN_GROUP_BUILDINGID + "='" + 0 + "'", null);  ///
+    }
+
+    public Cursor getNonLevelGroupDevice(String tableName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from " + tableName + " where " + COLUMN_GROUP_LEVELID + "='" + 0 + "'", null);  ///
+    }
+
+    public Cursor getNonRoomGroupDevice(String tableName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from " + tableName + " where " + COLUMN_GROUP_ROOMID + "='" + 0 + "'", null);  ///
+    }
 
 
-
-    public Cursor getLightDetails(long  lightId)
-    {
+    public Cursor getLightDetails(long lightId) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        return db.rawQuery( "select * from "+ ADD_DEVICE_TABLE +" where "+COLUMN_DEVICE_UID+"='"+lightId+"'", null );
+        return db.rawQuery("select * from " + ADD_DEVICE_TABLE + " where " + COLUMN_DEVICE_UID + "='" + lightId + "'", null);
     }
 
-    public  void  getLightDetail(long ligthId,int groupId)
-    {
+    public void getLightDetail(long ligthId, int groupId) {
 
     }
-    public boolean isExist(String id)
-    {
-        Cursor cursor=getData(ADD_DEVICE_TABLE,id);
-        if (cursor==null)
+
+    public boolean isExist(String id) {
+        Cursor cursor = getData(ADD_DEVICE_TABLE, id);
+        if (cursor == null)
             return false;
 //        Log.w(TAG1,"name="+tableName+cursor.getCount());
         return cursor.getCount() > 0;
@@ -481,51 +474,126 @@ public class SqlHelper extends SQLiteOpenHelper
     }
 
     //**************************  DELETE DATA ****************************************/
-    public Integer deleteData (String tableName,String id) {
+    public Integer deleteData(String tableName, String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(tableName,
-                COLUMN_ID +" = ? ",
-                new String[] { id });
+                COLUMN_ID + " = ? ",
+                new String[]{id});
     }
-    public Integer deleteGroup (int id) {
+
+    public Integer deleteGroup(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(GROUP_TABLE_NAME,
-                COLUMN_GROUP_ID +" = ? ",
-                new String[] { String.valueOf(id) });
+                COLUMN_GROUP_ID + " = ? ",
+                new String[]{String.valueOf(id)});
     }
-    public Integer deleteSiteGroup (int id) {
+
+    public Integer deleteSiteGroup(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(GROUP_TABLE_SITE_NAME,
-                COLUMN_GROUP_SITE_ID +" = ? ",
-                new String[] { String.valueOf(id) });
+                COLUMN_GROUP_SITE_ID + " = ? ",
+                new String[]{String.valueOf(id)});
     }
 
-    public Integer deleteBuildingGroup (int id) {
+    public Integer deleteBuildingGroup(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(GROUP_TABLE_BUILDING_NAME,
-                COLUMN_GROUP_BUILDINGID +" = ? ",
-                new String[] { String.valueOf(id) });
+                COLUMN_GROUP_BUILDINGID + " = ? ",
+                new String[]{String.valueOf(id)});
     }
 
-    public Integer deleteLevelGroup (int id) {
+    public Integer deleteLevelGroup(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(GROUP_TABLE_LEVEL_NAME,
-                COLUMN_GROUP_LEVELID +" = ? ",
-                new String[] { String.valueOf(id) });
+                COLUMN_GROUP_LEVELID + " = ? ",
+                new String[]{String.valueOf(id)});
     }
 
-    public Integer deleteRoomGroup (int id) {
+    public Integer deleteRoomGroup(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(GROUP_TABLE_ROOM_NAME,
-                COLUMN_GROUP_ROOMID +" = ? ",
-                new String[] { String.valueOf(id) });
+                COLUMN_GROUP_ROOMID + " = ? ",
+                new String[]{String.valueOf(id)});
     }
 
-    public Integer deleteLight (long uid) {
+    public Integer deleteLight(long uid) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(ADD_DEVICE_TABLE,
-                COLUMN_DEVICE_UID +" = ? ",
-                new String[] { String.valueOf(uid) });
+                COLUMN_DEVICE_UID + " = ? ",
+                new String[]{String.valueOf(uid)});
     }
-
 }
+
+
+
+
+
+
+
+//    //////////////////////////////////////////
+//    public void backup(String outFileName) {
+//
+//        //database path
+//        final  String inFileName = mContext.getDatabasePath(DATABASE_NAME).getAbsolutePath().toString();
+//        try {
+//
+//            File dbFile = new File(inFileName);
+//            FileInputStream fis = new FileInputStream(dbFile);
+//
+//            // Open the empty db as the output stream
+//            OutputStream output = new FileOutputStream(outFileName);
+//
+//            // Transfer bytes from the input file to the output file
+//            byte[] buffer = new byte[1024];
+//            int length;
+//            while ((length = fis.read(buffer)) > 0) {
+//                output.write(buffer, 0, length);
+//            }
+//
+//            // Close the streams
+//            output.flush();
+//            output.close();
+//            fis.close();
+//
+//            Toast.makeText(mContext, "Backup Completed", Toast.LENGTH_SHORT).show();
+//
+//        } catch (Exception e) {
+//            Toast.makeText(mContext, "Unable to backup database. Retry", Toast.LENGTH_SHORT).show();
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void importDB(String inFileName) {
+//
+//        final String outFileName = mContext.getDatabasePath(DATABASE_NAME).toString();
+//
+//        try {
+//
+//            File dbFile = new File(inFileName);
+//            FileInputStream fis = new FileInputStream(dbFile);
+//
+//            // Open the empty db as the output stream
+//            OutputStream output = new FileOutputStream(outFileName);
+//
+//            // Transfer bytes from the input file to the output file
+//            byte[] buffer = new byte[1024];
+//            int length;
+//            while ((length = fis.read(buffer)) > 0) {
+//                output.write(buffer, 0, length);
+//            }
+//
+//            // Close the streams
+//            output.flush();
+//            output.close();
+//            fis.close();
+//
+//            Toast.makeText(mContext, "Import Completed", Toast.LENGTH_SHORT).show();
+//
+//        } catch (Exception e) {
+//            Toast.makeText(mContext, "Unable to import database. Retry", Toast.LENGTH_SHORT).show();
+//            e.printStackTrace();
+//        }
+//    }
+//}
+
+//}

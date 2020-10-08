@@ -126,7 +126,7 @@ public class EditGroupSiteFragment extends Fragment implements ReceiverResultInt
         editGroupAdapter = new EditSiteGroupAdapter(activity, groupDetailsClass, this);
         lightListAdapter = new SiteLightListAdapter(activity, groupDetailsClass, this);
         editGroupDeviceList.setAdapter(editGroupAdapter);
-        availableGroupDevice.setAdapter(lightListAdapter);
+//        availableGroupDevice.setAdapter(lightListAdapter);
         groupNameText.setText(groupDetailsClass.getGroupSiteName());
         groupName.setText(groupDetailsClass.getGroupSiteName());
         scannerTask = new ScannerTask(activity, this);

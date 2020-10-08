@@ -1,5 +1,4 @@
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainScroll"
     android:layout_width="match_parent"
@@ -32,10 +31,10 @@
                     android:id="@+id/group"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_margin="@dimen/_10sdp"
                     android:layout_weight=".5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="150dp"
@@ -54,20 +53,20 @@
                             <ImageView
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
+                                android:layout_gravity="center"
                                 android:layout_margin="6dp"
+                                android:background="@drawable/curveborder"
                                 android:padding="@dimen/_5sdp"
                                 android:scaleType="centerCrop"
-                                android:layout_gravity="center"
-                                android:background="@drawable/curveborder"
                                 android:src="@drawable/ic_groups"
-                                android:tint="#000"/>
+                                android:tint="#000" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="-5dp"
-                                android:text="Groups"
                                 android:gravity="center"
+                                android:text="Groups"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -75,14 +74,15 @@
 
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/smart_device"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_margin="@dimen/_10sdp"
                     android:layout_weight=".5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="150dp"
@@ -101,20 +101,20 @@
                             <ImageView
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
+                                android:layout_gravity="center"
                                 android:layout_margin="6dp"
+                                android:background="@drawable/curveborder"
                                 android:padding="@dimen/_5sdp"
                                 android:scaleType="centerCrop"
-                                android:layout_gravity="center"
-                                android:background="@drawable/curveborder"
                                 android:src="@drawable/ic_creativity"
-                                android:tint="#000"/>
+                                android:tint="#000" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="-5dp"
-                                android:text="Smart Device"
                                 android:gravity="center"
+                                android:text="Smart Device"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -128,18 +128,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="-5dp"
+                android:orientation="horizontal"
                 android:weightSum="1">
 
                 <LinearLayout
                     android:id="@+id/dashboard"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_margin="@dimen/_10sdp"
                     android:layout_weight=".5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="150dp"
@@ -158,19 +158,19 @@
                             <ImageView
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
+                                android:layout_gravity="center"
                                 android:layout_margin="6dp"
+                                android:background="@drawable/curveborder"
                                 android:padding="@dimen/_5sdp"
                                 android:scaleType="centerCrop"
-                                android:layout_gravity="center"
-                                android:background="@drawable/curveborder"
-                                android:src="@drawable/ic_dashboard_black_24dp"/>
+                                android:src="@drawable/ic_dashboard_black_24dp" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="-5dp"
-                                android:text="Dashboard"
                                 android:gravity="center"
+                                android:text="Dashboard"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -178,14 +178,15 @@
 
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/associate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_margin="@dimen/_10sdp"
                     android:layout_weight=".5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="150dp"
@@ -204,20 +205,20 @@
                             <ImageView
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
+                                android:layout_gravity="center"
                                 android:layout_margin="6dp"
+                                android:background="@drawable/curveborder"
                                 android:padding="@dimen/_5sdp"
                                 android:scaleType="centerCrop"
-                                android:layout_gravity="center"
-                                android:background="@drawable/curveborder"
                                 android:src="@drawable/ic_demo"
-                                android:tint="#000"/>
+                                android:tint="#000" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="-5dp"
-                                android:text="Associate"
                                 android:gravity="center"
+                                android:text="Associate"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -232,18 +233,19 @@
                 android:id="@+id/demo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="-5dp"
-                android:weightSum="1"
-                android:visibility="gone">
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="1">
 
                 <LinearLayout
+                    android:id="@+id/back_up"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_margin="@dimen/_10sdp"
                     android:layout_weight=".5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="150dp"
@@ -262,19 +264,19 @@
                             <ImageView
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
+                                android:layout_gravity="center"
                                 android:layout_margin="6dp"
+                                android:background="@drawable/curveborder"
                                 android:padding="@dimen/_5sdp"
                                 android:scaleType="centerCrop"
-                                android:layout_gravity="center"
-                                android:background="@drawable/curveborder"
-                                android:src="@drawable/ic_demo"/>
+                                android:src="@drawable/ic_demo" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="-5dp"
-                                android:text="Demo"
                                 android:gravity="center"
+                                android:text="Back up"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -282,14 +284,16 @@
 
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/my_network"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_margin="@dimen/_10sdp"
                     android:layout_weight=".5"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="150dp"
@@ -309,20 +313,20 @@
                                 android:id="@+id/theme_img"
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
+                                android:layout_gravity="center"
                                 android:layout_margin="6dp"
+                                android:background="@drawable/curveborder"
                                 android:padding="@dimen/_5sdp"
                                 android:scaleType="centerCrop"
-                                android:layout_gravity="center"
-                                android:background="@drawable/curveborder"
-                                android:src="@drawable/ic_my_network"/>
+                                android:src="@drawable/ic_my_network" />
 
                             <TextView
                                 android:id="@+id/category_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="-5dp"
-                                android:text="My Network"
                                 android:gravity="center"
+                                android:text="My Network"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />

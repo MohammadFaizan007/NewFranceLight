@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:thumb="@drawable/white_circle"
                 android:progress="100"
-                android:min="10"
+                android:min="1"
                 android:layout_toLeftOf="@+id/level_percentage"
                 android:id="@+id/dimming_spinner"
                 android:theme="@style/AppTheme.SeekBar"

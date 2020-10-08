@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
 
 import com.CustomProgress.CustomDialog.AnimatedProgress;
 import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
@@ -286,31 +287,47 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
         final Dialog dialog = new Dialog(activity);
         BeconDeviceClass beconDeviceClass = arrayList.get(position);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.add_dialog);
+        dialog.setContentView(R.layout.add_device_dialog);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
         int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.95);
         dialog.getWindow().setLayout(width, height);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
-        EditText deviceName = dialog.findViewById(R.id.deviceName);
-        Spinner site_spinner = dialog.findViewById(R.id.site_spinner);
-        Spinner building_spinner = dialog.findViewById(R.id.building_spinner);
-        Spinner level_spinner = dialog.findViewById(R.id.level_spinner);
-        Spinner room_spinner = dialog.findViewById(R.id.room_spinner);
-        Spinner group_spinner = dialog.findViewById(R.id.group_spinner);
-//        TextView deviceUid=dialog.findViewById(R.id.add_device_uid);
-        Button addDevice = dialog.findViewById(R.id.btn_submit);
-//        EditText deviceName=dialog.findViewById(R.id.add_device_name);
-//        deviceUid.setText(beconDeviceClass.getDeviceUid());
-        group_spinner.setAdapter(adapter);
-        site_spinner.setAdapter(adapterSite);
-        building_spinner.setAdapter(adapterBuilding);
-        level_spinner.setAdapter(adapterLevel);
-        room_spinner.setAdapter(adapterRoom);
-        GroupDetailsClass selected = (GroupDetailsClass) group_spinner.getSelectedItem();
+        EditText deviceName = dialog.findViewById(R.id.add_device_name);
+        EditText master_select = dialog.findViewById(R.id.master_select);
+        TextView deviceUid=dialog.findViewById(R.id.add_device_uid);
+        deviceUid.setText(beconDeviceClass.getDeviceUid());
+//        Spinner site_spinner = dialog.findViewById(R.id.site_spinner);
+//        Spinner building_spinner = dialog.findViewById(R.id.building_spinner);
+//        Spinner level_spinner = dialog.findViewById(R.id.level_spinner);
+//        Spinner room_spinner = dialog.findViewById(R.id.room_spinner);
+//        Spinner group_spinner = dialog.findViewById(R.id.group_spinner);
+        Button addDevice = dialog.findViewById(R.id.add_device_button);
+//        group_spinner.setAdapter(adapter);
+//        site_spinner.setAdapter(adapterSite);
+//        building_spinner.setAdapter(adapterBuilding);
+//        level_spinner.setAdapter(adapterLevel);
+//        room_spinner.setAdapter(adapterRoom);
+//        GroupDetailsClass selected = (GroupDetailsClass) group_spinner.getSelectedItem();
         dialog.show();
 
-//        addDevice.setText(beconDeviceClass.isAdded()?"Added":"Add");
+////        addDevice.setText(beconDeviceClass.isAdded()?"Added":"Add");
+//        master_select.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                PopupMenu PopUp8 = new PopupMenu(activity, master_select);
+//                PopUp8.getMenuInflater().inflate(R.menu.select_master, PopUp8.getMenu());
+//                PopUp8.setOnMenuItemClickListener(item -> {
+//                    try {
+//                        master_select.setText(item.getTitle());
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                    return true;
+//                });
+//                PopUp8.show();
+//            }
+//        });
 //
         addDevice.setOnClickListener(view -> {
 
@@ -349,17 +366,22 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_TWO, "");
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_THREE, "");
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_Four, "");
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS,0);
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE, beconDeviceClass.getTypeCode());
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS, beconDeviceClass.getDeviceMacAddress());
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_STATUS, beconDeviceClass.getDeriveType() == 0 ? 1 : 0);
-            contentValues.put(DatabaseConstant.COLUMN_GROUP_SITE_ID, ((SiteGroupDetailsClass) site_spinner.getSelectedItem()).getGroupSiteId());
-            contentValues.put(DatabaseConstant.COLUMN_GROUP_BUILDINGID, ((BuildingGroupDetailsClass) building_spinner.getSelectedItem()).getGroupBuildingId());
-            contentValues.put(DatabaseConstant.COLUMN_GROUP_LEVELID, ((LevelGroupDetailsClass) level_spinner.getSelectedItem()).getGroupLevelId());
-            contentValues.put(DatabaseConstant.COLUMN_GROUP_ROOMID, ((RoomGroupDetailsClass) room_spinner.getSelectedItem()).getRoomGroupId());
-            contentValues.put(DatabaseConstant.COLUMN_GROUP_ID, ((GroupDetailsClass) group_spinner.getSelectedItem()).getGroupId());
+//            contentValues.put(DatabaseConstant.COLUMN_GROUP_SITE_ID, ((SiteGroupDetailsClass) site_spinner.getSelectedItem()).getGroupSiteId());
+//            contentValues.put(DatabaseConstant.COLUMN_GROUP_BUILDINGID, ((BuildingGroupDetailsClass) building_spinner.getSelectedItem()).getGroupBuildingId());
+//            contentValues.put(DatabaseConstant.COLUMN_GROUP_LEVELID, ((LevelGroupDetailsClass) level_spinner.getSelectedItem()).getGroupLevelId());
+//            contentValues.put(DatabaseConstant.COLUMN_GROUP_ROOMID, ((RoomGroupDetailsClass) room_spinner.getSelectedItem()).getRoomGroupId());
+//            contentValues.put(DatabaseConstant.COLUMN_GROUP_ID, ((GroupDetailsClass) group_spinner.getSelectedItem()).getGroupId());
+            contentValues.put(DatabaseConstant.COLUMN_GROUP_SITE_ID, 0);
+            contentValues.put(DatabaseConstant.COLUMN_GROUP_BUILDINGID, 0);
+            contentValues.put(DatabaseConstant.COLUMN_GROUP_LEVELID, 0);
+            contentValues.put(DatabaseConstant.COLUMN_GROUP_ROOMID, 0);
+            contentValues.put(DatabaseConstant.COLUMN_GROUP_ID, 0);
 //            Log.w("Selected group",((GroupDetailsClass) spinner.getSelectedItem()).getGroupId()+"");
             if (sqlHelper.insertData(DatabaseConstant.ADD_DEVICE_TABLE, contentValues) < 0) {
-
                 arrayList.get(position).setAdded(true);
                 Toast.makeText(activity, "Device Already added.", Toast.LENGTH_SHORT).show();
                 dialog.cancel();
@@ -367,48 +389,86 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
                 arrayList.get(position).setAdded(true);
                 arrayList.get(position).setDeviceName(deviceName.getText().toString());
                 Toast.makeText(activity, "Device  added successfully.", Toast.LENGTH_SHORT).show();
-                AdvertiseTask advertiseTask;
-                ByteQueue byteQueue = new ByteQueue();
-                byteQueue.push(ALL_GROUP_INFO);
-                byteQueue.push(0x01);
-                byteQueue.pushU4B(beconDeviceClass.getBeaconUID());
-                if (site_spinner.getSelectedItem().equals("No Site Group")) {
-                } else {
-                    byteQueue.push(((SiteGroupDetailsClass) site_spinner.getSelectedItem()).getGroupSiteId());
-                }
-                if (building_spinner.getSelectedItem().equals("No Building Group")) {
-                } else {
-                    byteQueue.push(((BuildingGroupDetailsClass) building_spinner.getSelectedItem()).getGroupBuildingId());
-                }
-                if (level_spinner.getSelectedItem().equals("No Level Group")) {
-                } else {
-                    byteQueue.push(((LevelGroupDetailsClass) level_spinner.getSelectedItem()).getGroupLevelId());
-                }
-
-                if (room_spinner.getSelectedItem().equals("No Room Group")) {
-                } else {
-                    byteQueue.push(((RoomGroupDetailsClass) room_spinner.getSelectedItem()).getRoomGroupId());
-                }
-//                if (group_spinner.getSelectedItem().equals("No Group")) {
-//                    ArrayList<Integer> arr = new ArrayList<Integer>();
-//                    for (int i = 1; i <= arr.size(); i++) {
-//                        arr.add(groupDetailsClasses.get(i).getGroupId());
-//                        Log.e("ARRAY", arr.toString());
-//                    }
-//                }
-
-//                byteQueue.push((groupDetailsClasses.get().getGroupId()));
-//                if (group_spinner.getSelectedItem().equals("No Group")) {
-//                } else {
-//                    byteQueue.push(((GroupDetailsClass) group_spinner.getSelectedItem()).getGroupId());
-//                }
-                advertiseTask = new AdvertiseTask(this, activity, 5 * 1000);
-                animatedProgress.setText("Uploading");
-                advertiseTask.setByteQueue(byteQueue);
-                Log.e("Check>>>>", byteQueue.toString());
-                advertiseTask.startAdvertising();
-
                 dialog.cancel();
+                NiftyDialogBuilder dialogBuilder=NiftyDialogBuilder.getInstance(activity);
+                dialogBuilder
+                        .withTitle("Master Light")
+                        .withEffect(Effectstype.Shake)
+                        .withMessage("Set light '"+deviceName.getText().toString()+"' as master light")
+                        .withButton1Text("OK")
+                        .setButton1Click(v -> {
+
+//                            Toast.makeText(activity, "This will be soon.", Toast.LENGTH_SHORT).show();
+                            selectedPosition=position;
+                            AdvertiseTask advertiseTask;
+                            ByteQueue byteQueue;
+                            byteQueue = new ByteQueue();
+                            byteQueue.push(RxMethodType.SELECT_MASTER);
+                            byteQueue.push(0x01);
+                            byteQueue.pushU4B(beconDeviceClass.getBeaconUID());
+                            byteQueue.push(0x01);
+                            Log.e("MAster>>>>", byteQueue.toString());
+                            advertiseTask = new AdvertiseTask(this, activity);
+                            advertiseTask.setByteQueue(byteQueue);
+                            advertiseTask.setSearchRequestCode(SELECT_MASTER_RESPONSE);
+                            advertiseTask.startAdvertising();
+                            dialogBuilder.dismiss();
+                        }) .withButton2Text("Cancel")
+                        .setButton2Click(v -> {
+                            dialogBuilder.dismiss();
+                        })
+                        .show();
+
+            }
+            notifyDataSetChanged();
+
+        });
+    }
+//                arrayList.get(position).setAdded(true);
+//                arrayList.get(position).setDeviceName(deviceName.getText().toString());
+//                Toast.makeText(activity, "Device  added successfully.", Toast.LENGTH_SHORT).show();
+////                AdvertiseTask advertiseTask;
+////                ByteQueue byteQueue = new ByteQueue();
+////                byteQueue.push(ALL_GROUP_INFO);
+////                byteQueue.push(0x01);
+////                byteQueue.pushU4B(beconDeviceClass.getBeaconUID());
+////                if (site_spinner.getSelectedItem().equals("No Site Group")) {
+////                } else {
+////                    byteQueue.push(((SiteGroupDetailsClass) site_spinner.getSelectedItem()).getGroupSiteId());
+////                }
+////                if (building_spinner.getSelectedItem().equals("No Building Group")) {
+////                } else {
+////                    byteQueue.push(((BuildingGroupDetailsClass) building_spinner.getSelectedItem()).getGroupBuildingId());
+////                }
+////                if (level_spinner.getSelectedItem().equals("No Level Group")) {
+////                } else {
+////                    byteQueue.push(((LevelGroupDetailsClass) level_spinner.getSelectedItem()).getGroupLevelId());
+////                }
+////
+////                if (room_spinner.getSelectedItem().equals("No Room Group")) {
+////                } else {
+////                    byteQueue.push(((RoomGroupDetailsClass) room_spinner.getSelectedItem()).getRoomGroupId());
+////                }
+////                if (group_spinner.getSelectedItem().equals("No Group")) {
+////                    ArrayList<Integer> arr = new ArrayList<Integer>();
+////                    for (int i = 1; i <= arr.size(); i++) {
+////                        arr.add(groupDetailsClasses.get(i).getGroupId());
+////                        Log.e("ARRAY", arr.toString());
+////                    }
+////                }
+//
+////                byteQueue.push((groupDetailsClasses.get().getGroupId()));
+////                if (group_spinner.getSelectedItem().equals("No Group")) {
+////                } else {
+////                    byteQueue.push(((GroupDetailsClass) group_spinner.getSelectedItem()).getGroupId());
+////                }
+////                advertiseTask = new AdvertiseTask(this, activity, 5 * 1000);
+////                animatedProgress.setText("Uploading");
+////                advertiseTask.setByteQueue(byteQueue);
+////                Log.e("Check>>>>", byteQueue.toString());
+////                advertiseTask.startAdvertising();
+//
+//                dialog.cancel();
 //                NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(activity);
 //                dialogBuilder
 //                        .withTitle("Master Light")
@@ -425,6 +485,7 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
 //                            byteQueue.pushU4B(beconDeviceClass.getBeaconUID());
 //                            byteQueue.push(0x00);
 //                            advertiseTask = new AdvertiseTask(this, activity);
+//                            Log.e("Master===>",byteQueue.toString());
 //                            advertiseTask.setByteQueue(byteQueue);
 //                            advertiseTask.setSearchRequestCode(SELECT_MASTER_RESPONSE);
 //                            arrayList.get(selectedPosition).setMasterStatus(1);
@@ -436,11 +497,11 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
 //                        })
 //                        .show();
 //
-            }
-            notifyDataSetChanged();
-
-        });
-    }
+//            }
+//            notifyDataSetChanged();
+//
+//        });
+//    }
 
 
     @Override
@@ -745,34 +806,55 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
         scannerTask = new ScannerTask(activity, this);
         scannerTask.setRequestCode(resultCode);
         scannerTask.start();
+        if (animatedProgress != null)
+            animatedProgress.hideProgress();
+        ContentValues contentValues = new ContentValues();
+        NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(activity);
         Log.w(TAG, "Advertising stop" + resultCode);
+        switch (resultCode) {
+            case SELECT_MASTER_RESPONSE:
+
+                contentValues.put(COLUMN_DEVICE_MASTER_STATUS, 1);
+                BeconDeviceClass beconDeviceClass = arrayList.get(selectedPosition);
+                arrayList.get(selectedPosition).setMasterStatus(1);
+                dialogBuilder
+                        .withTitle("Master Status")
+                        .withEffect(Effectstype.RotateBottom)
+                        .withMessage("Light is set as master")
+                        .withButton1Text("OK")
+                        .setButton1Click(v -> {
+                            sqlHelper.updateDevice(beconDeviceClass.getBeaconUID(), contentValues);
+                            dialogBuilder.dismiss();
+                        })
+                        .show();
+                break;
+        }
     }
 
 
     @Override
     public void onScanSuccess(int successCode, ByteQueue byteQueue) {
-        if (animatedProgress == null)
+        if(animatedProgress==null)
             return;
         animatedProgress.hideProgress();
-        ContentValues contentValues = new ContentValues();
+        ContentValues contentValues=new ContentValues();
 
-        Log.w("BYTEQUESIZE", byteQueue.size() + ",");
-        Log.w("MethodType", (int) byteQueue.pop() + "");
+        Log.w("BYTEQUESIZE",byteQueue.size()+",");
+        Log.w("MethodType",(int)byteQueue.pop()+"");
 
         byte bytes1;
         String nodeUid;
         long deviceUid;
         int lightStatus;
-        NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(activity);
+        NiftyDialogBuilder dialogBuilder=NiftyDialogBuilder.getInstance(activity);
         switch (successCode) {
             case SELECT_MASTER_RESPONSE:
-
-
-                BeconDeviceClass beconDeviceClass = arrayList.get(selectedPosition);
+                BeconDeviceClass beconDeviceClass=arrayList.get(selectedPosition);
                 arrayList.get(selectedPosition).setMasterStatus(1);
-                lightStatus = byteQueue.pop();
+                lightStatus=byteQueue.pop();
 
-                contentValues.put(COLUMN_DEVICE_MASTER_STATUS, lightStatus == 0 ? 1 : 0);
+                contentValues.put(COLUMN_DEVICE_MASTER_STATUS, 1);
+
 
 
                 dialogBuilder
@@ -781,10 +863,11 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
                         .withMessage("Light is set as master")
                         .withButton1Text("OK")
                         .setButton1Click(v -> {
+                            sqlHelper.updateDevice(beconDeviceClass.getBeaconUID(), contentValues);
                             dialogBuilder.dismiss();
                         })
                         .show();
-                Log.w("DashGroup", sqlHelper.updateDevice(beconDeviceClass.getBeaconUID(), contentValues) + "");
+                Log.w("DashGroup", AppHelper.sqlHelper.updateDevice(beconDeviceClass.getBeaconUID(), contentValues) +"");
 
                 break;
 
@@ -795,10 +878,10 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
 
     @Override
     public void onScanFailed(int errorCode) {
-        if (animatedProgress == null)
+        if(animatedProgress==null)
             return;
         animatedProgress.hideProgress();
-//        NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(activity);
+//        NiftyDialogBuilder dialogBuilder=NiftyDialogBuilder.getInstance(activity);
 //        dialogBuilder
 //                .withTitle("Timeout")
 //                .withEffect(Effectstype.Slit)

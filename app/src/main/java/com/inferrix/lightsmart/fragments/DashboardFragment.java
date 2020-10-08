@@ -2,23 +2,32 @@ package com.inferrix.lightsmart.fragments;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.CustomProgress.CustomDialog.AnimatedProgress;
 import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
+import com.inferrix.lightsmart.EncodeDecodeModule.ByteQueue;
+import com.inferrix.lightsmart.InterfaceModule.AdvertiseResultInterface;
+import com.inferrix.lightsmart.InterfaceModule.ReceiverResultInterface;
 import com.inferrix.lightsmart.PogoClasses.BuildingGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.DeviceClass;
 import com.inferrix.lightsmart.PogoClasses.GroupDetailsClass;
@@ -27,6 +36,9 @@ import com.inferrix.lightsmart.PogoClasses.LevelGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.RoomGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.SiteGroupDetailsClass;
 import com.inferrix.lightsmart.R;
+import com.inferrix.lightsmart.ServiceModule.AdvertiseTask;
+import com.inferrix.lightsmart.ServiceModule.ScannerTask;
+import com.inferrix.lightsmart.activity.HelperActivity;
 import com.inferrix.lightsmart.adapter.DashboardBuildingAdapter;
 import com.inferrix.lightsmart.adapter.DashboardItemAdapter;
 import com.inferrix.lightsmart.adapter.DashboardLevelAdapter;
@@ -37,17 +49,22 @@ import com.inferrix.lightsmart.adapter.IndividualBandAdapter;
 import com.inferrix.lightsmart.adapter.IndividualLightAdapter;
 import com.inferrix.lightsmart.adapter.IndividualPirSwitchAdapter;
 import com.inferrix.lightsmart.adapter.IndividualSwitchAdapter;
+import com.inferrix.lightsmart.constant.Constants;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.DISABLE_BLUETOOTH_INFO;
 import static com.inferrix.lightsmart.activity.AppHelper.sqlHelper;
 
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements AdvertiseResultInterface, ReceiverResultInterface {
+    @BindView(R.id.disableBluetooth)
+    Button disableBluetooth;
     @BindView(R.id.dashboard_home_setting_layout)
     LinearLayout dashboardHomeSettingLayout;
     @BindView(R.id.group_list_layout)
@@ -109,6 +126,8 @@ public class DashboardFragment extends Fragment {
     ListView dashRoomGroupList;
     @BindView(R.id.group_room_list_layout)
     LinearLayout groupRoomListLayout;
+    AnimatedProgress animatedProgress;
+    ScannerTask scannerTask;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -461,6 +480,9 @@ public class DashboardFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         activity = getActivity();
+        scannerTask = new ScannerTask(activity, this);
+        animatedProgress = new AnimatedProgress(activity);
+        animatedProgress.setCancelable(false);
         if (activity == null)
             return view;
         dashboardItemAdapter = new DashboardItemAdapter(activity);
@@ -625,6 +647,43 @@ public class DashboardFragment extends Fragment {
         return view;
     }
 
+    @OnClick({R.id.disableBluetooth})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.disableBluetooth:
+                disableBluetoothDialog();
+                break;
+        }
+    }
+
+    void disableBluetoothDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage("This will stop scanning all non master light.It is recommended to select this after all setting done.\nDo you want to continue")
+                .setTitle("Stop Scanning");
+        builder.setPositiveButton("Ok", (dialog1, id) -> {
+            dialog1.dismiss();
+            AdvertiseTask advertiseTask;
+            ByteQueue byteQueue = new ByteQueue();
+            byteQueue.push(DISABLE_BLUETOOTH_INFO);
+            byteQueue.push(0x02);
+            byteQueue.push(0x05);
+            byteQueue.push(0x06);
+            advertiseTask = new AdvertiseTask(DashboardFragment.this, activity, 5 * 1000);
+            animatedProgress.setText("Uploading");
+            advertiseTask.setByteQueue(byteQueue);
+            Log.e("Check>>>>", byteQueue.toString());
+//                    advertiseTask.setSearchRequestCode(REMOVE_ASSOCIATE);
+            advertiseTask.startAdvertising();
+
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
     @Override
     public void onResume() {
         getAllGroups();
@@ -644,6 +703,41 @@ public class DashboardFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onSuccess(String message) {
+        animatedProgress.showProgress();
+    }
+
+    @Override
+    public void onFailed(String errorMessage) {
+        if (animatedProgress == null)
+            return;
+        Toast.makeText(activity, "Uploading", Toast.LENGTH_SHORT).show();
+        animatedProgress.hideProgress();
+    }
+
+    @Override
+    public void onStop(String stopMessage, int resultCode) {
+        if (animatedProgress != null)
+            animatedProgress.hideProgress();
+    }
+
+    @Override
+    public void onScanSuccess(int successCode, ByteQueue byteQueue) {
+        if (animatedProgress == null)
+            return;
+        animatedProgress.hideProgress();
+    }
+
+    @Override
+    public void onScanFailed(int errorCode) {
+        if (animatedProgress == null)
+            return;
+        animatedProgress.hideProgress();
+//        activity.onBackPressed();
+
     }
 
 //    @OnClick(R.id.dashboard_home_setting_layout)

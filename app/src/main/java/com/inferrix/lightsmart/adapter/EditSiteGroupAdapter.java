@@ -327,7 +327,7 @@ public class EditSiteGroupAdapter extends BaseAdapter implements ReceiverResultI
             AdvertiseTask advertiseTask;
             advertiseTask=new AdvertiseTask(this,activity,5*1000);
             advertiseTask.setByteQueue(byteQueue);
-            advertiseTask.setSearchRequestCode(REMOVE_GROUP_RESPONSE);
+//            advertiseTask.setSearchRequestCode(REMOVE_GROUP_RESPONSE);
             advertiseTask.startAdvertising();
 
 //            Toast.makeText(activity, "Will be soon", Toast.LENGTH_SHORT).show();

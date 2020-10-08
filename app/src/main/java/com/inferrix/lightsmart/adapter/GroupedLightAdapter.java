@@ -111,10 +111,10 @@ public class GroupedLightAdapter extends BaseAdapter {
                 Toast.makeText(activity, "Some error,Please try again.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
-            intent.putExtra(Constants.LIGHT_DETAIL_KEY,deviceClass);
-            activity.startActivity(intent);
+//            Intent intent = new Intent(activity, HelperActivity.class);
+//            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_LIGHT);
+//            intent.putExtra(Constants.LIGHT_DETAIL_KEY,deviceClass);
+//            activity.startActivity(intent);
 
         });
 

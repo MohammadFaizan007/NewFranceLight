@@ -27,8 +27,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
@@ -42,7 +40,6 @@ import com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType;
 import com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType;
 import com.inferrix.lightsmart.InterfaceModule.AdvertiseResultInterface;
 import com.inferrix.lightsmart.InterfaceModule.ReceiverResultInterface;
-import com.inferrix.lightsmart.PogoClasses.BeconDeviceClass;
 import com.inferrix.lightsmart.PogoClasses.BuildingGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.DeviceClass;
 import com.inferrix.lightsmart.PogoClasses.GroupDetailsClass;
@@ -75,14 +72,16 @@ import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEV
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_PROGRESS;
 import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_STATUS;
 import static com.inferrix.lightsmart.EncodeDecodeModule.ArrayUtilities.bytesToHex;
-import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ADD_ASSOCIATE;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ADD_BUILDING_GROUP;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ADD_GROUP;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ADD_LEVEL_GROUP;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ADD_ROOM_GROUP;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ADD_SITE_GROUP;
-import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LIGHT_INFO;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LIGHT_LEVEL_COMMAND;
+import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LUX_LEVEL_FOUR_INFO;
+import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LUX_LEVEL_ONE_INFO;
+import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LUX_LEVEL_THREE_INFO;
+import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LUX_LEVEL_TWO_INFO;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.GROUP_RESPONSE;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.LIGHT_LEVEL_COMMAND_RESPONSE;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.LIGHT_LEVEL_RESPONSE;
@@ -172,7 +171,9 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
     AdvertiseTask advertiseTask;
     String name = "";
     int position;
+    EditText lux_level_one, dimming_level1, lux_level_two, lux_level_three, lux_level_four, lux_level_five, dimming_level2, dimming_level3, dimming_level4;
     String enableSite = "", enableBuilding = "", enableLevel = "", enableRoom = "", enablegroup = "";
+    String luxLevelOne = "", luxLevelTwo = "", luxLevelThree = "", luxLevelFour = "", luxLevelFive = "", dimingLevelOne = "", dimingLevelTwo = "", dimingLevelThree = "", dimingLevelFour = "";
 
 
     public EditDeviceFragment() {
@@ -189,8 +190,6 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
         Type = getActivity().getIntent().getStringExtra("type");
         name = getActivity().getIntent().getStringExtra("name");
         position = getActivity().getIntent().getIntExtra("pos", 0);
-        Log.e("TYPE====>", name.trim() + position);
-
         if (deviceClass == null) {
             deviceClass = new DeviceClass();
         }
@@ -235,8 +234,6 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
             set_level.setVisibility(View.GONE);
             light_set_master.setVisibility(View.GONE);
         }
-
-
 //        details.setOnClickListener(v -> {
 //            Intent intent = new Intent(activity, HelperActivity.class);
 //            intent.putExtra(Constants.MAIN_KEY, Constants.READ_DETAILS);
@@ -741,7 +738,8 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
         cursor.close();
         if (deviceClass1 != null) {
             if (deviceClass1.getMasterStatus() == 1) {
-                showAlert(String.format("'%s' is master.", deviceClass.getDeviceName()));
+                enableAttributes();
+//                showAlert(String.format("'%s' is master.", deviceClass.getDeviceName()));
             } else {
                 showAlert(String.format("'%s' is not master.", deviceClass.getDeviceName()));
             }
@@ -953,11 +951,11 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
                             PreferencesManager.getInstance(getContext()).setList(Constants.ATTRIBUTE_TYPE, list);
                             byteQueue[0] = new ByteQueue();
                             byteQueue[0].push(RxMethodType.RESET_NODE_INFO);
-                            byteQueue[0].pushU4B(deviceClass.getDeviceUID());
                             byteQueue[0].push(0x01);
+                            byteQueue[0].pushU4B(deviceClass.getDeviceUID());
                             advertiseTask[0] = new AdvertiseTask(this, activity);
                             advertiseTask[0].setByteQueue(byteQueue[0]);
-                            Log.e("RESET===>",byteQueue[0].toString());
+                            Log.e("RESET===>", byteQueue[0].toString());
                             advertiseTask[0].startAdvertising();
 
                             dialogBuilder12.dismiss();
@@ -968,7 +966,31 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
                         .show();
                 break;
             case R.id.hold_time:
-                holdTimeDialog();
+//                holdTimeDialog();
+                DeviceClass deviceClass1 = null;
+                Cursor cursor = sqlHelper.getLightDetails(deviceClass.getDeviceUID());
+                if (cursor.moveToFirst()) {
+                    do {
+                        deviceClass1 = new DeviceClass();
+                        deviceClass1.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+                        deviceClass1.setDeviceUID(cursor.getLong(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
+                        deviceClass1.setDeviceDimming(cursor.getInt(cursor.getColumnIndex(COLUMN_DEVICE_PROGRESS)));
+                        deviceClass1.setGroupId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ID)));
+                        deviceClass1.setMasterStatus(cursor.getInt(cursor.getColumnIndex(COLUMN_DEVICE_MASTER_STATUS)));
+                        deviceClass1.setStatus(cursor.getInt(cursor.getColumnIndex(COLUMN_DEVICE_STATUS)) == 1);
+
+                        // do what ever you want here
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+                if (deviceClass1 != null) {
+                    if (deviceClass1.getMasterStatus() == 1) {
+                        holdTimeDialog();
+//                showAlert(String.format("'%s' is master.", deviceClass.getDeviceName()));
+                    } else {
+                        showAlert(String.format("'%s' is not master.", deviceClass.getDeviceName()));
+                    }
+                }
 
                 break;
             case R.id.light_check_status:
@@ -1034,301 +1056,337 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
 //                addGroupDialog();
                 break;
             case R.id.lux_leve:
-                luxlevelDialog();
+//                luxlevelDialog();
+                DeviceClass deviceClass2 = null;
+                Cursor cursor1 = sqlHelper.getLightDetails(deviceClass.getDeviceUID());
+                if (cursor1.moveToFirst()) {
+                    do {
+                        deviceClass2 = new DeviceClass();
+                        deviceClass2.setDeviceName(cursor1.getString(cursor1.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+                        deviceClass2.setDeviceUID(cursor1.getLong(cursor1.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
+                        deviceClass2.setDeviceDimming(cursor1.getInt(cursor1.getColumnIndex(COLUMN_DEVICE_PROGRESS)));
+                        deviceClass2.setGroupId(cursor1.getInt(cursor1.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ID)));
+                        deviceClass2.setMasterStatus(cursor1.getInt(cursor1.getColumnIndex(COLUMN_DEVICE_MASTER_STATUS)));
+                        deviceClass2.setStatus(cursor1.getInt(cursor1.getColumnIndex(COLUMN_DEVICE_STATUS)) == 1);
+
+                        // do what ever you want here
+                    } while (cursor1.moveToNext());
+                }
+                cursor1.close();
+                if (deviceClass2 != null) {
+                    if (deviceClass2.getMasterStatus() == 1) {
+                        luxlevelDialog();
+//                showAlert(String.format("'%s' is master.", deviceClass.getDeviceName()));
+                    } else {
+                        showAlert(String.format("'%s' is not master.", deviceClass.getDeviceName()));
+                    }
+                }
                 break;
 
             case R.id.enable_attribute:
-                enableAttributes();
+                checkMaster();
+//                if (deviceClass.getMasterStatus()==1){
+//                    enableAttributes();
+//                }else {
+//                    showAlert("Please make "+ deviceClass.getDeviceName() +" as a master");
+//                }
+
                 break;
         }
     }
 
     public void enableAttributes() {
-        final Dialog dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.attributes);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
-        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.95);
-        dialog.getWindow().setLayout(width, height);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
-        if (PreferencesManager.getInstance(getContext()).getList(Constants.ATTRIBUTE_TYPE) != null) {
-            List<String> list = PreferencesManager.getInstance(getContext()).getList(Constants.ATTRIBUTE_TYPE);
-            Log.e(">>", list.toString());
-            for (int i = 0; i < list.size(); i++) {
-                Log.e(">>>name", list.get(i).toString());
-                if (list.get(i).contains(name)) {
-                    if (list.get(i).contains("site")) {
-                        if (list.get(i).equalsIgnoreCase("siteenable" + name)) {
-                            enableSite = "enable";
-                        } else {
-                            enableSite = "disable";
-                        }
-                    }
-                    if (list.get(i).contains("building")) {
-                        if (list.get(i).equalsIgnoreCase("buildingenable" + name)) {
-                            enableBuilding = "enable";
-                        } else {
-                            enableBuilding = "disable";
-                        }
-
-                    }
-                    if (list.get(i).contains("level")) {
-                        if (list.get(i).equalsIgnoreCase("levelenable" + name)) {
-                            enableLevel = "enable";
-                        } else {
-                            enableLevel = "disable";
-                        }
-
-                    }
-
-                    if (list.get(i).contains("room")) {
-                        if (list.get(i).equalsIgnoreCase("roomenable" + name)) {
-                            enableRoom = "enable";
-                        } else {
-                            enableRoom = "disable";
-                        }
-
-                    }
-
-                    if (list.get(i).contains("group")) {
-                        if (list.get(i).equalsIgnoreCase("groupenable" + name)) {
-                            enablegroup = "enable";
-                        } else {
-                            enablegroup = "disable";
-                        }
-
-                    }
-
-
-                }
-            }
-        }
-        dialog.show();
-        EditText deviceName = dialog.findViewById(R.id.deviceName);
-        EditText site_attribute = dialog.findViewById(R.id.site_attribute);
-        EditText building_attribute = dialog.findViewById(R.id.building_attribute);
-        EditText level_attribute = dialog.findViewById(R.id.level_attribute);
-        EditText room_attribute = dialog.findViewById(R.id.room_attribute);
-        EditText group_attribute = dialog.findViewById(R.id.group_attribute);
-        Button btn_submit = dialog.findViewById(R.id.btn_submit);
-        deviceName.setText(deviceClass.getDeviceName());
-        if (enableSite.equalsIgnoreCase("enable")) {
-            site_attribute.setText("Enable");
-        } else {
-            site_attribute.setText("Disable");
-        }
-        if (enableBuilding.equalsIgnoreCase("enable")) {
-            building_attribute.setText("Enable");
-        } else {
-            building_attribute.setText("Disable");
-        }
-
-        if (enableLevel.equalsIgnoreCase("enable")) {
-            level_attribute.setText("Enable");
-        } else {
-            level_attribute.setText("Disable");
-        }
-        if (enableRoom.equalsIgnoreCase("enable")) {
-            room_attribute.setText("Enable");
-        } else {
-            room_attribute.setText("Disable");
-        }
-
-        if (enablegroup.equalsIgnoreCase("enable")) {
-            group_attribute.setText("Enable");
-        } else {
-            group_attribute.setText("Disable");
-        }
-
-        site_attribute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu airPopUp2 = new PopupMenu(activity, site_attribute);
-                airPopUp2.getMenuInflater().inflate(R.menu.show_attributes, airPopUp2.getMenu());
-                airPopUp2.setOnMenuItemClickListener(item -> {
-                    try {
-                        site_attribute.setText(item.getTitle());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                });
-                airPopUp2.show();
-            }
-        });
-        building_attribute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu airPopUp2 = new PopupMenu(activity, building_attribute);
-                airPopUp2.getMenuInflater().inflate(R.menu.show_attributes, airPopUp2.getMenu());
-                airPopUp2.setOnMenuItemClickListener(item -> {
-                    try {
-                        building_attribute.setText(item.getTitle());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                });
-                airPopUp2.show();
-            }
-        });
-
-        level_attribute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu airPopUp2 = new PopupMenu(activity, level_attribute);
-                airPopUp2.getMenuInflater().inflate(R.menu.show_attributes, airPopUp2.getMenu());
-                airPopUp2.setOnMenuItemClickListener(item -> {
-                    try {
-                        level_attribute.setText(item.getTitle());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                });
-                airPopUp2.show();
-            }
-        });
-
-        room_attribute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu airPopUp2 = new PopupMenu(activity, room_attribute);
-                airPopUp2.getMenuInflater().inflate(R.menu.show_attributes, airPopUp2.getMenu());
-                airPopUp2.setOnMenuItemClickListener(item -> {
-                    try {
-                        room_attribute.setText(item.getTitle());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                });
-                airPopUp2.show();
-            }
-        });
-
-        group_attribute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu airPopUp2 = new PopupMenu(activity, group_attribute);
-                airPopUp2.getMenuInflater().inflate(R.menu.show_attributes, airPopUp2.getMenu());
-                airPopUp2.setOnMenuItemClickListener(item -> {
-                    try {
-                        group_attribute.setText(item.getTitle());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return true;
-                });
-                airPopUp2.show();
-            }
-        });
-        btn_submit.setOnClickListener(view -> {
-            AdvertiseTask advertiseTask;
-            ByteQueue byteQueue = new ByteQueue();
-            byteQueue.push(RxMethodType.ATTRIBUTES_INFO);       ////State Command
-            byteQueue.push(0x04);
-            byteQueue.pushU4B(deviceClass.getDeviceUID());
-            List<String> list = new ArrayList<>();
+//        if (deviceClass.getMasterStatus() == 1) {
+            final Dialog dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.attributes);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
+            int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.95);
+            dialog.getWindow().setLayout(width, height);
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
             if (PreferencesManager.getInstance(getContext()).getList(Constants.ATTRIBUTE_TYPE) != null) {
-                list = PreferencesManager.getInstance(getContext()).getList(Constants.ATTRIBUTE_TYPE);
+                List<String> list = PreferencesManager.getInstance(getContext()).getList(Constants.ATTRIBUTE_TYPE);
+                Log.e(">>", list.toString());
                 for (int i = 0; i < list.size(); i++) {
+                    Log.e(">>>name", list.get(i).toString());
                     if (list.get(i).contains(name)) {
-                        list.remove(i);
+                        if (list.get(i).contains("site")) {
+                            if (list.get(i).equalsIgnoreCase("siteenable" + name)) {
+                                enableSite = "enable";
+                            } else {
+                                enableSite = "disable";
+                            }
+                        }
+                        if (list.get(i).contains("building")) {
+                            if (list.get(i).equalsIgnoreCase("buildingenable" + name)) {
+                                enableBuilding = "enable";
+                            } else {
+                                enableBuilding = "disable";
+                            }
+
+                        }
+                        if (list.get(i).contains("level")) {
+                            if (list.get(i).equalsIgnoreCase("levelenable" + name)) {
+                                enableLevel = "enable";
+                            } else {
+                                enableLevel = "disable";
+                            }
+
+                        }
+
+                        if (list.get(i).contains("room")) {
+                            if (list.get(i).equalsIgnoreCase("roomenable" + name)) {
+                                enableRoom = "enable";
+                            } else {
+                                enableRoom = "disable";
+                            }
+
+                        }
+
+                        if (list.get(i).contains("group")) {
+                            if (list.get(i).equalsIgnoreCase("groupenable" + name)) {
+                                enablegroup = "enable";
+                            } else {
+                                enablegroup = "disable";
+                            }
+
+                        }
+
+
                     }
                 }
             }
-            if (site_attribute.getText().toString().equalsIgnoreCase("Enable")) {
-                list.add("site" + "enable" + name);
+            dialog.show();
+            EditText deviceName = dialog.findViewById(R.id.deviceName);
+            EditText site_attribute = dialog.findViewById(R.id.site_attribute);
+            EditText building_attribute = dialog.findViewById(R.id.building_attribute);
+            EditText level_attribute = dialog.findViewById(R.id.level_attribute);
+            EditText room_attribute = dialog.findViewById(R.id.room_attribute);
+            EditText group_attribute = dialog.findViewById(R.id.group_attribute);
+            Button btn_submit = dialog.findViewById(R.id.btn_submit);
+            deviceName.setText(deviceClass.getDeviceName());
+            if (enableSite.equalsIgnoreCase("enable")) {
+                site_attribute.setText("Enable");
             } else {
-                list.add("site" + "disable" + name);
+                site_attribute.setText("Disable");
             }
-            if (building_attribute.getText().toString().equalsIgnoreCase("Enable")) {
-                list.add("building" + "enable" + name);
+            if (enableBuilding.equalsIgnoreCase("enable")) {
+                building_attribute.setText("Enable");
             } else {
-                list.add("building" + "disable" + name);
-            }
-            if (level_attribute.getText().toString().equalsIgnoreCase("Enable")) {
-                list.add("level" + "enable" + name);
-            } else {
-                list.add("level" + "disable" + name);
-            }
-            if (room_attribute.getText().toString().equalsIgnoreCase("Enable")) {
-                list.add("room" + "enable" + name);
-            } else {
-                list.add("room" + "disable" + name);
+                building_attribute.setText("Disable");
             }
 
-            if (group_attribute.getText().toString().equalsIgnoreCase("Enable")) {
-                list.add("group" + "enable" + name);
+            if (enableLevel.equalsIgnoreCase("enable")) {
+                level_attribute.setText("Enable");
             } else {
-                list.add("group" + "disable" + name);
+                level_attribute.setText("Disable");
             }
-            PreferencesManager.getInstance(getContext()).setList(Constants.ATTRIBUTE_TYPE, list);
+            if (enableRoom.equalsIgnoreCase("enable")) {
+                room_attribute.setText("Enable");
+            } else {
+                room_attribute.setText("Disable");
+            }
+
+            if (enablegroup.equalsIgnoreCase("enable")) {
+                group_attribute.setText("Enable");
+            } else {
+                group_attribute.setText("Disable");
+            }
+
+            site_attribute.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu airPopUp2 = new PopupMenu(activity, site_attribute);
+                    airPopUp2.getMenuInflater().inflate(R.menu.show_attributes, airPopUp2.getMenu());
+                    airPopUp2.setOnMenuItemClickListener(item -> {
+                        try {
+                            site_attribute.setText(item.getTitle());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return true;
+                    });
+                    airPopUp2.show();
+                }
+            });
+            building_attribute.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu airPopUp2 = new PopupMenu(activity, building_attribute);
+                    airPopUp2.getMenuInflater().inflate(R.menu.show_attributes, airPopUp2.getMenu());
+                    airPopUp2.setOnMenuItemClickListener(item -> {
+                        try {
+                            building_attribute.setText(item.getTitle());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return true;
+                    });
+                    airPopUp2.show();
+                }
+            });
+
+            level_attribute.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu airPopUp2 = new PopupMenu(activity, level_attribute);
+                    airPopUp2.getMenuInflater().inflate(R.menu.show_attributes, airPopUp2.getMenu());
+                    airPopUp2.setOnMenuItemClickListener(item -> {
+                        try {
+                            level_attribute.setText(item.getTitle());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return true;
+                    });
+                    airPopUp2.show();
+                }
+            });
+
+            room_attribute.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu airPopUp2 = new PopupMenu(activity, room_attribute);
+                    airPopUp2.getMenuInflater().inflate(R.menu.show_attributes, airPopUp2.getMenu());
+                    airPopUp2.setOnMenuItemClickListener(item -> {
+                        try {
+                            room_attribute.setText(item.getTitle());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return true;
+                    });
+                    airPopUp2.show();
+                }
+            });
+
+            group_attribute.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu airPopUp2 = new PopupMenu(activity, group_attribute);
+                    airPopUp2.getMenuInflater().inflate(R.menu.show_attributes, airPopUp2.getMenu());
+                    airPopUp2.setOnMenuItemClickListener(item -> {
+                        try {
+                            group_attribute.setText(item.getTitle());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return true;
+                    });
+                    airPopUp2.show();
+                }
+            });
+            btn_submit.setOnClickListener(view -> {
+                AdvertiseTask advertiseTask;
+                ByteQueue byteQueue = new ByteQueue();
+                byteQueue.push(RxMethodType.ATTRIBUTES_INFO);       ////State Command
+                byteQueue.push(0x04);
+                byteQueue.pushU4B(deviceClass.getDeviceUID());
+                List<String> list = new ArrayList<>();
+                if (PreferencesManager.getInstance(getContext()).getList(Constants.ATTRIBUTE_TYPE) != null) {
+                    list = PreferencesManager.getInstance(getContext()).getList(Constants.ATTRIBUTE_TYPE);
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).contains(name)) {
+                            list.remove(i);
+                        }
+                    }
+                }
+                if (site_attribute.getText().toString().equalsIgnoreCase("Enable")) {
+                    list.add("site" + "enable" + name);
+                } else {
+                    list.add("site" + "disable" + name);
+                }
+                if (building_attribute.getText().toString().equalsIgnoreCase("Enable")) {
+                    list.add("building" + "enable" + name);
+                } else {
+                    list.add("building" + "disable" + name);
+                }
+                if (level_attribute.getText().toString().equalsIgnoreCase("Enable")) {
+                    list.add("level" + "enable" + name);
+                } else {
+                    list.add("level" + "disable" + name);
+                }
+                if (room_attribute.getText().toString().equalsIgnoreCase("Enable")) {
+                    list.add("room" + "enable" + name);
+                } else {
+                    list.add("room" + "disable" + name);
+                }
+
+                if (group_attribute.getText().toString().equalsIgnoreCase("Enable")) {
+                    list.add("group" + "enable" + name);
+                } else {
+                    list.add("group" + "disable" + name);
+                }
+                PreferencesManager.getInstance(getContext()).setList(Constants.ATTRIBUTE_TYPE, list);
 
 
-            if (site_attribute.getText().toString().equalsIgnoreCase("Enable")) {
-                byteQueue.push(0x01);
-            } else if (site_attribute.getText().toString().equalsIgnoreCase("Disable")) {
-                byteQueue.push(0x00);
-            }
-            if (building_attribute.getText().toString().equalsIgnoreCase("Enable")) {
-                byteQueue.push(0x01);
-            } else if (building_attribute.getText().toString().equalsIgnoreCase("Disable")) {
-                byteQueue.push(0x00);
-            }
-            if (level_attribute.getText().toString().equalsIgnoreCase("Enable")) {
-                byteQueue.push(0x01);
-            } else if (level_attribute.getText().toString().equalsIgnoreCase("Disable")) {
-                byteQueue.push(0x00);
-            }
-            if (room_attribute.getText().toString().equalsIgnoreCase("Enable")) {
-                byteQueue.push(0x01);
-            } else if (room_attribute.getText().toString().equalsIgnoreCase("Disable")) {
-                byteQueue.push(0x00);
-            }
-            if (group_attribute.getText().toString().equalsIgnoreCase("Enable")) {
-                byteQueue.push(0x01);
-            } else if (group_attribute.getText().toString().equalsIgnoreCase("Disable")) {
-                byteQueue.push(0x00);
-            }
-            Log.e("Lux====>", byteQueue.toString());
-            advertiseTask = new AdvertiseTask(EditDeviceFragment.this, activity, 5 * 1000);
-            advertiseTask.setByteQueue(byteQueue);
-            advertiseTask.startAdvertising();
-            dialog.dismiss();
-        });
+                if (site_attribute.getText().toString().equalsIgnoreCase("Enable")) {
+                    byteQueue.push(0x01);
+                } else if (site_attribute.getText().toString().equalsIgnoreCase("Disable")) {
+                    byteQueue.push(0x00);
+                }
+                if (building_attribute.getText().toString().equalsIgnoreCase("Enable")) {
+                    byteQueue.push(0x01);
+                } else if (building_attribute.getText().toString().equalsIgnoreCase("Disable")) {
+                    byteQueue.push(0x00);
+                }
+                if (level_attribute.getText().toString().equalsIgnoreCase("Enable")) {
+                    byteQueue.push(0x01);
+                } else if (level_attribute.getText().toString().equalsIgnoreCase("Disable")) {
+                    byteQueue.push(0x00);
+                }
+                if (room_attribute.getText().toString().equalsIgnoreCase("Enable")) {
+                    byteQueue.push(0x01);
+                } else if (room_attribute.getText().toString().equalsIgnoreCase("Disable")) {
+                    byteQueue.push(0x00);
+                }
+                if (group_attribute.getText().toString().equalsIgnoreCase("Enable")) {
+                    byteQueue.push(0x01);
+                } else if (group_attribute.getText().toString().equalsIgnoreCase("Disable")) {
+                    byteQueue.push(0x00);
+                }
+                Log.e("Lux====>", byteQueue.toString());
+                advertiseTask = new AdvertiseTask(EditDeviceFragment.this, activity, 5 * 1000);
+                advertiseTask.setByteQueue(byteQueue);
+                advertiseTask.startAdvertising();
+                dialog.dismiss();
+            });
+
+//        } else {
+//            Toast.makeText(activity, "Make Light as a master.", Toast.LENGTH_SHORT).show();
+//        }
+
 
     }
 
     public void luxlevelDialog() {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.lux_level);
+        dialog.setContentView(R.layout.set_lux_level);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         int width = (int) (activity.getResources().getDisplayMetrics().widthPixels * 0.95);
         int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.95);
         dialog.getWindow().setLayout(width, height);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
-        dialog.show();
-        EditText lux_level_one = dialog.findViewById(R.id.lux_level_one);
-        EditText dimming_level1 = dialog.findViewById(R.id.dimming_level1);
+        lux_level_one = dialog.findViewById(R.id.lux_level_one);
+        dimming_level1 = dialog.findViewById(R.id.dimming_level1);
         dimming_level1.setFilters(new InputFilter[]{new MinMaxFilter("1", "255")});
         Button btn_submit1 = dialog.findViewById(R.id.btn_submit1);
-        EditText lux_level_two = dialog.findViewById(R.id.lux_level_two);
-        EditText dimming_level2 = dialog.findViewById(R.id.dimming_level2);
+        lux_level_two = dialog.findViewById(R.id.lux_level_two);
+        dimming_level2 = dialog.findViewById(R.id.dimming_level2);
         dimming_level2.setFilters(new InputFilter[]{new MinMaxFilter("1", "255")});
         Button btn_submit2 = dialog.findViewById(R.id.btn_submit2);
-        EditText lux_level_three = dialog.findViewById(R.id.lux_level_three);
-        EditText dimming_level3 = dialog.findViewById(R.id.dimming_level3);
+        lux_level_three = dialog.findViewById(R.id.lux_level_three);
+        dimming_level3 = dialog.findViewById(R.id.dimming_level3);
         dimming_level3.setFilters(new InputFilter[]{new MinMaxFilter("1", "255")});
         Button btn_submit3 = dialog.findViewById(R.id.btn_submit3);
-        EditText lux_level_four = dialog.findViewById(R.id.lux_level_four);
-        EditText dimming_level4 = dialog.findViewById(R.id.dimming_level4);
+        lux_level_four = dialog.findViewById(R.id.lux_level_four);
+        dimming_level4 = dialog.findViewById(R.id.dimming_level4);
         dimming_level4.setFilters(new InputFilter[]{new MinMaxFilter("1", "255")});
         Button btn_submit4 = dialog.findViewById(R.id.btn_submit4);
-        EditText lux_level_five = dialog.findViewById(R.id.lux_level_five);
+        lux_level_five = dialog.findViewById(R.id.lux_level_five);
+
         lux_level_one.setText(deviceClass.getLuxLevelOne());
         lux_level_two.setText(deviceClass.getLuxLevelTwo());
         lux_level_three.setText(deviceClass.getLuxLevelThree());
@@ -1338,6 +1396,7 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
         dimming_level2.setText(deviceClass.getDimmingLevelTwo());
         dimming_level3.setText(deviceClass.getDimmingLevelThre());
         dimming_level4.setText(deviceClass.getDimmingLevelFour());
+        dialog.show();
         Log.e("Level======>", deviceClass.getLuxLevelThree());
         btn_submit1.setOnClickListener(view -> {
             if (lux_level_one.getText().toString().length() == 0) {
@@ -1350,20 +1409,12 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
                 showError("Lux level 1 can't empty", dimming_level1);
                 return;
             }
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE, lux_level_one.getText().toString());
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO, lux_level_two.getText().toString());
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_ONE, dimming_level1.getText().toString());
-            if (sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues)) {
-            }
             String room_dialog = dimming_level1.getText().toString().trim();
             int itemValue = Integer.parseInt(room_dialog);
-//            String itemValue = Integer.toHexString(Integer.parseInt(dimming_level1.getText().toString()));
-//            String editValue = Integer.toHexString(Integer.parseInt(edit_first.getText().toString()));
-            dialog.dismiss();
+//            dialog.dismiss();
             AdvertiseTask advertiseTask;
             ByteQueue byteQueue = new ByteQueue();
-            byteQueue.push(RxMethodType.LUX_LEVEL_ONE_INFO);       ////State Command
+            byteQueue.push(LUX_LEVEL_ONE_INFO);       ////State Command
             byteQueue.push(0x04);
             byteQueue.pushU4B(deviceClass.getDeviceUID());
             byteQueue.pushU2B(Integer.parseInt(lux_level_one.getText().toString()));
@@ -1371,26 +1422,11 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
             byteQueue.pushU2B(Integer.parseInt(lux_level_two.getText().toString()));
             Log.e("Lux====>", byteQueue.toString());
             advertiseTask = new AdvertiseTask(EditDeviceFragment.this, activity, 5 * 1000);
+            advertiseTask.setSearchRequestCode(LUX_LEVEL_ONE_INFO);
             advertiseTask.setByteQueue(byteQueue);
             advertiseTask.startAdvertising();
 
         });
-//        select_item2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                PopupMenu airPopUp2 = new PopupMenu(activity, select_item2);
-//                airPopUp2.getMenuInflater().inflate(R.menu.lux_level, airPopUp2.getMenu());
-//                airPopUp2.setOnMenuItemClickListener(item -> {
-//                    try {
-//                        select_item2.setText(item.getTitle());
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                    return true;
-//                });
-//                airPopUp2.show();
-//            }
-//        });
 
         btn_submit2.setOnClickListener(view -> {
             if (lux_level_two.getText().toString().length() == 0) {
@@ -1403,29 +1439,12 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
                 showError("Lux level 2 can't empty", dimming_level2);
                 return;
             }
-//            List<String> list = new ArrayList<>();
-//            if (PreferencesManager.getInstance(getContext()).getList(Constants.LUX_LEVEL_TYPE) != null) {
-//                list = PreferencesManager.getInstance(getContext()).getList(Constants.LUX_LEVEL_TYPE);
-//                for (int i = 0; i < list.size(); i++) {
-//                    if (list.get(i).contains(name)) {
-//                        list.remove(i);
-//                    }
-//                }
-//            }
-
-
-            ContentValues contentValues1 = new ContentValues();
-            contentValues1.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO, lux_level_two.getText().toString());
-            contentValues1.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE, lux_level_three.getText().toString());
-            contentValues1.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_TWO, dimming_level2.getText().toString());
-            if (sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues1)) {
-            }
             String room_dialog = dimming_level2.getText().toString().trim();
             int itemValue = Integer.parseInt(room_dialog);
-            dialog.dismiss();
+//            dialog.dismiss();
             AdvertiseTask advertiseTask;
             ByteQueue byteQueue = new ByteQueue();
-            byteQueue.push(RxMethodType.LUX_LEVEL_TWO_INFO);       ////State Command
+            byteQueue.push(LUX_LEVEL_TWO_INFO);       ////State Command
             byteQueue.push(0x04);
             byteQueue.pushU4B(deviceClass.getDeviceUID());
             byteQueue.pushU2B(Integer.parseInt(lux_level_two.getText().toString()));
@@ -1433,43 +1452,10 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
             byteQueue.pushU2B(Integer.parseInt(lux_level_three.getText().toString()));
             Log.e("Lux====>", byteQueue.toString());
             advertiseTask = new AdvertiseTask(EditDeviceFragment.this, activity, 5 * 1000);
+            advertiseTask.setSearchRequestCode(LUX_LEVEL_TWO_INFO);
             advertiseTask.setByteQueue(byteQueue);
             advertiseTask.startAdvertising();
-
-//            String itemValue = Integer.toHexString(Integer.parseInt(select_item2.getText().toString()));
-//            String editValue = Integer.toHexString(Integer.parseInt(edit_second.getText().toString()));
-//            dialog.dismiss();
-//            AdvertiseTask advertiseTask;
-//            ByteQueue byteQueue = new ByteQueue();
-//            byteQueue.push(RxMethodType.LUX_LEVEL_INFO);       ////State Command
-//            byteQueue.push(0x01);
-//            byteQueue.pushU4B(deviceClass.getDeviceUID());
-//            byteQueue.push(itemValue);    ////0x00-0x64
-//            byteQueue.push(editValue);    ////0x00-0x64
-//            byteQueue.push(0x02);
-//            Log.e("Lux====>", byteQueue.toString());
-//            advertiseTask = new AdvertiseTask(EditDeviceFragment.this, activity, 5 * 1000);
-//            advertiseTask.setByteQueue(byteQueue);
-//            advertiseTask.startAdvertising();
-
         });
-
-//        select_item3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                PopupMenu airPopUp2 = new PopupMenu(activity, select_item3);
-//                airPopUp2.getMenuInflater().inflate(R.menu.lux_level, airPopUp2.getMenu());
-//                airPopUp2.setOnMenuItemClickListener(item -> {
-//                    try {
-//                        select_item3.setText(item.getTitle());
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                    return true;
-//                });
-//                airPopUp2.show();
-//            }
-//        });
 
         btn_submit3.setOnClickListener(view -> {
             if (lux_level_three.getText().toString().length() == 0) {
@@ -1482,20 +1468,12 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
                 showError("Lux level 3 can't empty", dimming_level3);
                 return;
             }
-            ContentValues contentValues1 = new ContentValues();
-            contentValues1.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE, lux_level_three.getText().toString());
-            contentValues1.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FOUR, lux_level_four.getText().toString());
-            contentValues1.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_THREE, dimming_level3.getText().toString());
-            if (sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues1)) {
-            }
             String room_dialog = dimming_level3.getText().toString().trim();
             int itemValue = Integer.parseInt(room_dialog);
-//            String itemValue = Integer.toHexString(Integer.parseInt(dimming_level3.getText().toString()));
-//            String editValue = Integer.toHexString(Integer.parseInt(edit_first.getText().toString()));
-            dialog.dismiss();
+//            dialog.dismiss();
             AdvertiseTask advertiseTask;
             ByteQueue byteQueue = new ByteQueue();
-            byteQueue.push(RxMethodType.LUX_LEVEL_THREE_INFO);       ////State Command
+            byteQueue.push(LUX_LEVEL_THREE_INFO);       ////State Command
             byteQueue.push(0x04);
             byteQueue.pushU4B(deviceClass.getDeviceUID());
             byteQueue.pushU2B(Integer.parseInt(lux_level_three.getText().toString()));
@@ -1503,42 +1481,10 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
             byteQueue.pushU2B(Integer.parseInt(lux_level_four.getText().toString()));
             Log.e("Lux====>", byteQueue.toString());
             advertiseTask = new AdvertiseTask(EditDeviceFragment.this, activity, 5 * 1000);
+            advertiseTask.setSearchRequestCode(LUX_LEVEL_THREE_INFO);
             advertiseTask.setByteQueue(byteQueue);
             advertiseTask.startAdvertising();
-//            String itemValue = Integer.toHexString(Integer.parseInt(select_item3.getText().toString()));
-//            String editValue = Integer.toHexString(Integer.parseInt(edit_three.getText().toString()));
-//            dialog.dismiss();
-//            AdvertiseTask advertiseTask;
-//            ByteQueue byteQueue = new ByteQueue();
-//            byteQueue.push(RxMethodType.LUX_LEVEL_INFO);       ////State Command
-//            byteQueue.push(0x01);
-//            byteQueue.pushU4B(deviceClass.getDeviceUID());
-//            byteQueue.push(itemValue);    ////0x00-0x64
-//            byteQueue.push(editValue);    ////0x00-0x64
-//            byteQueue.push(0x03);
-//            Log.e("Lux====>", byteQueue.toString());
-//            advertiseTask = new AdvertiseTask(EditDeviceFragment.this, activity, 5 * 1000);
-//            advertiseTask.setByteQueue(byteQueue);
-//            advertiseTask.startAdvertising();
-
         });
-
-//        select_item4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                PopupMenu airPopUp2 = new PopupMenu(activity, select_item4);
-//                airPopUp2.getMenuInflater().inflate(R.menu.lux_level, airPopUp2.getMenu());
-//                airPopUp2.setOnMenuItemClickListener(item -> {
-//                    try {
-//                        select_item4.setText(item.getTitle());
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                    return true;
-//                });
-//                airPopUp2.show();
-//            }
-//        });
 
         btn_submit4.setOnClickListener(view -> {
             if (lux_level_four.getText().toString().length() == 0) {
@@ -1551,17 +1497,10 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
                 showError("Lux level 4 can't empty", dimming_level4);
                 return;
             }
-            ContentValues contentValues1 = new ContentValues();
-            contentValues1.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FOUR, lux_level_four.getText().toString());
-            contentValues1.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FIVE, lux_level_five.getText().toString());
-            contentValues1.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_Four, dimming_level4.getText().toString());
-            if (sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues1)) {
-            }
+
             String room_dialog = dimming_level4.getText().toString().trim();
             int itemValue = Integer.parseInt(room_dialog);
-//            String itemValue = Integer.toHexString(Integer.parseInt(dimming_level4.getText().toString()));
-//            String editValue = Integer.toHexString(Integer.parseInt(edit_first.getText().toString()));
-            dialog.dismiss();
+//            dialog.dismiss();
             AdvertiseTask advertiseTask;
             ByteQueue byteQueue = new ByteQueue();
             byteQueue.push(RxMethodType.LUX_LEVEL_FOUR_INFO);       ////State Command
@@ -1572,44 +1511,11 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
             byteQueue.pushU2B(Integer.parseInt(lux_level_five.getText().toString()));
             Log.e("Lux====>", byteQueue.toString());
             advertiseTask = new AdvertiseTask(EditDeviceFragment.this, activity, 5 * 1000);
+            advertiseTask.setSearchRequestCode(LUX_LEVEL_FOUR_INFO);
             advertiseTask.setByteQueue(byteQueue);
             advertiseTask.startAdvertising();
-//            String itemValue = Integer.toHexString(Integer.parseInt(select_item4.getText().toString()));
-//            String editValue = Integer.toHexString(Integer.parseInt(edit_four.getText().toString()));
-//            dialog.dismiss();
-//            AdvertiseTask advertiseTask;
-//            ByteQueue byteQueue = new ByteQueue();
-//            byteQueue.push(RxMethodType.LUX_LEVEL_INFO);       ////State Command
-//            byteQueue.push(0x01);
-//            byteQueue.pushU4B(deviceClass.getDeviceUID());
-//            byteQueue.push(itemValue);    ////0x00-0x64
-//            byteQueue.push(editValue);    ////0x00-0x64
-//            byteQueue.push(0x04);
-//            Log.e("Lux====>", byteQueue.toString());
-//            advertiseTask = new AdvertiseTask(EditDeviceFragment.this, activity, 5 * 1000);
-//            advertiseTask.setByteQueue(byteQueue);
-//            advertiseTask.startAdvertising();
 
         });
-//
-//        btn_submit5.setOnClickListener(view -> {
-//            String itemValue = Integer.toHexString(Integer.parseInt(select_item5.getText().toString()));
-//            String editValue = Integer.toHexString(Integer.parseInt(edit_five.getText().toString()));
-//            dialog.dismiss();
-//            AdvertiseTask advertiseTask;
-//            ByteQueue byteQueue = new ByteQueue();
-//            byteQueue.push(RxMethodType.LUX_LEVEL_INFO);       ////State Command
-//            byteQueue.push(0x01);
-//            byteQueue.pushU4B(deviceClass.getDeviceUID());
-//            byteQueue.push(itemValue);    ////0x00-0x64
-//            byteQueue.push(editValue);    ////0x00-0x64
-//            byteQueue.push(0x05);
-//            Log.e("Lux====>", byteQueue.toString());
-//            advertiseTask = new AdvertiseTask(EditDeviceFragment.this, activity, 5 * 1000);
-//            advertiseTask.setByteQueue(byteQueue);
-//            advertiseTask.startAdvertising();
-//
-//        });
     }
 
     public void holdTimeDialog() {
@@ -1698,16 +1604,17 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
                 byteQueue.push(ADD_LEVEL_GROUP);
                 byteQueue.push(((LevelGroupDetailsClass) level_spinner.getSelectedItem()).getGroupLevelId());
             }
-            if (room_spinner.getSelectedItem().equals("No Room Group")) {
-            } else {
-                byteQueue.push(ADD_ROOM_GROUP);
-                byteQueue.push(((RoomGroupDetailsClass) room_spinner.getSelectedItem()).getRoomGroupId());
-            }
             if (group_spinner_dialog.getSelectedItem().equals("No Group")) {
             } else {
                 byteQueue.push(ADD_GROUP);
                 byteQueue.push(((GroupDetailsClass) group_spinner_dialog.getSelectedItem()).getGroupId());
             }
+            if (room_spinner.getSelectedItem().equals("No Room Group")) {
+            } else {
+                byteQueue.push(ADD_ROOM_GROUP);
+                byteQueue.push(((RoomGroupDetailsClass) room_spinner.getSelectedItem()).getRoomGroupId());
+            }
+
             byteQueue.push(0x01);
             byteQueue.pushU4B(deviceClass.getDeviceUID());
             advertiseTask = new AdvertiseTask(this, activity, 5 * 1000);
@@ -1719,61 +1626,6 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
 
         });
 
-//        addDevice.setOnClickListener(view -> {
-//            if (deviceName.getText().toString().length() < 1) {
-//                deviceName.setError("Enter device name");
-//                return;
-//            }
-//            ContentValues contentValues = new ContentValues();
-//            contentValues.put(DatabaseConstant.COLUMN_DEVICE_NAME, deviceName.getText().toString());
-//            contentValues.put(DatabaseConstant.COLUMN_GROUP_SITE_ID, ((SiteGroupDetailsClass) site_spinner.getSelectedItem()).getGroupSiteId());
-//            contentValues.put(DatabaseConstant.COLUMN_GROUP_BUILDINGID, ((BuildingGroupDetailsClass) building_spinner.getSelectedItem()).getGroupBuildingId());
-//            contentValues.put(DatabaseConstant.COLUMN_GROUP_LEVELID, ((LevelGroupDetailsClass) level_spinner.getSelectedItem()).getGroupLevelId());
-//            contentValues.put(DatabaseConstant.COLUMN_GROUP_ROOMID, ((RoomGroupDetailsClass) room_spinner.getSelectedItem()).getRoomGroupId());
-//            contentValues.put(DatabaseConstant.COLUMN_GROUP_ID, ((GroupDetailsClass) group_spinner_dialog.getSelectedItem()).getGroupId());
-//            if (sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues)) {
-//                Log.e("UID===>", String.valueOf(deviceClass.getDeviceUID()));
-//                AdvertiseTask advertiseTask;
-//                ByteQueue byteQueue = new ByteQueue();
-//                if (site_spinner.getSelectedItem().equals("No Site Group")) {
-//                } else {
-//                    byteQueue.push(ADD_SITE_GROUP);
-//                    byteQueue.push(((SiteGroupDetailsClass) site_spinner.getSelectedItem()).getGroupSiteId());
-//                }
-//                if (building_spinner.getSelectedItem().equals("No Building Group")) {
-//                } else {
-//                    byteQueue.push(ADD_BUILDING_GROUP);
-//                    byteQueue.push(((BuildingGroupDetailsClass) building_spinner.getSelectedItem()).getGroupBuildingId());
-//                }
-//                if (level_spinner.getSelectedItem().equals("No Level Group")) {
-//                } else {
-//                    byteQueue.push(ADD_LEVEL_GROUP);
-//                    byteQueue.push(((LevelGroupDetailsClass) level_spinner.getSelectedItem()).getGroupLevelId());
-//                }
-//                if (room_spinner.getSelectedItem().equals("No Room Group")) {
-//                } else {
-//                    byteQueue.push(ADD_ROOM_GROUP);
-//                    byteQueue.push(((RoomGroupDetailsClass) room_spinner.getSelectedItem()).getRoomGroupId());
-//                }
-//                if (group_spinner_dialog.getSelectedItem().equals("No Group")) {
-//                } else {
-//                    byteQueue.push(ADD_GROUP);
-//                    byteQueue.push(((GroupDetailsClass) group_spinner_dialog.getSelectedItem()).getGroupId());
-//                }
-////                byteQueue.push(RxMethodType.TIME_HOLD_INFO);       ////State Command
-//                byteQueue.push(0x01);
-//                byteQueue.pushU4B(deviceClass.getDeviceUID());
-//                Log.e("GGGGGGGGG=====>", byteQueue.toString());
-//                advertiseTask = new AdvertiseTask(EditDeviceFragment.this, activity, 5 * 1000);
-//                advertiseTask.setByteQueue(byteQueue);
-//                advertiseTask.startAdvertising();
-//
-//                dialog.dismiss();
-//            } else
-//                Toast.makeText(activity, "Some error to edit group", Toast.LENGTH_SHORT).show();
-//
-//
-//        });
     }
 
 
@@ -1925,6 +1777,46 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
 //                Log.w("DashGroup",AppHelper.sqlHelper.updateDevice(arrayList.get(selectedPosition).getDeviceUID(),contentValues)+"");
                 break;
 
+            case LUX_LEVEL_ONE_INFO:
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE, lux_level_one.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO, lux_level_two.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_ONE, dimming_level1.getText().toString());
+                deviceClass.setLuxLevelOne(lux_level_one.getText().toString());
+                deviceClass.setLuxLevelTwo(lux_level_two.getText().toString());
+                deviceClass.setDimmingLevelOne(dimming_level1.getText().toString());
+                sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues);
+                showAlert("Lux update successfully.");
+                break;
+            case LUX_LEVEL_TWO_INFO:
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO, lux_level_two.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE, lux_level_three.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_TWO, dimming_level2.getText().toString());
+                deviceClass.setLuxLevelTwo(lux_level_two.getText().toString());
+                deviceClass.setLuxLevelThree(lux_level_three.getText().toString());
+                deviceClass.setDimmingLevelTwo(dimming_level2.getText().toString());
+                sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues);
+                showAlert("Lux update successfully.");
+                break;
+            case LUX_LEVEL_THREE_INFO:
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE, lux_level_three.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FOUR, lux_level_four.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_THREE, dimming_level3.getText().toString());
+                deviceClass.setLuxLevelThree(lux_level_three.getText().toString());
+                deviceClass.setLuxLevelFour(lux_level_four.getText().toString());
+                deviceClass.setDimmingLevelThre(dimming_level3.getText().toString());
+                sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues);
+                showAlert("Lux update successfully.");
+                break;
+            case LUX_LEVEL_FOUR_INFO:
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FOUR, lux_level_four.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FIVE, lux_level_five.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_Four, dimming_level4.getText().toString());
+                deviceClass.setLuxLevelFour(lux_level_four.getText().toString());
+                deviceClass.setLuxLevelFive(lux_level_five.getText().toString());
+                deviceClass.setDimmingLevelFour(dimming_level4.getText().toString());
+                sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues);
+                showAlert("Lux update successfully.");
+                break;
 
         }
     }
@@ -2139,6 +2031,47 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
 //                contentValues.put(COLUMN_GROUP_PROGRESS,seekBarProgress);
 //                Log.w("DashGroup",AppHelper.sqlHelper.updateDevice(arrayList.get(selectedPosition).getDeviceUID(),contentValues)+"");
                 break;
+            case LUX_LEVEL_ONE_INFO:
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE, lux_level_one.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO, lux_level_two.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_ONE, dimming_level1.getText().toString());
+                deviceClass.setLuxLevelOne(lux_level_one.getText().toString());
+                deviceClass.setLuxLevelTwo(lux_level_two.getText().toString());
+                deviceClass.setDimmingLevelOne(dimming_level1.getText().toString());
+                sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues);
+                showAlert("Lux update successfully.");
+                break;
+
+            case LUX_LEVEL_TWO_INFO:
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO, lux_level_two.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE, lux_level_three.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_TWO, dimming_level2.getText().toString());
+                deviceClass.setLuxLevelTwo(lux_level_two.getText().toString());
+                deviceClass.setLuxLevelThree(lux_level_three.getText().toString());
+                deviceClass.setDimmingLevelTwo(dimming_level2.getText().toString());
+                sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues);
+                showAlert("Lux update successfully.");
+                break;
+            case LUX_LEVEL_THREE_INFO:
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE, lux_level_three.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FOUR, lux_level_four.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_THREE, dimming_level3.getText().toString());
+                deviceClass.setLuxLevelThree(lux_level_three.getText().toString());
+                deviceClass.setLuxLevelFour(lux_level_four.getText().toString());
+                deviceClass.setDimmingLevelThre(dimming_level3.getText().toString());
+                sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues);
+                showAlert("Lux update successfully.");
+                break;
+            case LUX_LEVEL_FOUR_INFO:
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FOUR, lux_level_four.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_FIVE, lux_level_five.getText().toString());
+                contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_Four, dimming_level4.getText().toString());
+                deviceClass.setLuxLevelFour(lux_level_four.getText().toString());
+                deviceClass.setLuxLevelFive(lux_level_five.getText().toString());
+                deviceClass.setDimmingLevelFour(dimming_level4.getText().toString());
+                sqlHelper.updateDevice(deviceClass.getDeviceUID(), contentValues);
+                showAlert("Lux update successfully.");
+                break;
         }
 
     }
@@ -2228,58 +2161,6 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
         getAllBUILDINGGroups();
         getAllLEVELGroups();
         getAllROOMGroups();
-//        if (PreferencesManager.getInstance(getContext()).getList(Constants.ATTRIBUTE_TYPE) != null) {
-//            List<String> list = PreferencesManager.getInstance(getContext()).getList(Constants.ATTRIBUTE_TYPE);
-//            Log.e(">>", list.toString());
-//            for (int i = 0; i < list.size(); i++) {
-//                Log.e(">>>name", list.get(i).toString());
-//                if (list.get(i).contains(name)) {
-//                    if (list.get(i).contains("site")) {
-//                        if (list.get(i).equalsIgnoreCase("siteenable" + name)) {
-//                            enableSite = "enable";
-//                        } else {
-//                            enableSite = "disable";
-//                        }
-//                    }
-//                    if (list.get(i).contains("building")) {
-//                        if (list.get(i).equalsIgnoreCase("buildingenable" + name)) {
-//                            enableBuilding = "enable";
-//                        } else {
-//                            enableBuilding = "disable";
-//                        }
-//
-//                    }
-//                    if (list.get(i).contains("level")) {
-//                        if (list.get(i).equalsIgnoreCase("levelenable" + name)) {
-//                            enableLevel = "enable";
-//                        } else {
-//                            enableLevel = "disable";
-//                        }
-//
-//                    }
-//
-//                    if (list.get(i).contains("room")) {
-//                        if (list.get(i).equalsIgnoreCase("roomenable" + name)) {
-//                            enableRoom = "enable";
-//                        } else {
-//                            enableRoom = "disable";
-//                        }
-//
-//                    }
-//
-//                    if (list.get(i).contains("group")) {
-//                        if (list.get(i).equalsIgnoreCase("groupenable" + name)) {
-//                            enablegroup = "enable";
-//                        } else {
-//                            enablegroup = "disable";
-//                        }
-//
-//                    }
-//
-//
-//                }
-//            }
-//        }
     }
 
     private void showError(String error_st, EditText editText) {

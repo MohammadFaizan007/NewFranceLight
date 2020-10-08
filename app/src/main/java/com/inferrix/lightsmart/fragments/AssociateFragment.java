@@ -59,6 +59,7 @@ public class AssociateFragment extends Fragment {
             return view;
         associateListAdapter =new AssociateListAdapter(activity);
         allDeviceList.setAdapter(associateListAdapter);
+
         return view;
     }
 
@@ -67,7 +68,7 @@ public class AssociateFragment extends Fragment {
         Cursor cursor=sqlHelper.getAllDevice(DatabaseConstant.ADD_DEVICE_TABLE);
         if (cursor.moveToFirst()) {
             do{
-                if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("16")) {
+                if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("16")&& cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS))==1)  {
                     DeviceClass deviceClass = new DeviceClass();
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
                     deviceClass.setDeviceUID(cursor.getLong(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
@@ -87,9 +88,7 @@ public class AssociateFragment extends Fragment {
                     deviceClass.setItemSix(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_ITEM_SIX)));
                     deviceClass.setItemSeven(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_ITEM_SEVEN)));
                     deviceClass.setItemEight(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_ITEM_EIGET)));
-//                deviceClass.setDamperType(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_DAMPER_TYPE)));
-//                deviceClass.setAhuNumber(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_AHU_NUMBER)));
-//                deviceClass.setFlourNumber(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_FLOUR_NUMBER)));
+                    deviceClass.setMasterStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS)));
                     deviceClass.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_STATUS)) == 1);
                     deviceList.add(deviceClass);
                 }

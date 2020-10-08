@@ -578,7 +578,8 @@
                     android:text="Reset Node"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
 
                 <Button
                     android:layout_width="0dp"

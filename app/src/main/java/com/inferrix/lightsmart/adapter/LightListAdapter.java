@@ -226,7 +226,7 @@ public class LightListAdapter extends BaseAdapter implements AdvertiseResultInte
             advertiseTask=new AdvertiseTask(this,activity,5*1000);
             advertiseTask.setByteQueue(byteQueue);
             Log.e("Add===>",byteQueue.toString());
-            advertiseTask.setSearchRequestCode(ADD_GROUP_RESPONSE);
+//            advertiseTask.setSearchRequestCode(ADD_GROUP_RESPONSE);
             advertiseTask.startAdvertising();
 
         });

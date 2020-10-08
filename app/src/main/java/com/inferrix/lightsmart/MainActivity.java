@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements AdvertiseResultIn
     LinearLayout smartDevice;
     @BindView(R.id.associate)
     LinearLayout associate;
+    @BindView(R.id.back_up)
+    LinearLayout back_up;
     @BindView(R.id.title)
     TextView title;
     public BeaconManager beaconManager;
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements AdvertiseResultIn
 
 
 
-    @OnClick({R.id.my_network,R.id.smart_device,R.id.dashboard,R.id.group,R.id.demo,R.id.associate})
+    @OnClick({R.id.my_network,R.id.smart_device,R.id.dashboard,R.id.group,R.id.demo,R.id.associate,R.id.back_up})
     public void onViewClicked(View view) {
 
         Intent intent = new Intent(this, HelperActivity.class);
@@ -122,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements AdvertiseResultIn
             case R.id.group:
                 intent.putExtra(Constants.MAIN_KEY, Constants.GROUP_CODE);
                 break;
-            case R.id.demo:
+            case R.id.back_up:
                 intent.putExtra(Constants.MAIN_KEY, Constants.DEMO_CODE);
                 break;
 

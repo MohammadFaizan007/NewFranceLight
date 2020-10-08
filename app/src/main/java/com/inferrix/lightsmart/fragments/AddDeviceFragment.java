@@ -94,21 +94,16 @@ public class AddDeviceFragment extends Fragment implements MyBeaconScanner, Adve
         byteQueue.push(LIGHT_INFO);   //// Light Level Command method type
         byteQueue.pushU4B(0x00);
         byteQueue.push(0x00);////deviceDetail.getGroupId()   node id;
-//        byteQueue.push("0"+key1);     ////0x00-0x64
-//        byteQueue.push("0"+key2);
-//        byteQueue.push("0"+key3);
-//        byteQueue.push("0"+key4);
         advertiseTask=new AdvertiseTask(this,activity,5*1000);
         animatedProgress.setText("Advertising");
         advertiseTask.setByteQueue(byteQueue);
-//        advertiseTask.setAdvertiseTimeout(10*1000);
         advertiseTask.setSearchRequestCode(LIGHT_INFO);
         advertiseTask.startAdvertising();
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addDeviceListAdapter.clearList();
+//                addDeviceListAdapter.clearList();
                 ByteQueue byteQueue1 = new ByteQueue();
                 byteQueue1.push(LIGHT_INFO);
                 byteQueue1.push(0x00);

@@ -113,7 +113,7 @@ public class EditGroupFragment extends Fragment implements ReceiverResultInterfa
         editGroupAdapter = new EditGroupAdapter(activity, groupDetailsClass, this);
         lightListAdapter = new LightListAdapter(activity, groupDetailsClass, this);
         editGroupDeviceList.setAdapter(editGroupAdapter);
-        availableGroupDevice.setAdapter(lightListAdapter);
+//        availableGroupDevice.setAdapter(lightListAdapter);
         groupNameText.setText(groupDetailsClass.getGroupName());
         groupName.setText(groupDetailsClass.getGroupName());
         scannerTask = new ScannerTask(activity, this);
@@ -153,7 +153,7 @@ public class EditGroupFragment extends Fragment implements ReceiverResultInterfa
 
     public void getDevice() {
         ArrayList<DeviceClass> deviceList = new ArrayList<>();
-        Cursor cursor = sqlHelper.getAllDevice(DatabaseConstant.ADD_DEVICE_TABLE);
+        Cursor cursor = sqlHelper.getNonGroupDevice(DatabaseConstant.ADD_DEVICE_TABLE);
         if (cursor.moveToFirst()) {
             do {
                 DeviceClass deviceClass = new DeviceClass();

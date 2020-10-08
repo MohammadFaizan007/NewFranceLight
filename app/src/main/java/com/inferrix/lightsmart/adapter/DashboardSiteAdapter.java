@@ -194,10 +194,10 @@ public class DashboardSiteAdapter extends BaseAdapter implements AdvertiseResult
         viewHolder.lightDetails.setOnClickListener(v -> {
 
             Log.w("GroupDimming",deviceClass.getGroupSiteDimming()+"");
-            Intent intent = new Intent(activity, HelperActivity.class);
-            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_SITE_GROUP);
-            intent.putExtra(Constants.SITE_GROUP_DETAIL_KEY,arrayList.get(position));
-            activity.startActivity(intent);
+//            Intent intent = new Intent(activity, HelperActivity.class);
+//            intent.putExtra(Constants.MAIN_KEY, Constants.EDIT_SITE_GROUP);
+//            intent.putExtra(Constants.SITE_GROUP_DETAIL_KEY,arrayList.get(position));
+//            activity.startActivity(intent);
 
         });
 

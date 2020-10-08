@@ -83,6 +83,7 @@
             android:textSize="@dimen/_14sdp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:padding="@dimen/_5sdp"/>
+            android:padding="@dimen/_5sdp"
+            android:visibility="invisible"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.core.widget.NestedScrollView>

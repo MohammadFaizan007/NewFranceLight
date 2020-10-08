@@ -270,12 +270,7 @@ public class CreateGroup extends Fragment implements AdvertiseResultInterface, R
     }
 
     @Override
-    public void onScanFailed(int errorCode)
-    {
-
-
-
-
+    public void onScanFailed(int errorCode) {
         NiftyDialogBuilder dialogBuilder= NiftyDialogBuilder.getInstance(activity);
         dialogBuilder
                 .withTitle("Timeout")

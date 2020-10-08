@@ -334,7 +334,7 @@ public class EditGroupAdapter extends BaseAdapter implements ReceiverResultInter
             advertiseTask=new AdvertiseTask(this,activity,5*1000);
             advertiseTask.setByteQueue(byteQueue);
             Log.e("Remove=>",byteQueue.toString());
-            advertiseTask.setSearchRequestCode(REMOVE_GROUP_RESPONSE);
+//            advertiseTask.setSearchRequestCode(REMOVE_GROUP_RESPONSE);
             advertiseTask.startAdvertising();
 
 //            Toast.makeText(activity, "Will be soon", Toast.LENGTH_SHORT).show();

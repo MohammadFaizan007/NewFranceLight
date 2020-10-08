@@ -122,7 +122,7 @@ public class EditGroupRoomFragment extends Fragment implements ReceiverResultInt
         editGroupAdapter = new EditRoomGroupAdapter(activity, groupDetailsClass, this);
         lightListAdapter = new RoomLightListAdapter(activity, groupDetailsClass, this);
         editGroupDeviceList.setAdapter(editGroupAdapter);
-        availableGroupDevice.setAdapter(lightListAdapter);
+//        availableGroupDevice.setAdapter(lightListAdapter);
         groupNameText.setText(groupDetailsClass.getGroupRoomName());
         groupName.setText(groupDetailsClass.getGroupRoomName());
         scannerTask = new ScannerTask(activity, this);

@@ -44,6 +44,17 @@ public class RxMethodType {
     public static final int LUX_LEVEL_FOUR_INFO=0x4d;
     public static final int ATTRIBUTES_INFO=0x5a;
     public static final int RESET_NODE_INFO=0x6a;
+    public static final int DISABLE_BLUETOOTH_INFO=0x7a;
+
+    public static final int ADD_ASSOCIATE_ONE=0x51;
+    public static final int ADD_ASSOCIATE_TWO=0x52;
+    public static final int ADD_ASSOCIATE_THREE=0x53;
+    public static final int ADD_ASSOCIATE_FOUR=0x54;
+    public static final int ADD_ASSOCIATE_FIVE=0x55;
+    public static final int ADD_ASSOCIATE_SIX=0x56;
+    public static final int ADD_ASSOCIATE_SEVEN=0x57;
+    public static final int ADD_ASSOCIATE_EIGHT=0x58;
+
 
 
 //    public static final int LIGHT_INFO=0xEF;
