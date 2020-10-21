@@ -23,6 +23,7 @@ import com.inferrix.lightsmart.fragments.AssociateFragment;
 import com.inferrix.lightsmart.fragments.BackUpFragment;
 import com.inferrix.lightsmart.fragments.CreateGroup;
 import com.inferrix.lightsmart.fragments.DashboardFragment;
+import com.inferrix.lightsmart.fragments.DemoAddFragment;
 import com.inferrix.lightsmart.fragments.EditDeviceFragment;
 import com.inferrix.lightsmart.fragments.EditGroupBuildingFragment;
 import com.inferrix.lightsmart.fragments.EditGroupFragment;

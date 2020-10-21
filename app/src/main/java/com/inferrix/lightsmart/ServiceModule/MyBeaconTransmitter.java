@@ -1,10 +1,4 @@
 package com.inferrix.lightsmart.ServiceModule;
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
-
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
@@ -43,7 +37,7 @@ public class MyBeaconTransmitter {
     private boolean mStarted;
     private AdvertiseCallback mAdvertiseCallback;
     private boolean mConnectable = false;
-    private int mAdvertiseTimeout=2*1000;  //// 10 second time out
+    private int mAdvertiseTimeout=2*1000;   //// 10 second time out
 
     public MyBeaconTransmitter(Context context, BeaconParser parser) {
 

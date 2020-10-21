@@ -579,7 +579,7 @@
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:visibility="gone"/>
+                    android:visibility="visible"/>
 
                 <Button
                     android:layout_width="0dp"

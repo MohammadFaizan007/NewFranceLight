@@ -251,19 +251,6 @@ public class EditGroupFragment extends Fragment implements ReceiverResultInterfa
                 break;
             case R.id.group_delete:
                 deleteDialog();
-//                ContentValues contentValues1 = new ContentValues();
-//                contentValues1.put(DatabaseConstant.COLUMN_GROUP_ID, 0);
-//                if (editGroupAdapter.getCount() < 1) {
-//                    deleteGroup();
-//                    return;
-//                }
-//                if (sqlHelper.removeLight(groupDetailsClass.getGroupId(), contentValues1)) {
-////                    Log.w( "Delete Group",sqlHelper.deleteGroup(groupDetailsClass.getGroupId())+"");
-//                    deleteGroup();
-//
-//                } else
-//                    Toast.makeText(activity, "Some error to delete group.", Toast.LENGTH_SHORT).show();
-
                 break;
         }
     }

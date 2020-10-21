@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,6 +33,7 @@ import com.inferrix.lightsmart.EncodeDecodeModule.ByteQueue;
 import com.inferrix.lightsmart.InterfaceModule.AdvertiseResultInterface;
 import com.inferrix.lightsmart.InterfaceModule.ReceiverResultInterface;
 import com.inferrix.lightsmart.PogoClasses.DeviceClass;
+import com.inferrix.lightsmart.PogoClasses.GroupDetailsClass;
 import com.inferrix.lightsmart.R;
 import com.inferrix.lightsmart.ServiceModule.AdvertiseTask;
 import com.inferrix.lightsmart.ServiceModule.ScannerTask;
@@ -157,6 +161,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
     String name = "";
     int position;
     String uid_One= "",sensor_One= "";
+
 
 //    @BindView(R.id.viewDetail1)
 //    ImageView viewDetail1;
@@ -301,8 +306,6 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
         } else {
             select_item8.setText(deviceClass.getItemEight());
         }
-
-
         return view;
     }
 
@@ -1284,6 +1287,7 @@ public class AssociateAddFragment extends Fragment implements AdvertiseResultInt
 //
 //        }
 //    }
+
 
     @Override
     public void onDestroyView() {

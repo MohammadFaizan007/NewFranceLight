@@ -88,6 +88,7 @@ public class AssociateFragment extends Fragment {
                     deviceClass.setItemSix(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_ITEM_SIX)));
                     deviceClass.setItemSeven(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_ITEM_SEVEN)));
                     deviceClass.setItemEight(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_ITEM_EIGET)));
+                    deviceClass.setTypeCode(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)));
                     deviceClass.setMasterStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS)));
                     deviceClass.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_STATUS)) == 1);
                     deviceList.add(deviceClass);

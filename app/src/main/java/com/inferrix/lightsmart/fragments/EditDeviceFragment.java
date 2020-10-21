@@ -897,7 +897,7 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
                 dialogBuilder12
                         .withTitle("Reset Node")
                         .withEffect(Effectstype.Shake)
-                        .withMessage("Are you sure to reset '" + deviceClass.getDeviceName() + "'This device loss all saving data")
+                        .withMessage("Are you sure to reset '" + deviceClass.getDeviceName() + "'this device loss all saving data")
                         .withButton1Text("OK")
                         .setButton1Click(v -> {
                             ContentValues contentValues = new ContentValues();

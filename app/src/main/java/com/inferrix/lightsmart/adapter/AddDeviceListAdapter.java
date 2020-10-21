@@ -23,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.CustomProgress.CustomDialog.AnimatedProgress;
 import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
@@ -295,7 +297,7 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogTheme;
         EditText deviceName = dialog.findViewById(R.id.add_device_name);
         EditText master_select = dialog.findViewById(R.id.master_select);
-        TextView deviceUid=dialog.findViewById(R.id.add_device_uid);
+        TextView deviceUid = dialog.findViewById(R.id.add_device_uid);
         deviceUid.setText(beconDeviceClass.getDeviceUid());
 //        Spinner site_spinner = dialog.findViewById(R.id.site_spinner);
 //        Spinner building_spinner = dialog.findViewById(R.id.building_spinner);
@@ -366,7 +368,7 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_TWO, "");
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_THREE, "");
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_DIMMING_LEVEL_Four, "");
-            contentValues.put(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS,0);
+            contentValues.put(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS, 0);
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE, beconDeviceClass.getTypeCode());
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS, beconDeviceClass.getDeviceMacAddress());
             contentValues.put(DatabaseConstant.COLUMN_DEVICE_STATUS, beconDeviceClass.getDeriveType() == 0 ? 1 : 0);
@@ -390,16 +392,15 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
                 arrayList.get(position).setDeviceName(deviceName.getText().toString());
                 Toast.makeText(activity, "Device  added successfully.", Toast.LENGTH_SHORT).show();
                 dialog.cancel();
-                NiftyDialogBuilder dialogBuilder=NiftyDialogBuilder.getInstance(activity);
+                NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(activity);
                 dialogBuilder
                         .withTitle("Master Light")
                         .withEffect(Effectstype.Shake)
-                        .withMessage("Set light '"+deviceName.getText().toString()+"' as master light")
+                        .withMessage("Set light '" + deviceName.getText().toString() + "' as master light")
                         .withButton1Text("OK")
                         .setButton1Click(v -> {
-
 //                            Toast.makeText(activity, "This will be soon.", Toast.LENGTH_SHORT).show();
-                            selectedPosition=position;
+                            selectedPosition = position;
                             AdvertiseTask advertiseTask;
                             ByteQueue byteQueue;
                             byteQueue = new ByteQueue();
@@ -407,13 +408,12 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
                             byteQueue.push(0x01);
                             byteQueue.pushU4B(beconDeviceClass.getBeaconUID());
                             byteQueue.push(0x01);
-                            Log.e("MAster>>>>", byteQueue.toString());
                             advertiseTask = new AdvertiseTask(this, activity);
                             advertiseTask.setByteQueue(byteQueue);
                             advertiseTask.setSearchRequestCode(SELECT_MASTER_RESPONSE);
                             advertiseTask.startAdvertising();
                             dialogBuilder.dismiss();
-                        }) .withButton2Text("Cancel")
+                        }).withButton2Text("Cancel")
                         .setButton2Click(v -> {
                             dialogBuilder.dismiss();
                         })
@@ -672,14 +672,18 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
 //        Log.e("INTEGER=====>",uid_int_dialog.toString());
 
         if (beconDeviceClass.isAdded()) {
+//            viewHolder.main_card.setVisibility(View.GONE);
             viewHolder.addDevice.setVisibility(View.GONE);
             viewHolder.addDeviceUid.setText(beconDeviceClass.getDeviceName());
             viewHolder.statusSwitch.setVisibility(View.VISIBLE);
         } else {
+//            viewHolder.main_card.setVisibility(View.VISIBLE);
             viewHolder.addDevice.setVisibility(View.VISIBLE);
             viewHolder.addDeviceUid.setText(beconDeviceClass.getDeviceUid());
             viewHolder.statusSwitch.setVisibility(View.GONE);
         }
+
+
         if (beconDeviceClass.getiBeaconUuid().equalsIgnoreCase("533")) {
             viewHolder.review1.setImageResource(R.mipmap.moko);
             viewHolder.statusSwitch.setVisibility(View.GONE);
@@ -834,27 +838,26 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
 
     @Override
     public void onScanSuccess(int successCode, ByteQueue byteQueue) {
-        if(animatedProgress==null)
+        if (animatedProgress == null)
             return;
         animatedProgress.hideProgress();
-        ContentValues contentValues=new ContentValues();
+        ContentValues contentValues = new ContentValues();
 
-        Log.w("BYTEQUESIZE",byteQueue.size()+",");
-        Log.w("MethodType",(int)byteQueue.pop()+"");
+        Log.w("BYTEQUESIZE", byteQueue.size() + ",");
+        Log.w("MethodType", (int) byteQueue.pop() + "");
 
         byte bytes1;
         String nodeUid;
         long deviceUid;
         int lightStatus;
-        NiftyDialogBuilder dialogBuilder=NiftyDialogBuilder.getInstance(activity);
+        NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(activity);
         switch (successCode) {
             case SELECT_MASTER_RESPONSE:
-                BeconDeviceClass beconDeviceClass=arrayList.get(selectedPosition);
+                BeconDeviceClass beconDeviceClass = arrayList.get(selectedPosition);
                 arrayList.get(selectedPosition).setMasterStatus(1);
-                lightStatus=byteQueue.pop();
+                lightStatus = byteQueue.pop();
 
                 contentValues.put(COLUMN_DEVICE_MASTER_STATUS, 1);
-
 
 
                 dialogBuilder
@@ -867,7 +870,7 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
                             dialogBuilder.dismiss();
                         })
                         .show();
-                Log.w("DashGroup", AppHelper.sqlHelper.updateDevice(beconDeviceClass.getBeaconUID(), contentValues) +"");
+                Log.w("DashGroup", AppHelper.sqlHelper.updateDevice(beconDeviceClass.getBeaconUID(), contentValues) + "");
 
                 break;
 
@@ -878,7 +881,7 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
 
     @Override
     public void onScanFailed(int errorCode) {
-        if(animatedProgress==null)
+        if (animatedProgress == null)
             return;
         animatedProgress.hideProgress();
 //        NiftyDialogBuilder dialogBuilder=NiftyDialogBuilder.getInstance(activity);
@@ -900,8 +903,8 @@ public class AddDeviceListAdapter extends BaseAdapter implements AdvertiseResult
         JellyToggleButton statusSwitch;
         @BindView(R.id.add_device)
         Button addDevice;
-        //        @BindView(R.id.add_device_layout)
-//        RelativeLayout addDeviceLayout;
+        @BindView(R.id.main_card)
+        CardView main_card;
         @BindView(R.id.add_device_uid)
         TextView addDeviceUid;
 
