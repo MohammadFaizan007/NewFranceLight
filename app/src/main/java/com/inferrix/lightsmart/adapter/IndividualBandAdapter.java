@@ -100,10 +100,12 @@ public class IndividualBandAdapter extends BaseAdapter implements AdvertiseResul
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) { {
             convertView = LayoutInflater.from(activity).
                     inflate(R.layout.dashboard_item_adapter, parent, false);
+//        dashboard_item_adapter
         }
         ViewHolder viewHolder = new ViewHolder(convertView);
         DeviceClass deviceClass=arrayList.get(position);
         viewHolder.dashboardDeviceName.setText(deviceClass.getDeviceName());
+        viewHolder.device_uid.setText( String.valueOf( deviceClass.getDeviceUID() ) );
         viewHolder.customise.setVisibility(View.GONE);
         viewHolder.statusSwitch.setVisibility(View.GONE);
         viewHolder.lightDetails.setImageResource(R.mipmap.moko);
@@ -408,6 +410,9 @@ public class IndividualBandAdapter extends BaseAdapter implements AdvertiseResul
 
         @BindView(R.id.light_details)
         ImageView lightDetails;
+
+        @BindView(R.id.device_uid)
+        TextView device_uid;
 
         ViewHolder(View view) {
 

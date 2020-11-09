@@ -71,6 +71,7 @@ public class AssociateFragment extends Fragment {
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("16")&& cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS))==1)  {
                     DeviceClass deviceClass = new DeviceClass();
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+                    deviceClass.setDevicehexUid(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_HEXUID)));
                     deviceClass.setDeviceUID(cursor.getLong(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
                     deviceClass.setNumberOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NUMBER_ONE)));
                     deviceClass.setNumberTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NUMBER_TWO)));
@@ -88,6 +89,16 @@ public class AssociateFragment extends Fragment {
                     deviceClass.setItemSix(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_ITEM_SIX)));
                     deviceClass.setItemSeven(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_ITEM_SEVEN)));
                     deviceClass.setItemEight(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_ITEM_EIGET)));
+
+                    deviceClass.setGroupTypeOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_ONE)));
+                    deviceClass.setGroupTypeTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_TWO)));
+                    deviceClass.setGroupTypeThree(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_THREE)));
+                    deviceClass.setGroupTypeFour(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FOUR)));
+                    deviceClass.setGroupTypeFive(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FIVE)));
+                    deviceClass.setGroupTypeSix(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SIX)));
+                    deviceClass.setGroupTypeSeven(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SEVEN)));
+                    deviceClass.setGroupTypeEight(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_EIGHT)));
+
                     deviceClass.setTypeCode(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)));
                     deviceClass.setMasterStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MASTER_STATUS)));
                     deviceClass.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_STATUS)) == 1);

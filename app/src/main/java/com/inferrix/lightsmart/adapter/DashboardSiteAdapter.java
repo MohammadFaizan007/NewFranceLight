@@ -185,7 +185,7 @@ public class DashboardSiteAdapter extends BaseAdapter implements AdvertiseResult
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         convertView = LayoutInflater.from(activity).
-                inflate(R.layout.dashboard_item_adapter, parent, false);
+                inflate(R.layout.dashboard_item_adapter_new, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(convertView);
         SiteGroupDetailsClass deviceClass=arrayList.get(position);

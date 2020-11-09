@@ -327,6 +327,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("16")) {
                     DeviceClass deviceClass = new DeviceClass();
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+                    deviceClass.setDevicehexUid(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_HEXUID)));
                     deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
                     deviceClass.setLuxLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO)));
                     deviceClass.setLuxLevelThree(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE)));
@@ -363,6 +364,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
             do {
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("533")) {
                     DeviceClass deviceClass = new DeviceClass();
+                    deviceClass.setDevicehexUid(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_HEXUID)));
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
                     deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
                     deviceClass.setLuxLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO)));
@@ -401,6 +403,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("55811") && cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS)).startsWith("E2:15")) {
                     DeviceClass deviceClass = new DeviceClass();
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+                    deviceClass.setDevicehexUid(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_HEXUID)));
                     deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
                     deviceClass.setLuxLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO)));
                     deviceClass.setLuxLevelThree(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE)));
@@ -438,6 +441,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("55811") && cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS)).startsWith("E5:00")) {
                     DeviceClass deviceClass = new DeviceClass();
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+                    deviceClass.setDevicehexUid(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_HEXUID)));
                     deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
                     deviceClass.setLuxLevelTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_TWO)));
                     deviceClass.setLuxLevelThree(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_THREE)));

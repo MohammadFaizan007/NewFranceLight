@@ -80,7 +80,7 @@ public class AssociateListAdapter extends BaseAdapter {
         ViewHolder viewHolder = new ViewHolder(convertView);
         DeviceClass deviceClass = arrayList.get(position);
         viewHolder.dashboard_deviceName.setText(deviceClass.getDeviceName());
-        viewHolder.uid_no.setText(String.valueOf(deviceClass.getDeviceUID()));
+        viewHolder.uid_no.setText(deviceClass.getDevicehexUid());
         viewHolder.light_details.setBackground(activity.getResources().getDrawable(deviceClass.getMasterStatus()==0?R.drawable.white_circle_border:R.drawable.yellow_circle));
 
 //        viewHolder.icon_delete.setOnClickListener(view -> {

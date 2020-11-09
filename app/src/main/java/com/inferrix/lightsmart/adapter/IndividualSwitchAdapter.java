@@ -108,6 +108,7 @@ public class IndividualSwitchAdapter extends BaseAdapter implements AdvertiseRes
         viewHolder.lightDetails.setImageResource(R.mipmap.switches);
 
         viewHolder.dashboardDeviceName.setText(deviceClass.getDeviceName());
+        viewHolder.device_uid.setText( String.valueOf( deviceClass.getDeviceUID() ) );
         viewHolder.lightDetails.setBackground(activity.getResources().getDrawable(deviceClass.getMasterStatus()==0?R.drawable.white_circle_border:R.drawable.yellow_circle));
         viewHolder.lightDetails.setOnClickListener(v -> {
             Intent intent = new Intent(activity, HelperActivity.class);
@@ -409,6 +410,8 @@ public class IndividualSwitchAdapter extends BaseAdapter implements AdvertiseRes
 
         @BindView(R.id.light_details)
         ImageView lightDetails;
+        @BindView(R.id.device_uid)
+        TextView device_uid;
 
         ViewHolder(View view) {
 

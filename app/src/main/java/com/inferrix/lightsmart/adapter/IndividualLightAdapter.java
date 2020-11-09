@@ -107,7 +107,11 @@ public class IndividualLightAdapter extends BaseAdapter implements AdvertiseResu
         DeviceClass deviceClass=arrayList.get(position);
 
         viewHolder.dashboardDeviceName.setText(deviceClass.getDeviceName());
-        Log.e("MAster==>", String.valueOf(deviceClass.getMasterStatus()));
+
+//        dae395
+//        46e6da91
+
+        viewHolder.device_uid.setText( deviceClass.getDevicehexUid());
 //        deviceClass.setMasterStatus(deviceClass.getMasterStatus());
 //        viewHolder.lightDetails.setImageResource(R.drawable.ic_lightbulb_outline_black_24dp);
         viewHolder.lightDetails.setBackground(activity.getResources().getDrawable(deviceClass.getMasterStatus()==0?R.drawable.white_circle_border:R.drawable.yellow_circle));
@@ -404,6 +408,8 @@ public class IndividualLightAdapter extends BaseAdapter implements AdvertiseResu
 
         @BindView(R.id.dashboard_deviceName)
         TextView dashboardDeviceName;
+        @BindView(R.id.device_uid)
+        TextView device_uid;
 
         @BindView(R.id.individual_customize)
         Button customise;

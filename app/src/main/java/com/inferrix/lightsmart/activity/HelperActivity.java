@@ -31,6 +31,7 @@ import com.inferrix.lightsmart.fragments.EditGroupLevelFragment;
 import com.inferrix.lightsmart.fragments.EditGroupRoomFragment;
 import com.inferrix.lightsmart.fragments.EditGroupSiteFragment;
 import com.inferrix.lightsmart.fragments.GroupFragment;
+import com.inferrix.lightsmart.fragments.LastDemoAddFragment;
 
 import butterknife.BindView;
 
@@ -148,7 +149,7 @@ public class HelperActivity extends AppCompatActivity /*implements BeaconConsume
 //                    break;
 //
                 case Constants.ADD_ASSOCIATE:
-                    AssociateAddFragment associateAddFragment = new AssociateAddFragment();
+                    LastDemoAddFragment associateAddFragment = new LastDemoAddFragment();
                     associateAddFragment.setDeviceData(intent.getParcelableExtra(Constants.LIGHT_DETAIL_KEY));
                     setTitle("Add Associate");
                     loadFragment(associateAddFragment);

@@ -7,8 +7,9 @@ import com.inferrix.lightsmart.constant.Constants;
 
 
 public class DeviceClass implements Parcelable {
-
+    int deviceId=0;
     long DeviceUID=0;
+    String devicehexUid="";
     String deriveType= Constants.PWM;
     String deviceName="";
     String numberOne="";
@@ -27,6 +28,14 @@ public class DeviceClass implements Parcelable {
     String itemSix="";
     String itemSeven="";
     String itemEight="";
+    String groupTypeOne="";
+    String groupTypeTwo="";
+    String groupTypeThree="";
+    String groupTypeFour="";
+    String groupTypeFive="";
+    String groupTypeSix="";
+    String groupTypeSeven="";
+    String groupTypeEight="";
     String typeCode="";
     String macAddress="";
     String luxLevelOne="";
@@ -46,6 +55,21 @@ public class DeviceClass implements Parcelable {
     int masterStatus=0;
     int deviceDimming=0;
     boolean status=true;
+
+    public String getDevicehexUid() {
+        return devicehexUid;
+    }
+
+    public void setDevicehexUid(String devicehexUid) {
+        this.devicehexUid = devicehexUid;
+    }
+
+    public int getDeviceId() {
+        return deviceId;
+    }
+    public void setDeviceId(int deviceId) {
+        this.deviceId = deviceId;
+    }
 
     public String getDeriveType() {
         return deriveType;
@@ -267,6 +291,70 @@ public class DeviceClass implements Parcelable {
         return itemEight;
     }
 
+    public void setGroupTypeOne(String groupTypeOne) {
+        this.groupTypeOne = groupTypeOne;
+    }
+
+    public String getGroupTypeOne() {
+        return groupTypeOne;
+    }
+
+    public void setGroupTypeTwo(String groupTypeTwo) {
+        this.groupTypeTwo = groupTypeTwo;
+    }
+
+    public String getGroupTypeTwo() {
+        return groupTypeTwo;
+    }
+
+    public void setGroupTypeThree(String groupTypeThree) {
+        this.groupTypeThree = groupTypeThree;
+    }
+
+    public String getGroupTypeThree() {
+        return groupTypeThree;
+    }
+
+    public void setGroupTypeFour(String groupTypeFour) {
+        this.groupTypeFour = groupTypeFour;
+    }
+
+    public String getGroupTypeFour() {
+        return groupTypeFour;
+    }
+
+    public void setGroupTypeFive(String groupTypeFive) {
+        this.groupTypeFive = groupTypeFive;
+    }
+
+    public String getGroupTypeFive() {
+        return groupTypeFive;
+    }
+
+    public void setGroupTypeSix(String groupTypeSix) {
+        this.groupTypeSix = groupTypeSix;
+    }
+
+    public String getGroupTypeSix() {
+        return groupTypeSix;
+    }
+
+    public void setGroupTypeSeven(String groupTypeSeven) {
+        this.groupTypeSeven = groupTypeSeven;
+    }
+
+    public String getGroupTypeSeven() {
+        return groupTypeSeven;
+    }
+    public void setGroupTypeEight(String groupTypeEight) {
+        this.groupTypeEight = groupTypeEight;
+    }
+
+    public String getGroupTypeEight() {
+        return groupTypeEight;
+    }
+
+
     public void setTypeCode(String typeCode) {
         this.typeCode = typeCode;
     }
@@ -356,9 +444,10 @@ public class DeviceClass implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeInt( this.deviceId );
         dest.writeLong(this.DeviceUID);
         dest.writeString(this.deviceName);
+        dest.writeString(this.devicehexUid);
         dest.writeString(this.numberOne);
         dest.writeString(this.numberTwo);
         dest.writeString(this.numberThree);
@@ -375,6 +464,14 @@ public class DeviceClass implements Parcelable {
         dest.writeString(this.itemSix);
         dest.writeString(this.itemSeven);
         dest.writeString(this.itemEight);
+        dest.writeString(this.groupTypeOne);
+        dest.writeString(this.groupTypeTwo);
+        dest.writeString(this.groupTypeThree);
+        dest.writeString(this.groupTypeFour);
+        dest.writeString(this.groupTypeFive);
+        dest.writeString(this.groupTypeSix);
+        dest.writeString(this.groupTypeSeven);
+        dest.writeString(this.groupTypeEight);
         dest.writeString(this.typeCode);
         dest.writeString(this.macAddress);
         dest.writeString(this.luxLevelOne);
@@ -400,8 +497,10 @@ public class DeviceClass implements Parcelable {
 
     protected DeviceClass(Parcel in) {
 
+        this.deviceId = in.readInt();
         this.DeviceUID = in.readLong();
         this.deviceName = in.readString();
+        this.devicehexUid = in.readString();
         this.numberOne = in.readString();
         this.numberTwo = in.readString();
         this.numberThree = in.readString();
@@ -418,6 +517,14 @@ public class DeviceClass implements Parcelable {
         this.itemSix = in.readString();
         this.itemSeven = in.readString();
         this.itemEight = in.readString();
+        this.groupTypeOne = in.readString();
+        this.groupTypeTwo = in.readString();
+        this.groupTypeThree = in.readString();
+        this.groupTypeFour = in.readString();
+        this.groupTypeFive = in.readString();
+        this.groupTypeSix = in.readString();
+        this.groupTypeSeven = in.readString();
+        this.groupTypeEight = in.readString();
         this.typeCode = in.readString();
         this.macAddress = in.readString();
         this.luxLevelOne = in.readString();

@@ -25,6 +25,7 @@ public class DatabaseConstant {
 
     public static final String COLUMN_DEVICE_ID = "DEVICE_ID";             ////Device IDc
     public static final String COLUMN_DEVICE_UID = "DEVICE_UID";             ////Device UIDc
+    public static final String COLUMN_DEVICE_HEXUID = "DEVICE_HEXUID";
     public static final String COLUMN_DEVICE_STATUS = "DEVICE_STATUS";       ////Device Status (ON/OFF)
     public static final String COLUMN_DEVICE_MASTER_STATUS = "MASTER_STATUS";       ////Master Status (1/0)
     public static final String COLUMN_DEVICE_NAME = "DEVICE_NAME";            ////Device Name
@@ -56,6 +57,15 @@ public class DatabaseConstant {
     public static final String COLUMN_DEVICE_DIMMING_LEVEL_TWO = "DEVICE_DIMMING_LEVEL_TWO";
     public static final String COLUMN_DEVICE_DIMMING_LEVEL_THREE = "DEVICE_DIMMING_LEVEL_THREE";
     public static final String COLUMN_DEVICE_DIMMING_LEVEL_Four= "DEVICE_DIMMING_LEVEL_FOUR";
+    public static final String COLUMN_DEVICE_GROUP_TYPE_ONE = "DEVICE_GROUP_TYPE_ONE";
+    public static final String COLUMN_DEVICE_GROUP_TYPE_TWO = "DEVICE_GROUP_TYPE_TWO";
+    public static final String COLUMN_DEVICE_GROUP_TYPE_THREE = "DEVICE_GROUP_TYPE_THREE";
+    public static final String COLUMN_DEVICE_GROUP_TYPE_FOUR = "DEVICE_GROUP_TYPE_FOUR";
+    public static final String COLUMN_DEVICE_GROUP_TYPE_FIVE = "DEVICE_GROUP_TYPE_FIVE";
+    public static final String COLUMN_DEVICE_GROUP_TYPE_SIX = "DEVICE_GROUP_TYPE_SIX";
+    public static final String COLUMN_DEVICE_GROUP_TYPE_SEVEN = "DEVICE_GROUP_TYPE_SEVEN";
+    public static final String COLUMN_DEVICE_GROUP_TYPE_EIGHT = "DEVICE_GROUP_TYPE_EIGHT";
+
 //    public static final String COLUMN_DEVICE_TAG_NUMBER = "DEVICE_TAG";
     public static final String COLUMN_DEVICE_PROGRESS = "DEVICE_PROGRESS";   //// Device dim progress
 
@@ -116,6 +126,7 @@ public class DatabaseConstant {
             COLUMN_DEVICE_MASTER_STATUS + " INTEGER DEFAULT 0 ," +
             COLUMN_DEVICE_PROGRESS + " INTEGER DEFAULT 100 ," +
             COLUMN_DEVICE_NAME + " TEXT ," +
+            COLUMN_DEVICE_HEXUID + " TEXT ," +
             COLUMN_DEVICE_NUMBER_ONE + " TEXT ," +
             COLUMN_DEVICE_NUMBER_TWO + " TEXT ," +
             COLUMN_DEVICE_NUMBER_THREE + " TEXT ," +
@@ -144,6 +155,14 @@ public class DatabaseConstant {
             COLUMN_DEVICE_DIMMING_LEVEL_TWO + " TEXT ," +
             COLUMN_DEVICE_DIMMING_LEVEL_THREE + " TEXT ," +
             COLUMN_DEVICE_DIMMING_LEVEL_Four + " TEXT ," +
+            COLUMN_DEVICE_GROUP_TYPE_ONE + " TEXT ," +
+            COLUMN_DEVICE_GROUP_TYPE_TWO + " TEXT ," +
+            COLUMN_DEVICE_GROUP_TYPE_THREE + " TEXT ," +
+            COLUMN_DEVICE_GROUP_TYPE_FOUR + " TEXT ," +
+            COLUMN_DEVICE_GROUP_TYPE_FIVE + " TEXT ," +
+            COLUMN_DEVICE_GROUP_TYPE_SIX + " TEXT ," +
+            COLUMN_DEVICE_GROUP_TYPE_SEVEN + " TEXT ," +
+            COLUMN_DEVICE_GROUP_TYPE_EIGHT+ " TEXT ," +
             COLUMN_DERIVE_TYPE + " TEXT ," +
             COLUMN_GROUP_SITE_ID + " INTEGER DEFAULT 0 ," +
             COLUMN_GROUP_BUILDINGID + " INTEGER DEFAULT 0 ," +

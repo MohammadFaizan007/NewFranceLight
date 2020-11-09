@@ -12,6 +12,9 @@ public class GroupDetailsClass implements Parcelable {
     public int getGroupId() {
         return groupId;
     }
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
 
     public String getGroupName() {
         return groupName;
@@ -29,9 +32,7 @@ public class GroupDetailsClass implements Parcelable {
         return groupStatus;
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
-    }
+
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;

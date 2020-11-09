@@ -183,7 +183,7 @@ public class DashboardRoomAdapter extends BaseAdapter implements AdvertiseResult
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         convertView = LayoutInflater.from(activity).
-                inflate(R.layout.dashboard_item_adapter, parent, false);
+                inflate(R.layout.dashboard_item_adapter_new, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(convertView);
         RoomGroupDetailsClass deviceClass=arrayList.get(position);

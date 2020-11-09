@@ -335,7 +335,9 @@
                     android:text="Set Level"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    />
             </LinearLayout>
 
 
@@ -412,7 +414,8 @@
                     android:text="Set As Master"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/reset"
@@ -453,7 +456,8 @@
                     android:text="Unset Master"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"/>
 
 
             </LinearLayout>
@@ -485,9 +489,10 @@
                     android:background="@drawable/rect_btn_bg_darkprimary"
                     android:gravity="center"
                     android:text="Add Group"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/hold_time"
@@ -499,8 +504,9 @@
                     android:background="@drawable/rect_btn_bg_darkprimary"
                     android:gravity="center"
                     android:text="Hold Time"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_12sdp"
                     android:textStyle="bold"
                     />
             </LinearLayout>
@@ -532,9 +538,10 @@
                     android:background="@drawable/rect_btn_bg_darkprimary"
                     android:gravity="center"
                     android:text="Enable Attributes"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/lux_leve"
@@ -546,8 +553,9 @@
                     android:background="@drawable/rect_btn_bg_darkprimary"
                     android:gravity="center"
                     android:text="Lux Level"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_12sdp"
                     android:textStyle="bold"
                     />
             </LinearLayout>
@@ -576,10 +584,11 @@
                     android:background="@drawable/rect_btn_bg_darkprimary"
                     android:gravity="center"
                     android:text="Reset Node"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:visibility="visible"/>
+                    android:visibility="visible"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:layout_width="0dp"

@@ -229,10 +229,14 @@ public class EditDeviceFragment extends Fragment implements AdvertiseResultInter
             lightStatus.setVisibility(View.VISIBLE);
             set_level.setVisibility(View.VISIBLE);
             light_set_master.setVisibility(View.VISIBLE);
+            unsetMaster.setVisibility(View.VISIBLE);
+            editLightDelete.setVisibility(View.VISIBLE);
         } else {
             lightStatus.setVisibility(View.GONE);
             set_level.setVisibility(View.GONE);
             light_set_master.setVisibility(View.GONE);
+            unsetMaster.setVisibility(View.GONE);
+            editLightDelete.setVisibility(View.GONE);
         }
 //        details.setOnClickListener(v -> {
 //            Intent intent = new Intent(activity, HelperActivity.class);

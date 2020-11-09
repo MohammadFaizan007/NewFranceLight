@@ -389,6 +389,11 @@ public class SqlHelper extends SQLiteOpenHelper {
         return db.rawQuery("select * from " + tableName, null);  ///+" where "+COLUMN_GROUP_ID+"='"+0+"'"
     }
 
+    public Cursor getAllDeviceNew() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("select * from " + ADD_DEVICE_TABLE /*+" where "+COLUMN_ID+"='"+id+"'"*/, null);
+    }
+
 
     public Cursor getAllGroupLight() {
         SQLiteDatabase db = this.getReadableDatabase();
