@@ -14,7 +14,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -24,23 +23,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.CustomProgress.CustomDialog.AnimatedProgress;
-import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
 import com.inferrix.lightsmart.EncodeDecodeModule.ByteQueue;
 import com.inferrix.lightsmart.InterfaceModule.AdvertiseResultInterface;
 import com.inferrix.lightsmart.InterfaceModule.ReceiverResultInterface;
-import com.inferrix.lightsmart.PogoClasses.BuildingGroupDetailsClass;
-import com.inferrix.lightsmart.PogoClasses.DeviceClass;
-import com.inferrix.lightsmart.PogoClasses.SiteGroupDetailsClass;
 import com.inferrix.lightsmart.R;
 import com.inferrix.lightsmart.ServiceModule.AdvertiseTask;
 import com.inferrix.lightsmart.ServiceModule.ScannerTask;
 import com.inferrix.lightsmart.activity.AppHelper;
 import com.inferrix.lightsmart.activity.HelperActivity;
 import com.inferrix.lightsmart.constant.Constants;
+import com.inferrix.lightsmart.constant.PreferencesManager;
+import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
+import com.inferrix.lightsmart.PogoClasses.BuildingGroupDetailsClass;
+import com.inferrix.lightsmart.PogoClasses.DeviceClass;
 import com.niftymodaldialogeffects.Effectstype;
 import com.niftymodaldialogeffects.NiftyDialogBuilder;
-import com.nightonke.jellytogglebutton.JellyToggleButton;
-import com.nightonke.jellytogglebutton.State;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,16 +45,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_BUILDING_GROUP_PROGRESS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_PROGRESS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_STATUS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_STATUS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_SITE_GROUP_PROGRESS;
-import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.GROUP_STATE_COMMAND;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LIGHT_LEVEL_GROUP_COMMAND;
-import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.GROUP_STATE_COMMAND_RESPONSE;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.LIGHT_LEVEL_GROUP_COMMAND_RESPONSE;
 import static com.inferrix.lightsmart.activity.AppHelper.sqlHelper;
+import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_BUILDING_GROUP_PROGRESS;
 
 
 public class BuildingAdapter extends BaseAdapter implements Filterable, AdvertiseResultInterface, ReceiverResultInterface {
@@ -75,7 +66,7 @@ public class BuildingAdapter extends BaseAdapter implements Filterable, Advertis
         activity = context;
         arrayList = new ArrayList<>();
         filterarrayList = new ArrayList<>();
-        animatedProgress = new AnimatedProgress(activity);
+        animatedProgress = new AnimatedProgress (activity);
 
     }
 
@@ -89,7 +80,7 @@ public class BuildingAdapter extends BaseAdapter implements Filterable, Advertis
 
     public void getAllGroups() {
         arrayList.clear();
-        Cursor cursor = sqlHelper.getAllGroup();
+        Cursor cursor = sqlHelper.getAllGroup(Integer.parseInt (PreferencesManager.getInstance (activity).getFkProjectId ()));
         if (cursor.moveToFirst())
         {
             do {
@@ -185,8 +176,9 @@ public class BuildingAdapter extends BaseAdapter implements Filterable, Advertis
 
                 ByteQueue byteQueue=new ByteQueue();
                 byteQueue.push(requestCode);   //// Light Level Group Command method type
+                byteQueue.push(0x02);
                 byteQueue.push(groupDetails.getGroupBuildingId());
-                byteQueue.push(hex);    ////0x00-0x64
+                byteQueue.push(seekBarProgress);    ////0x00-0x64
                 advertiseTask=new AdvertiseTask(BuildingAdapter.this,activity,5*1000);
                 advertiseTask.setByteQueue(byteQueue);
                 advertiseTask.setSearchRequestCode(LIGHT_LEVEL_GROUP_COMMAND_RESPONSE);
@@ -252,6 +244,7 @@ public class BuildingAdapter extends BaseAdapter implements Filterable, Advertis
             intent.putExtra(Constants.BUILDIN_GROUP_DETAIL_KEY,groupDetails);
             activity.startActivity(intent);
         });
+        viewHolder.groupCustomize.setVisibility (View.INVISIBLE);
         viewHolder.groupName.setText(groupDetails.getGroupBuildingName());
         return convertView;
     }
@@ -266,7 +259,7 @@ public class BuildingAdapter extends BaseAdapter implements Filterable, Advertis
 
     @Override
     public void onSuccess(String message) {
-//        animatedProgress.showProgress();
+        animatedProgress.showProgress();
         Log.w(TAG,"Advertising start");
     }
 

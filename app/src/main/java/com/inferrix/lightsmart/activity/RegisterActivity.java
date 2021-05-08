@@ -109,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
 
             case R.id.appCompatButtonRegister:
-                postDataToSQLite();
+//                postDataToSQLite();
                 break;
 
             case R.id.appCompatTextViewLoginLink:
@@ -121,51 +121,51 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     /**
      * This method is to validate the input text fields and post data to SQLite
      */
-    private void postDataToSQLite() {
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_message_name))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_message_password))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextMatches(textInputEditTextPassword, textInputEditTextConfirmPassword,
-                textInputLayoutConfirmPassword, getString(R.string.error_password_match))) {
-            return;
-        }
-        ContentValues contentValues=new ContentValues();
-        contentValues.put(DatabaseConstant.COLUMN_USER_NAME,textInputEditTextName.getText().toString().trim());
-        contentValues.put(DatabaseConstant.COLUMN_USER_EMAIL,textInputEditTextEmail.getText().toString().trim());
-        contentValues.put(DatabaseConstant.COLUMN_USER_PASSWORD,textInputEditTextPassword.getText().toString().trim());
-        if(sqlHelper.insertData(DatabaseConstant.TABLE_USER,contentValues)>0) {
-
-
-
-//        if (!databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim())) {
+//    private void postDataToSQLite() {
+//        if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_message_name))) {
+//            return;
+//        }
+//        if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
+//            return;
+//        }
+//        if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
+//            return;
+//        }
+//        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_message_password))) {
+//            return;
+//        }
+//        if (!inputValidation.isInputEditTextMatches(textInputEditTextPassword, textInputEditTextConfirmPassword,
+//                textInputLayoutConfirmPassword, getString(R.string.error_password_match))) {
+//            return;
+//        }
+//        ContentValues contentValues=new ContentValues();
+//        contentValues.put(DatabaseConstant.COLUMN_USER_NAME,textInputEditTextName.getText().toString().trim());
+//        contentValues.put(DatabaseConstant.COLUMN_USER_EMAIL,textInputEditTextEmail.getText().toString().trim());
+//        contentValues.put(DatabaseConstant.COLUMN_USER_PASSWORD,textInputEditTextPassword.getText().toString().trim());
+//        if(sqlHelper.insertData(DatabaseConstant.TABLE_USER,contentValues)>0) {
 //
+//
+//
+////        if (!databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim())) {
+////
+////            user.setName(textInputEditTextName.getText().toString().trim());
+////            user.setEmail(textInputEditTextEmail.getText().toString().trim());
+////            user.setPassword(textInputEditTextPassword.getText().toString().trim());
+////
+////            databaseHelper.addUser(user);
+//            Intent accountsIntent = new Intent(activity, LoginActivity.class);
+//            emptyInputEditText();
+//            startActivity(accountsIntent);
+//            Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+//        } else {
+//            Toast.makeText(RegisterActivity.this, "Email Already Exists", Toast.LENGTH_SHORT).show();
 //            user.setName(textInputEditTextName.getText().toString().trim());
 //            user.setEmail(textInputEditTextEmail.getText().toString().trim());
 //            user.setPassword(textInputEditTextPassword.getText().toString().trim());
+//        }
 //
-//            databaseHelper.addUser(user);
-            Intent accountsIntent = new Intent(activity, LoginActivity.class);
-            emptyInputEditText();
-            startActivity(accountsIntent);
-            Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(RegisterActivity.this, "Email Already Exists", Toast.LENGTH_SHORT).show();
-            user.setName(textInputEditTextName.getText().toString().trim());
-            user.setEmail(textInputEditTextEmail.getText().toString().trim());
-            user.setPassword(textInputEditTextPassword.getText().toString().trim());
-        }
-
-
-    }
+//
+//    }
 
     /**
      * This method is to empty all input edit text

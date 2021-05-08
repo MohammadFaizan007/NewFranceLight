@@ -15,7 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -25,23 +24,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.CustomProgress.CustomDialog.AnimatedProgress;
-import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
 import com.inferrix.lightsmart.EncodeDecodeModule.ByteQueue;
 import com.inferrix.lightsmart.InterfaceModule.AdvertiseResultInterface;
 import com.inferrix.lightsmart.InterfaceModule.ReceiverResultInterface;
-import com.inferrix.lightsmart.PogoClasses.DeviceClass;
-import com.inferrix.lightsmart.PogoClasses.LevelGroupDetailsClass;
-import com.inferrix.lightsmart.PogoClasses.RoomGroupDetailsClass;
 import com.inferrix.lightsmart.R;
 import com.inferrix.lightsmart.ServiceModule.AdvertiseTask;
 import com.inferrix.lightsmart.ServiceModule.ScannerTask;
 import com.inferrix.lightsmart.activity.AppHelper;
 import com.inferrix.lightsmart.activity.HelperActivity;
 import com.inferrix.lightsmart.constant.Constants;
+import com.inferrix.lightsmart.constant.PreferencesManager;
+import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
+import com.inferrix.lightsmart.PogoClasses.RoomGroupDetailsClass;
 import com.niftymodaldialogeffects.Effectstype;
 import com.niftymodaldialogeffects.NiftyDialogBuilder;
-import com.nightonke.jellytogglebutton.JellyToggleButton;
-import com.nightonke.jellytogglebutton.State;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,15 +45,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_PROGRESS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_DEVICE_STATUS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_STATUS;
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_ROOM_GROUP_PROGRESS;
-import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.GROUP_STATE_COMMAND;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LIGHT_LEVEL_GROUP_COMMAND;
-import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.GROUP_STATE_COMMAND_RESPONSE;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.LIGHT_LEVEL_GROUP_COMMAND_RESPONSE;
 import static com.inferrix.lightsmart.activity.AppHelper.sqlHelper;
+import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_ROOM_GROUP_PROGRESS;
 
 
 public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseResultInterface, ReceiverResultInterface {
@@ -75,7 +66,7 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
         activity = context;
         arrayList = new ArrayList<>();
         filterarrayList = new ArrayList<>();
-        animatedProgress = new AnimatedProgress(activity);
+        animatedProgress = new AnimatedProgress (activity);
 
     }
 
@@ -89,7 +80,7 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
 
     public void getAllGroups() {
         arrayList.clear();
-        Cursor cursor = sqlHelper.getAllGroup();
+        Cursor cursor = sqlHelper.getAllGroup(Integer.parseInt (PreferencesManager.getInstance (activity).getFkProjectId ()));
         if (cursor.moveToFirst())
         {
             do {
@@ -107,27 +98,27 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
         cursor.close();
     }
 
-    public ArrayList<DeviceClass> getGroupLight(int groupId)
-    {
-        ArrayList<DeviceClass> deviceClasses=new ArrayList<>();
-        Cursor cursor = sqlHelper.getLightInGroup(groupId);
-        if (cursor.moveToFirst()) {
-            do {
-                DeviceClass deviceClass = new DeviceClass();
-                deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
-                deviceClass.setDeviceUID(cursor.getLong(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
-                deviceClass.setDeriveType(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DERIVE_TYPE)));
-                deviceClass.setDeviceDimming(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_PROGRESS)));
-                deviceClass.setGroupId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ID)));
-                deviceClass.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_STATUS))==1);
-                // do what ever you want here
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-//        setList(arrayList);
-        return deviceClasses;
-    }
+//    public ArrayList<DeviceClass> getGroupLight(int groupId)
+//    {
+//        ArrayList<DeviceClass> deviceClasses=new ArrayList<>();
+//        Cursor cursor = sqlHelper.getLightInGroup(groupId);
+//        if (cursor.moveToFirst()) {
+//            do {
+//                DeviceClass deviceClass = new DeviceClass();
+//                deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+//                deviceClass.setDeviceUID(cursor.getLong(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
+//                deviceClass.setDeriveType(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DERIVE_TYPE)));
+//                deviceClass.setDeviceDimming(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_PROGRESS)));
+//                deviceClass.setGroupId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ID)));
+//                deviceClass.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_STATUS))==1);
+//                // do what ever you want here
+//            } while (cursor.moveToNext());
+//        }
+//
+//        cursor.close();
+////        setList(arrayList);
+//        return deviceClasses;
+//    }
 
     @Override
     public int getCount() {
@@ -183,10 +174,11 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
                 requestCode=LIGHT_LEVEL_GROUP_COMMAND;
                 AdvertiseTask advertiseTask;
 
-                ByteQueue byteQueue=new ByteQueue();
+                ByteQueue byteQueue=new ByteQueue ();
                 byteQueue.push(requestCode);   //// Light Level Group Command method type
+                byteQueue.push(0x02);
                 byteQueue.push(groupDetails.getRoomGroupId());
-                byteQueue.push(hex);    ////0x00-0x64
+                byteQueue.push(seekBarProgress);    ////0x00-0x64
                 advertiseTask=new AdvertiseTask(RoomAdapter.this,activity,5*1000);
                 advertiseTask.setByteQueue(byteQueue);
                 advertiseTask.setSearchRequestCode(LIGHT_LEVEL_GROUP_COMMAND_RESPONSE);
@@ -243,7 +235,7 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
             convertView = LayoutInflater.from(activity).
                     inflate(R.layout.group_list_adapter, parent, false);
         }
-        SiteAdapter.ViewHolder viewHolder=new SiteAdapter.ViewHolder(convertView);
+        ViewHolder viewHolder=new ViewHolder(convertView);
         RoomGroupDetailsClass groupDetails=arrayList.get(position);
         viewHolder.groupCustomize.setOnClickListener(view -> showDialog(position));
         viewHolder.editGroup.setOnClickListener(view -> {
@@ -252,6 +244,7 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
             intent.putExtra(Constants.BUILDIN_GROUP_DETAIL_KEY,groupDetails);
             activity.startActivity(intent);
         });
+        viewHolder.groupCustomize.setVisibility (View.INVISIBLE);
         viewHolder.groupName.setText(groupDetails.getGroupRoomName());
         return convertView;
     }
@@ -266,7 +259,7 @@ public class RoomAdapter extends BaseAdapter implements Filterable, AdvertiseRes
 
     @Override
     public void onSuccess(String message) {
-//        animatedProgress.showProgress();
+        animatedProgress.showProgress();
         Log.w(TAG,"Advertising start");
     }
 

@@ -90,6 +90,15 @@ public class AssociateFragment extends Fragment {
                     deviceClass.setItemSeven(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_ITEM_SEVEN)));
                     deviceClass.setItemEight(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_ITEM_EIGET)));
 
+                    deviceClass.setUidNameOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME_ONE)));
+                    deviceClass.setUidNameTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME_TWO)));
+                    deviceClass.setUidNameThree(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME_THREE)));
+                    deviceClass.setUidNameFour(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME_FOUR)));
+                    deviceClass.setUidNameFive(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME_FIVE)));
+                    deviceClass.setUidNameSix(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME_SIX)));
+                    deviceClass.setGroupTypeSeven(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME_SEVEN)));
+                    deviceClass.setUidNameEight(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME_EIGHT)));
+
                     deviceClass.setGroupTypeOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_ONE)));
                     deviceClass.setGroupTypeTwo(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_TWO)));
                     deviceClass.setGroupTypeThree(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_THREE)));

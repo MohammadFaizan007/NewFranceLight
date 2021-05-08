@@ -2,16 +2,13 @@ package com.inferrix.lightsmart.fragments;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,37 +19,31 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.CustomProgress.CustomDialog.AnimatedProgress;
-import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
 import com.inferrix.lightsmart.EncodeDecodeModule.ByteQueue;
 import com.inferrix.lightsmart.InterfaceModule.AdvertiseResultInterface;
 import com.inferrix.lightsmart.InterfaceModule.ReceiverResultInterface;
+import com.inferrix.lightsmart.R;
+import com.inferrix.lightsmart.ServiceModule.AdvertiseTask;
+import com.inferrix.lightsmart.ServiceModule.ScannerTask;
+import com.inferrix.lightsmart.constant.PreferencesManager;
+import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
 import com.inferrix.lightsmart.PogoClasses.BuildingGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.DeviceClass;
 import com.inferrix.lightsmart.PogoClasses.GroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.LevelGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.RoomGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.SiteGroupDetailsClass;
-import com.inferrix.lightsmart.R;
-import com.inferrix.lightsmart.ServiceModule.AdvertiseTask;
-import com.inferrix.lightsmart.ServiceModule.ScannerTask;
-import com.niftymodaldialogeffects.Effectstype;
-import com.niftymodaldialogeffects.NiftyDialogBuilder;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ADD_BUILDING_GROUP;
-import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ADD_GROUP;
-import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ADD_LEVEL_GROUP;
-import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ADD_ROOM_GROUP;
-import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ADD_SITE_GROUP;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.ALL_GROUP_INFO;
-import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.REMOVE_ASSOCIATE;
+import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.ADD_RESPONSE;
 import static com.inferrix.lightsmart.activity.AppHelper.sqlHelper;
+import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_BUILDINGID;
 
 
 public class AddGroupFragment extends Fragment implements AdvertiseResultInterface, ReceiverResultInterface {
@@ -95,9 +86,10 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
     @BindView(R.id.btn_submit)
     Button btnSubmit;
     int groupIDOne, groupIDTwo;
+    DashboardFragment dashboardFragment;
 
     public AddGroupFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -114,7 +106,7 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
 
         deviceName.setText( deviceClass.getDeviceName() );
         scannerTask = new ScannerTask( activity, this );
-        animatedProgress = new AnimatedProgress( activity );
+        animatedProgress = new AnimatedProgress ( activity );
         animatedProgress.setCancelable( false );
         //animatedProgress.showProgress();
         list = new ArrayList<>();
@@ -122,6 +114,8 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
         groupRoomDetailsClasses = new ArrayList<>();
         groupBuildingDetailsClasses = new ArrayList<>();
         groupLevelDetailsClasses = new ArrayList<>();
+
+        Log.e ("TESTING===>", String.valueOf (deviceClass.getGroupId ()));
 
 
         adapter = new ArrayAdapter<GroupDetailsClass>( activity, R.layout.spinerlayout, list ) {
@@ -132,6 +126,8 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
                 // Set the text color of spinner item
                 tv.setTextColor( Color.GRAY );
                 tv.setText( list.get( position ).getGroupName() );
+
+
                 return tv;
             }
 
@@ -256,6 +252,7 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
                 // Set the text color of drop down items
                 tv.setTextColor( Color.BLACK );
                 tv.setText( groupRoomDetailsClasses.get( position ).getGroupRoomName() );
+
                 /*// If this item is selected item
                 if(position == mSelectedIndex){
                     // Set spinner selected popup item's text color
@@ -282,10 +279,11 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
                 contentValues.put( DatabaseConstant.COLUMN_GROUP_LEVELID, ((LevelGroupDetailsClass) levelSpinner.getSelectedItem()).getGroupLevelId() );
                 contentValues.put( DatabaseConstant.COLUMN_GROUP_ROOMID, ((RoomGroupDetailsClass) roomSpinner.getSelectedItem()).getRoomGroupId() );
                 contentValues.put( DatabaseConstant.COLUMN_GROUP_ID, ((GroupDetailsClass) groupSpinner.getSelectedItem()).getGroupId() );
-                if (sqlHelper.updateDevice( deviceClass.getDeviceUID(), contentValues )) {
+                if (sqlHelper.updateDeviceNew ( deviceClass.getDeviceId (), contentValues )) {
                     Log.e( "UID===>", String.valueOf( deviceClass.getDeviceUID() ) );
                     AdvertiseTask advertiseTask;
                     ByteQueue byteQueue = new ByteQueue();
+//                    0x4e
                     byteQueue.push( ALL_GROUP_INFO );
                     byteQueue.push( 0x04 );
                     byteQueue.pushU4B( deviceClass.getDeviceUID() );
@@ -312,10 +310,12 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
                     } else {
                         byteQueue.push( ((RoomGroupDetailsClass) roomSpinner.getSelectedItem()).getRoomGroupId() );
                     }
-                    advertiseTask = new AdvertiseTask( AddGroupFragment.this, activity, 5 * 1000 );
+                    advertiseTask = new AdvertiseTask(AddGroupFragment.this, activity, 5 * 1000 );
                     animatedProgress.setText( "Uploading" );
                     advertiseTask.setByteQueue( byteQueue );
                     Log.e( "Check>>>>", byteQueue.toString() );
+                    deviceClass.setGroupId ((((GroupDetailsClass) groupSpinner.getSelectedItem ()).getGroupId ()));
+//                    advertiseTask.setSearchRequestCode(ADD_RESPONSE);
                     advertiseTask.startAdvertising();
                 } else {
                     Toast.makeText( activity, "Some error to edit group", Toast.LENGTH_SHORT ).show();
@@ -335,7 +335,7 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
         GroupDetailsClass noGroup = new GroupDetailsClass();
         noGroup.setGroupName( "No Group" );
         list.add( noGroup );
-        Cursor cursor = sqlHelper.getAllGroup();
+        Cursor cursor = sqlHelper.getAllGroup(Integer.parseInt (PreferencesManager.getInstance (activity).getFkProjectId ()));
         int i = 1;
         if (cursor.moveToFirst()) {
             do {
@@ -373,7 +373,7 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
         SiteGroupDetailsClass noGroupData = new SiteGroupDetailsClass();
         noGroupData.setGroupSiteName( "No Site" );
         groupSiteDetailsClasses.add( noGroupData );
-        Cursor cursorS = sqlHelper.getAllSiteGroup();
+        Cursor cursorS = sqlHelper.getAllSiteGroup(Integer.parseInt (PreferencesManager.getInstance (getActivity ()).getFkProjectId ()));
         int i = 1;
         if (cursorS.moveToFirst()) {
             do {
@@ -410,7 +410,7 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
         BuildingGroupDetailsClass noGroupData = new BuildingGroupDetailsClass();
         noGroupData.setGroupBuildingName( "No Building" );
         groupBuildingDetailsClasses.add( noGroupData );
-        Cursor cursorB = sqlHelper.getAllBuildingGroup();
+        Cursor cursorB = sqlHelper.getAllBuildingGroup(Integer.parseInt (PreferencesManager.getInstance (getActivity ()).getFkProjectId ()));
         int i = 1;
         if (cursorB.moveToFirst()) {
             do {
@@ -446,9 +446,9 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
     public void getAllLEVELGroups() {
         groupLevelDetailsClasses.clear();
         LevelGroupDetailsClass noGroupData = new LevelGroupDetailsClass();
-        noGroupData.setGroupLevelName( "No Level" );
+        noGroupData.setGroupLevelName( "No Floor" );
         groupLevelDetailsClasses.add( noGroupData );
-        Cursor cursorB = sqlHelper.getAllLevelGroup();
+        Cursor cursorB = sqlHelper.getAllLevelGroup(Integer.parseInt (PreferencesManager.getInstance (getActivity ()).getFkProjectId ()));
         int i = 1;
         if (cursorB.moveToFirst()) {
             do {
@@ -468,7 +468,7 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
             while (cursorB.moveToNext());
             cursorB.close();
             LevelGroupDetailsClass allBulding = new LevelGroupDetailsClass();
-            allBulding.setGroupLevelName( "All Level" );
+            allBulding.setGroupLevelName( "All Floor" );
             allBulding.setGroupLevelId( 254 );
             groupLevelDetailsClasses.add( allBulding );
             if (allBulding.getGroupLevelId() == deviceClass.getGroupLevelId()) {
@@ -486,7 +486,7 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
         RoomGroupDetailsClass noGroupData = new RoomGroupDetailsClass();
         noGroupData.setGroupRoomName( "No Room" );
         groupRoomDetailsClasses.add( noGroupData );
-        Cursor cursor = sqlHelper.getAllRoomGroup();
+        Cursor cursor = sqlHelper.getAllRoomGroup(Integer.parseInt (PreferencesManager.getInstance (getActivity ()).getFkProjectId ()));
         int i = 1;
         if (cursor.moveToFirst()) {
             do {
@@ -545,11 +545,27 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
 
     @Override
     public void onStop(String stopMessage, int resultCode) {
+//        Intent intent = new Intent(activity, HelperActivity.class);
+//        intent.putExtra ("projectId",PreferencesManager.getInstance (activity).getFkProjectId ());
+//        intent.putExtra(Constants.MAIN_KEY, Constants.DASHBOARD_CODE);
+//        Intent intent = new Intent(activity, DashboardFragment.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
         if (animatedProgress != null)
             animatedProgress.hideProgress();
         activity.onBackPressed();
         ContentValues contentValues = new ContentValues();
+        switch (resultCode) {
+            case ADD_RESPONSE:
+//               this.dashboardFragment.onResume ();
+//                deviceClass.setGroupId (groupSpinner.getId ());
+//                deviceClass.setGroupSiteId (siteSpinner.getId ());
+//                deviceClass.setGroupBuildingId (0);
+//                deviceClass.setGroupLevelId (0);
+//                deviceClass.setGroupRoomId (0);
 
+                break;
+        }
 
     }
 
@@ -559,6 +575,19 @@ public class AddGroupFragment extends Fragment implements AdvertiseResultInterfa
             return;
         animatedProgress.hideProgress();
 //        activity.onBackPressed();
+
+        switch (successCode) {
+            case ADD_RESPONSE:
+//                this.dashboardFragment.onResume ();
+//                deviceClass.setGroupId (groupSpinner.getT);
+//                deviceClass.setGroupSiteId ( siteSpinner.getSelectedItemPosition (getAllSITEGroups ());
+//                deviceClass.setGroupBuildingId (0);
+//                deviceClass.setGroupLevelId (0);
+//                deviceClass.setGroupRoomId (0);
+                break;
+
+        }
+
 
     }
 

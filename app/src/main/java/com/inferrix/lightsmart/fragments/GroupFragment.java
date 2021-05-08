@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,22 +19,21 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-
+import com.inferrix.lightsmart.R;
+import com.inferrix.lightsmart.activity.HelperActivity;
+import com.inferrix.lightsmart.adapter.BuildingAdapter;
+import com.inferrix.lightsmart.adapter.GroupAdapter;
+import com.inferrix.lightsmart.adapter.LevelAdapter;
+import com.inferrix.lightsmart.adapter.RoomAdapter;
+import com.inferrix.lightsmart.adapter.SiteAdapter;
+import com.inferrix.lightsmart.constant.Constants;
+import com.inferrix.lightsmart.constant.PreferencesManager;
 import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
 import com.inferrix.lightsmart.PogoClasses.BuildingGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.GroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.LevelGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.RoomGroupDetailsClass;
 import com.inferrix.lightsmart.PogoClasses.SiteGroupDetailsClass;
-import com.inferrix.lightsmart.R;
-import com.inferrix.lightsmart.activity.HelperActivity;
-import com.inferrix.lightsmart.adapter.BuildingAdapter;
-import com.inferrix.lightsmart.adapter.DashboardItemAdapter;
-import com.inferrix.lightsmart.adapter.GroupAdapter;
-import com.inferrix.lightsmart.adapter.LevelAdapter;
-import com.inferrix.lightsmart.adapter.RoomAdapter;
-import com.inferrix.lightsmart.adapter.SiteAdapter;
-import com.inferrix.lightsmart.constant.Constants;
 
 import java.util.ArrayList;
 
@@ -122,7 +120,7 @@ public class GroupFragment extends Fragment {
         lightData.setGroupName("Building Group");
         GroupDetailsClass lightData2 = new GroupDetailsClass();
         lightData2.setGroupId(3);
-        lightData2.setGroupName("Level Group");
+        lightData2.setGroupName("Floor Group");
         GroupDetailsClass lightData3 = new GroupDetailsClass();
         lightData3.setGroupId(4);
         lightData3.setGroupName("Room Group");
@@ -139,7 +137,7 @@ public class GroupFragment extends Fragment {
     public void getAllGroups() {
         setSpinner();
         list.clear();
-        Cursor cursor = sqlHelper.getAllGroup();
+        Cursor cursor = sqlHelper.getAllGroup(Integer.parseInt (PreferencesManager.getInstance (getActivity ()).getFkProjectId ()));
         if (cursor.moveToFirst()) {
             do {
                 GroupDetailsClass groupData = new GroupDetailsClass();
@@ -162,7 +160,7 @@ public class GroupFragment extends Fragment {
     public void getAllSiteGroup() {
         setSpinner();
         listSite.clear();
-        Cursor cursor = sqlHelper.getAllSiteGroup();
+        Cursor cursor = sqlHelper.getAllSiteGroup(Integer.parseInt (PreferencesManager.getInstance (getActivity ()).getFkProjectId ()));
         if (cursor.moveToFirst()) {
             do {
                 SiteGroupDetailsClass roomData = new SiteGroupDetailsClass();
@@ -181,7 +179,7 @@ public class GroupFragment extends Fragment {
     public void getAllBUILDINGGroups() {
         setSpinner();
         listBuilding.clear();
-        Cursor cursor = sqlHelper.getAllBuildingGroup();
+        Cursor cursor = sqlHelper.getAllBuildingGroup(Integer.parseInt (PreferencesManager.getInstance (getActivity ()).getFkProjectId ()));
 
         if (cursor.moveToFirst()) {
             do {
@@ -202,7 +200,7 @@ public class GroupFragment extends Fragment {
     public void getAllLevelGroups(){
         setSpinner();
         listLevel.clear();
-        Cursor cursor = sqlHelper.getAllLevelGroup();
+        Cursor cursor = sqlHelper.getAllLevelGroup(Integer.parseInt (PreferencesManager.getInstance (getActivity ()).getFkProjectId ()));
         if (cursor.moveToFirst()){
             do {
                 LevelGroupDetailsClass levelGroupDetailsClass = new LevelGroupDetailsClass();
@@ -222,7 +220,7 @@ public class GroupFragment extends Fragment {
     public void getAllRoomGroup() {
         setSpinner();
         listRoom.clear();
-        Cursor cursorS = sqlHelper.getAllRoomGroup();
+        Cursor cursorS = sqlHelper.getAllRoomGroup(Integer.parseInt (PreferencesManager.getInstance (getActivity ()).getFkProjectId ()));
         if (cursorS.moveToFirst()) {
             do {
                 RoomGroupDetailsClass roomData = new RoomGroupDetailsClass();
@@ -255,11 +253,11 @@ public class GroupFragment extends Fragment {
         activity = getActivity();
         if (activity == null)
             return view;
-        groupAdapter = new GroupAdapter(activity);
-        roomAdapter = new RoomAdapter(activity);
-        siteAdapter = new SiteAdapter(activity);
-        buildingAdapter =new BuildingAdapter(activity);
-        levelAdapter =new LevelAdapter(activity);
+        groupAdapter = new GroupAdapter (activity);
+        roomAdapter = new RoomAdapter (activity);
+        siteAdapter = new SiteAdapter (activity);
+        buildingAdapter =new BuildingAdapter (activity);
+        levelAdapter =new LevelAdapter (activity);
         adapter = new ArrayAdapter<GroupDetailsClass>(activity, R.layout.spinerlayout, spinnerList) {
             public View getView(int position, View convertView, ViewGroup parent) {
                 // Cast the spinner collapsed item (non-popup item) as a text view
@@ -376,6 +374,7 @@ public class GroupFragment extends Fragment {
             case R.id.create_new_group:
                 Intent intent = new Intent(activity, HelperActivity.class);
                 intent.putExtra(Constants.MAIN_KEY, Constants.CREATE_GROUP);
+                intent.putExtra ("projectId", PreferencesManager.getInstance (getActivity ()).getFkProjectId ());
                 intent.putExtra("type","group");
                 activity.startActivity(intent);
                 break;
@@ -383,6 +382,7 @@ public class GroupFragment extends Fragment {
             case R.id.create_site_group:
                 Intent site = new Intent(activity, HelperActivity.class);
                 site.putExtra(Constants.MAIN_KEY, Constants.CREATE_GROUP);
+                site.putExtra ("projectId", PreferencesManager.getInstance (getActivity ()).getFkProjectId ());
                 site.putExtra("type","site");
                 activity.startActivity(site);
                 break;
@@ -390,6 +390,7 @@ public class GroupFragment extends Fragment {
             case R.id.create_building_group:
                 Intent building = new Intent(activity, HelperActivity.class);
                 building.putExtra(Constants.MAIN_KEY, Constants.CREATE_GROUP);
+                building.putExtra ("projectId", PreferencesManager.getInstance (getActivity ()).getFkProjectId ());
                 building.putExtra("type","building");
                 activity.startActivity(building);
                 break;
@@ -397,6 +398,7 @@ public class GroupFragment extends Fragment {
             case R.id.create_level_group:
                 Intent level = new Intent(activity, HelperActivity.class);
                 level.putExtra(Constants.MAIN_KEY, Constants.CREATE_GROUP);
+                level.putExtra ("projectId", PreferencesManager.getInstance (getActivity ()).getFkProjectId ());
                 level.putExtra("type","level");
                 activity.startActivity(level);
                 break;
@@ -404,6 +406,7 @@ public class GroupFragment extends Fragment {
             case R.id.create_room_group:
                 Intent room = new Intent(activity, HelperActivity.class);
                 room.putExtra(Constants.MAIN_KEY, Constants.CREATE_GROUP);
+                room.putExtra ("projectId", PreferencesManager.getInstance (getActivity ()).getFkProjectId ());
                 room.putExtra("type","room");
                 activity.startActivity(room);
                 break;

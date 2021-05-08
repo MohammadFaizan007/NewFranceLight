@@ -1573,7 +1573,7 @@ public class DemoAddFragment extends Fragment implements AdvertiseResultInterfac
         noGroupData.setDeviceName( "No Associate" );
         noGroupData.setDeviceId( 0 );
         ListTwo.add( noGroupData );
-        Cursor cursor = sqlHelper.getAllDeviceNew();
+        Cursor cursor = sqlHelper.getAllDevice (DatabaseConstant.ADD_DEVICE_TABLE);
 //        int i = 1;
         if (cursor.moveToFirst()) {
             do {
@@ -1603,7 +1603,7 @@ public class DemoAddFragment extends Fragment implements AdvertiseResultInterfac
         DeviceClass noGroupData = new DeviceClass();
         noGroupData.setDeviceName( "No Associate" );
         ListThree.add( noGroupData );
-        Cursor cursor = sqlHelper.getAllDeviceNew();
+        Cursor cursor = sqlHelper.getAllDevice (DatabaseConstant.ADD_DEVICE_TABLE);
 //        int i = 1;
         if (cursor.moveToFirst()) {
             do {
@@ -1632,7 +1632,7 @@ public class DemoAddFragment extends Fragment implements AdvertiseResultInterfac
         DeviceClass noGroupData = new DeviceClass();
         noGroupData.setDeviceName( "No Associate" );
         ListFour.add( noGroupData );
-        Cursor cursor = sqlHelper.getAllDeviceNew();
+        Cursor cursor = sqlHelper.getAllDevice (DatabaseConstant.ADD_DEVICE_TABLE);
 //        int i = 1;
         if (cursor.moveToFirst()) {
             do {
@@ -1661,7 +1661,7 @@ public class DemoAddFragment extends Fragment implements AdvertiseResultInterfac
         DeviceClass noGroupData = new DeviceClass();
         noGroupData.setDeviceName( "No Associate" );
         ListFive.add( noGroupData );
-        Cursor cursor = sqlHelper.getAllDeviceNew();
+        Cursor cursor = sqlHelper.getAllDevice (DatabaseConstant.ADD_DEVICE_TABLE);
 //        int i = 1;
         if (cursor.moveToFirst()) {
             do {
@@ -1690,7 +1690,7 @@ public class DemoAddFragment extends Fragment implements AdvertiseResultInterfac
         DeviceClass noGroupData = new DeviceClass();
         noGroupData.setDeviceName( "No Associate" );
         ListSix.add( noGroupData );
-        Cursor cursor = sqlHelper.getAllDeviceNew();
+        Cursor cursor = sqlHelper.getAllDevice (DatabaseConstant.ADD_DEVICE_TABLE);
 //        int i = 1;
         if (cursor.moveToFirst()) {
             do {
@@ -1719,7 +1719,7 @@ public class DemoAddFragment extends Fragment implements AdvertiseResultInterfac
         DeviceClass noGroupData = new DeviceClass();
         noGroupData.setDeviceName( "No Associate" );
         ListSeven.add( noGroupData );
-        Cursor cursor = sqlHelper.getAllDeviceNew();
+        Cursor cursor = sqlHelper.getAllDevice (DatabaseConstant.ADD_DEVICE_TABLE);
 //        int i = 1;
         if (cursor.moveToFirst()) {
             do {
@@ -1748,7 +1748,7 @@ public class DemoAddFragment extends Fragment implements AdvertiseResultInterfac
         DeviceClass noGroupData = new DeviceClass();
         noGroupData.setDeviceName( "No Associate" );
         ListEight.add( noGroupData );
-        Cursor cursor = sqlHelper.getAllDeviceNew();
+        Cursor cursor = sqlHelper.getAllDevice (DatabaseConstant.ADD_DEVICE_TABLE);
 //        int i = 1;
         if (cursor.moveToFirst()) {
             do {

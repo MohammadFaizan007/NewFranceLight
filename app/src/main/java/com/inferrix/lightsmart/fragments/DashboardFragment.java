@@ -2,7 +2,6 @@ package com.inferrix.lightsmart.fragments;
 
 
 import android.app.Activity;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,21 +23,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.CustomProgress.CustomDialog.AnimatedProgress;
-import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
 import com.inferrix.lightsmart.EncodeDecodeModule.ByteQueue;
 import com.inferrix.lightsmart.InterfaceModule.AdvertiseResultInterface;
 import com.inferrix.lightsmart.InterfaceModule.ReceiverResultInterface;
-import com.inferrix.lightsmart.PogoClasses.BuildingGroupDetailsClass;
-import com.inferrix.lightsmart.PogoClasses.DeviceClass;
-import com.inferrix.lightsmart.PogoClasses.GroupDetailsClass;
-import com.inferrix.lightsmart.PogoClasses.GroupedLight;
-import com.inferrix.lightsmart.PogoClasses.LevelGroupDetailsClass;
-import com.inferrix.lightsmart.PogoClasses.RoomGroupDetailsClass;
-import com.inferrix.lightsmart.PogoClasses.SiteGroupDetailsClass;
 import com.inferrix.lightsmart.R;
 import com.inferrix.lightsmart.ServiceModule.AdvertiseTask;
 import com.inferrix.lightsmart.ServiceModule.ScannerTask;
-import com.inferrix.lightsmart.activity.HelperActivity;
 import com.inferrix.lightsmart.adapter.DashboardBuildingAdapter;
 import com.inferrix.lightsmart.adapter.DashboardItemAdapter;
 import com.inferrix.lightsmart.adapter.DashboardLevelAdapter;
@@ -49,7 +39,14 @@ import com.inferrix.lightsmart.adapter.IndividualBandAdapter;
 import com.inferrix.lightsmart.adapter.IndividualLightAdapter;
 import com.inferrix.lightsmart.adapter.IndividualPirSwitchAdapter;
 import com.inferrix.lightsmart.adapter.IndividualSwitchAdapter;
-import com.inferrix.lightsmart.constant.Constants;
+import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
+import com.inferrix.lightsmart.PogoClasses.BuildingGroupDetailsClass;
+import com.inferrix.lightsmart.PogoClasses.DeviceClass;
+import com.inferrix.lightsmart.PogoClasses.GroupDetailsClass;
+import com.inferrix.lightsmart.PogoClasses.GroupedLight;
+import com.inferrix.lightsmart.PogoClasses.LevelGroupDetailsClass;
+import com.inferrix.lightsmart.PogoClasses.RoomGroupDetailsClass;
+import com.inferrix.lightsmart.PogoClasses.SiteGroupDetailsClass;
 
 import java.util.ArrayList;
 
@@ -65,8 +62,8 @@ import static com.inferrix.lightsmart.activity.AppHelper.sqlHelper;
 public class DashboardFragment extends Fragment implements AdvertiseResultInterface, ReceiverResultInterface {
     @BindView(R.id.disableBluetooth)
     Button disableBluetooth;
-    @BindView(R.id.dashboard_home_setting_layout)
-    LinearLayout dashboardHomeSettingLayout;
+//    @BindView(R.id.dashboard_home_setting_layout)
+//    LinearLayout dashboardHomeSettingLayout;
     @BindView(R.id.group_list_layout)
     LinearLayout groupListLayout;
     @BindView(R.id.group_site_list_layout)
@@ -128,6 +125,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
     LinearLayout groupRoomListLayout;
     AnimatedProgress animatedProgress;
     ScannerTask scannerTask;
+    String projectID;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -155,7 +153,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
         switchData.setGroupName("All Switches");
         GroupDetailsClass pirSwitchData = new GroupDetailsClass();
         pirSwitchData.setGroupId(4);
-        pirSwitchData.setGroupName("All PIR Switches");
+        pirSwitchData.setGroupName("All Sensors");
         GroupDetailsClass groupData = new GroupDetailsClass();
         groupData.setGroupId(5);
         groupData.setGroupName("All Group");
@@ -170,7 +168,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
 
         GroupDetailsClass groupLevelData = new GroupDetailsClass();
         groupLevelData.setGroupId(8);
-        groupLevelData.setGroupName("All Level Group");
+        groupLevelData.setGroupName("All Floor Group");
 
         GroupDetailsClass groupRoomData = new GroupDetailsClass();
         groupRoomData.setGroupId(9);
@@ -191,7 +189,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
     public void getAllGroups() {
         setSpinner();
         list.clear();
-        Cursor cursor = sqlHelper.getAllGroup();
+        Cursor cursor = sqlHelper.getAllGroup(Integer.parseInt (projectID));
         if (cursor.moveToFirst()) {
             do {
                 GroupDetailsClass groupData = new GroupDetailsClass();
@@ -218,7 +216,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
     public void getAllSiteGroup() {
         setSpinner();
         listSite.clear();
-        Cursor cursor = sqlHelper.getAllSiteGroup();
+        Cursor cursor = sqlHelper.getAllSiteGroup(Integer.parseInt (projectID));
         if (cursor.moveToFirst()) {
             do {
                 SiteGroupDetailsClass roomData = new SiteGroupDetailsClass();
@@ -237,7 +235,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
     public void getAllBUILDINGGroups() {
         setSpinner();
         listBuilding.clear();
-        Cursor cursor = sqlHelper.getAllBuildingGroup();
+        Cursor cursor = sqlHelper.getAllBuildingGroup(Integer.parseInt (projectID));
 
         if (cursor.moveToFirst()) {
             do {
@@ -258,7 +256,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
     public void getAllLevelGroups() {
         setSpinner();
         listLevel.clear();
-        Cursor cursor = sqlHelper.getAllLevelGroup();
+        Cursor cursor = sqlHelper.getAllLevelGroup(Integer.parseInt (projectID));
         if (cursor.moveToFirst()) {
             do {
                 LevelGroupDetailsClass levelGroupDetailsClass = new LevelGroupDetailsClass();
@@ -278,7 +276,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
     public void getAllRoomGroup() {
         setSpinner();
         listRoom.clear();
-        Cursor cursorS = sqlHelper.getAllRoomGroup();
+        Cursor cursorS = sqlHelper.getAllRoomGroup(Integer.parseInt (projectID));
         if (cursorS.moveToFirst()) {
             do {
                 RoomGroupDetailsClass roomData = new RoomGroupDetailsClass();
@@ -321,11 +319,12 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
 
     public void getDevice() {
         deviceList = new ArrayList<>();
-        Cursor cursor = sqlHelper.getAllDevice(DatabaseConstant.ADD_DEVICE_TABLE);
+        Cursor cursor = sqlHelper.getALLLight (Integer.parseInt (projectID));
         if (cursor.moveToFirst()) {
             do {
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("16")) {
                     DeviceClass deviceClass = new DeviceClass();
+                    deviceClass.setDeviceId (cursor.getInt (cursor.getColumnIndex (DatabaseConstant.COLUMN_DEVICE_ID)));
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
                     deviceClass.setDevicehexUid(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_HEXUID)));
                     deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
@@ -359,11 +358,13 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
 
     public void getBand() {
         deviceList = new ArrayList<>();
-        Cursor cursor = sqlHelper.getAllDevice(DatabaseConstant.ADD_DEVICE_TABLE);
+        Cursor cursor = sqlHelper.getALLLight (Integer.parseInt (projectID));
+//        Cursor cursor = sqlHelper.getAllDevice(DatabaseConstant.ADD_DEVICE_TABLE);
         if (cursor.moveToFirst()) {
             do {
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("533")) {
                     DeviceClass deviceClass = new DeviceClass();
+                    deviceClass.setDeviceId (cursor.getInt (cursor.getColumnIndex (DatabaseConstant.COLUMN_DEVICE_ID)));
                     deviceClass.setDevicehexUid(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_HEXUID)));
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
                     deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
@@ -397,11 +398,13 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
 
     public void getSwitch() {
         deviceList = new ArrayList<>();
-        Cursor cursor = sqlHelper.getAllDevice(DatabaseConstant.ADD_DEVICE_TABLE);
+        Cursor cursor = sqlHelper.getALLLight (Integer.parseInt (projectID));
+//        Cursor cursor = sqlHelper.getAllDevice(DatabaseConstant.ADD_DEVICE_TABLE);
         if (cursor.moveToFirst()) {
             do {
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("55811") && cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS)).startsWith("E2:15")) {
                     DeviceClass deviceClass = new DeviceClass();
+                    deviceClass.setDeviceId (cursor.getInt (cursor.getColumnIndex (DatabaseConstant.COLUMN_DEVICE_ID)));
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
                     deviceClass.setDevicehexUid(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_HEXUID)));
                     deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
@@ -435,11 +438,13 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
 
     public void getPirSwitch() {
         deviceList = new ArrayList<>();
-        Cursor cursor = sqlHelper.getAllDevice(DatabaseConstant.ADD_DEVICE_TABLE);
+        Cursor cursor = sqlHelper.getALLLight (Integer.parseInt (projectID));
+//        Cursor cursor = sqlHelper.getAllDevice(DatabaseConstant.ADD_DEVICE_TABLE);
         if (cursor.moveToFirst()) {
             do {
                 if (cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_TYPE_CODE)).equalsIgnoreCase("55811") && cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS)).startsWith("E5:00")) {
                     DeviceClass deviceClass = new DeviceClass();
+                    deviceClass.setDeviceId (cursor.getInt (cursor.getColumnIndex (DatabaseConstant.COLUMN_DEVICE_ID)));
                     deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
                     deviceClass.setDevicehexUid(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_HEXUID)));
                     deviceClass.setLuxLevelOne(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_LUX_LEVEL_ONE)));
@@ -482,16 +487,17 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dashboard_fragment, container, false);
         unbinder = ButterKnife.bind(this, view);
-
         activity = getActivity();
+        projectID = getArguments().getString("projectID");
+        Log.e ("CHECK=======>",projectID);
         scannerTask = new ScannerTask(activity, this);
-        animatedProgress = new AnimatedProgress(activity);
+        animatedProgress = new AnimatedProgress (activity);
         animatedProgress.setCancelable(false);
         if (activity == null)
             return view;
         dashboardItemAdapter = new DashboardItemAdapter(activity);
         individualLightAdapter = new IndividualLightAdapter(activity);
-        groupedLightAdapter = new GroupedLightAdapter(activity);
+        groupedLightAdapter = new GroupedLightAdapter (activity);
         individualBandAdapter = new IndividualBandAdapter(activity);
         individualSwitchAdapter = new IndividualSwitchAdapter(activity);
         individualPirSwitchAdapter = new IndividualPirSwitchAdapter(activity);
@@ -533,7 +539,6 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
         dashboardSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 getAllGroups();
                 getAllSiteGroup();
                 getDevice();
@@ -690,6 +695,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
 
     @Override
     public void onResume() {
+        super.onResume();
         getAllGroups();
         getAllSiteGroup();
 //        getAllGroupedLight();
@@ -700,7 +706,7 @@ public class DashboardFragment extends Fragment implements AdvertiseResultInterf
         getAllBUILDINGGroups();
         getAllLevelGroups();
         getAllRoomGroup();
-        super.onResume();
+
     }
 
     @Override

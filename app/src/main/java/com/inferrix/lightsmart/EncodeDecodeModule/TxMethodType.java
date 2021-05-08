@@ -16,6 +16,8 @@ public class TxMethodType {
     public static final int LIGHT_LEVEL_GROUP_COMMAND_RESPONSE=0x5b;
     public static final int SELECT_MASTER_RESPONSE=0x5c;
     public static final int UNSELECT_MASTER_RESPONSE=0x5d;
+    public static final int RESET_RESPONSE=0x9d;
+    public static final int ADD_RESPONSE=0x8d;
 
 
 

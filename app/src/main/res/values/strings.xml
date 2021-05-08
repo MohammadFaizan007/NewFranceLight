@@ -2,6 +2,8 @@
     <string name="app_name">LightSmart</string>
     <string name="level_text">© Copyright Inferrix Limited , UK</string>
 
+    <string name="hint_created_at">Date and Time</string>
+
     <string name="hint_name">Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>

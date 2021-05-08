@@ -1,8 +1,8 @@
 package com.inferrix.lightsmart.PogoClasses;
 
 public class GroupedLight {
+    int deviceId=0;
     long deviceUid=0;
-
     String groupName="";
     String DeviceName="";
     int groupId=0;
@@ -28,9 +28,7 @@ public class GroupedLight {
         return groupName;
     }
 
-    public int getGroupId() {
-        return groupId;
-    }
+
 
     public String getDeviceName() {
         return DeviceName;
@@ -39,6 +37,17 @@ public class GroupedLight {
     public void setGroupId(int groupId) {
         this.groupId = groupId;
     }
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setDeviceId(int deviceId) {
+        this.deviceId = deviceId;
+    }
+    public int getDeviceId() {
+        return deviceId;
+    }
+
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;

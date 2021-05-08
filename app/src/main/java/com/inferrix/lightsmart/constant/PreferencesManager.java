@@ -43,6 +43,10 @@ public class PreferencesManager {
     private static final String DIMMING_LEVEL_THREE = "dimming_level_three";
     private static final String DIMMING_LEVEL_FOUR = "dimming_level_four";
 
+    private static final String FK_PROJECT_ID = "fk_project_id";
+
+
+
 
 
 
@@ -273,6 +277,16 @@ public class PreferencesManager {
     public void setDimmingLevelFour(String value) {
         mPref.edit().putString(DIMMING_LEVEL_FOUR, value).apply();
     }
+
+    public String getFkProjectId() {
+        return mPref.getString(FK_PROJECT_ID, "");
+    }
+
+    public void setFkProjectId(String value) {
+        mPref.edit().putString(FK_PROJECT_ID, value).apply();
+    }
+
+
 
     public <T> void setList(String key, List<T> list) {
         Gson gson = new Gson();

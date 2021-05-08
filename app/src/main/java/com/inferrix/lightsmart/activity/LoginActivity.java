@@ -91,7 +91,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.appCompatButtonLogin:
-                if (textInputEditTextEmail.getText().toString().equals("Inferrix.com") && textInputEditTextPassword.getText().toString().equals("123456")) {
+                if (textInputEditTextEmail.getText().toString().equals("sylvain@supplinnov.com") &&
+                        textInputEditTextPassword.getText().toString().equals("Inferrix2020")) {
                     Intent accountsIntent = new Intent(activity, MainActivity.class);
                     startActivity(accountsIntent);
                 } else {
@@ -139,30 +140,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * This method is to validate the input text fields and verify login credentials from SQLite
      */
-    private void verifyFromSQLite() {
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_message_email))) {
-            return;
-        }
-
-        if (databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim()
-                , textInputEditTextPassword.getText().toString().trim())) {
-
-
-            Intent accountsIntent = new Intent(activity, MainActivity.class);
-            accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
-            emptyInputEditText();
-            startActivity(accountsIntent);
-        } else {
-            Toast.makeText(LoginActivity.this, "Wrong Email or Password", Toast.LENGTH_SHORT).show();
-
-        }
-    }
+//    private void verifyFromSQLite() {
+//        if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
+//            return;
+//        }
+//        if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
+//            return;
+//        }
+//        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_message_email))) {
+//            return;
+//        }
+//
+//        if (databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim()
+//                , textInputEditTextPassword.getText().toString().trim())) {
+//
+//
+//            Intent accountsIntent = new Intent(activity, MainActivity.class);
+//            accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
+//            emptyInputEditText();
+//            startActivity(accountsIntent);
+//        } else {
+//            Toast.makeText(LoginActivity.this, "Wrong Email or Password", Toast.LENGTH_SHORT).show();
+//
+//        }
+//    }
 
     private boolean Validation() {
         if (textInputEditTextEmail.getText().toString().equals("Inferrix.com")) {

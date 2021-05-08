@@ -180,6 +180,7 @@ public class AdvertiseTask {
         stopAdvertising();
     }
 
+
     public void startAdvertising()
     {
 //        if(isAlreadyAdvertising)
@@ -202,13 +203,13 @@ public class AdvertiseTask {
                 .setTxPower(-59).build();
 
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             beaconTransmitter.startAdvertising(beacon, new AdvertiseCallback() {
 
                 @Override
-                public void onStartFailure(int errorCode)
-                {
+                public void onStartFailure(int errorCode) {
                     isAlreadyAdvertising=false;
                     Log.e(TAG, "Advertisement start failed with code: "+errorCode);
                     if (advertiseResultInterface!=null)

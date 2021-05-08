@@ -529,19 +529,19 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <Button
-                    android:id="@+id/enable_attribute"
+                    android:id="@+id/thresshold"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:layout_height="40dp"
+                    android:textColor="@color/white"
+                    android:text="Lux Threshold"
+                    android:background="@drawable/rect_btn_bg_darkprimary"
+                    android:textSize="@dimen/_12sdp"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:background="@drawable/rect_btn_bg_darkprimary"
-                    android:gravity="center"
-                    android:text="Enable Attributes"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12sdp"
-                    android:textStyle="bold"/>
+                    />
 
                 <Button
                     android:id="@+id/lux_leve"
@@ -560,6 +560,7 @@
                     />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/reset_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -591,6 +592,7 @@
                     android:textStyle="bold"/>
 
                 <Button
+                    android:id="@+id/set_pir_motion"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
@@ -598,11 +600,11 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:background="@drawable/rect_btn_bg_darkprimary"
                     android:gravity="center"
-                    android:text="Lux Level"
-                    android:visibility="gone"
+                    android:text="Set PIR Motion"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_12sdp"
                     android:textStyle="bold"
+                    android:textAllCaps="false"
                     />
             </LinearLayout>
 
@@ -629,6 +631,8 @@
                 app:layout_constraintVertical_bias="0.0" />
 
 
+
+
 <!--            <Button-->
 <!--                android:id="@+id/add_group"-->
 <!--                android:layout_width="140dp"-->
@@ -649,6 +653,66 @@
 <!--                app:layout_constraintStart_toStartOf="parent"-->
 <!--                app:layout_constraintTop_toBottomOf="@+id/check"-->
 <!--                app:layout_constraintVertical_bias="0.0" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:weightSum="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reset_ll"
+                app:layout_constraintVertical_bias="0.0">
+
+                <!--                            <com.nightonke.jellytogglebutton.JellyToggleButton-->
+                <!--                                android:layout_width="0dp"-->
+                <!--                                android:layout_height="40dp"-->
+                <!--                                android:layout_weight="1"-->
+                <!--                                android:checked="true"-->
+                <!--                                android:layout_marginStart="@dimen/_10sdp"-->
+                <!--                                android:layout_marginEnd="@dimen/_10sdp"-->
+                <!--                                app:jtbLeftText="Off"-->
+                <!--                                android:id="@+id/status_switch"-->
+                <!--                                app:jtbLeftTextSize="@dimen/app_text_size"-->
+                <!--                                app:jtbRightTextSize="@dimen/app_text_size"-->
+                <!--                                app:jtbRightText="On"-->
+                <!--                                app:jtbTextMarginLeft="10dp"-->
+                <!--                                app:jtbTextMarginRight="10dp"-->
+                <!--                                app:jtbDuration="1000"-->
+                <!--                                app:jtbJelly="active_tremble_body_slim_jim"-->
+                <!--                                app:jtbLeftBackgroundColor="@color/gray"-->
+                <!--                                app:jtbRightBackgroundColor="@color/colorPrimary"-->
+                <!--                                app:jtbLeftThumbColor="@color/colorPrimary"-->
+                <!--                                app:jtbRightThumbColor="@android:color/white"-->
+                <!--                                app:jtbLeftTextColor="@android:color/white"-->
+                <!--                                app:jtbRightTextColor="@color/colorPrimary"-->
+                <!--                                />-->
+
+
+
+                <Button
+                    android:id="@+id/enable_attribute"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@drawable/rect_btn_bg_darkprimary"
+                    android:gravity="center"
+                    android:text="Enable Attributes"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
 
 
             <!--            <LinearLayout-->

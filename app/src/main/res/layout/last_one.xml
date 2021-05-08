@@ -43,6 +43,21 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
+                    <EditText
+                        android:id="@+id/uidName"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_weight=".6"
+                        android:background="@drawable/rounded_gray_border"
+                        android:hint="No address associated"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/app_text_size"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:visibility="gone"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -64,6 +79,7 @@
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"/>
+
 
                         <EditText
                             android:id="@+id/select_item1"
@@ -174,6 +190,20 @@
                         android:textColor="#000"
                         android:textSize="16sp"
                         android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/uidNameTwo"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_weight=".6"
+                        android:background="@drawable/rounded_gray_border"
+                        android:hint="No address associated"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/app_text_size"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:visibility="gone"/>
 
 
                     <LinearLayout
@@ -306,6 +336,21 @@
                         android:textColor="#000"
                         android:textSize="16sp"
                         android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/uidNameThree"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_weight=".6"
+                        android:background="@drawable/rounded_gray_border"
+                        android:hint="No address associated"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/app_text_size"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:visibility="gone"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -468,6 +513,21 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
+                    <EditText
+                        android:id="@+id/uidNameFour"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_weight=".6"
+                        android:background="@drawable/rounded_gray_border"
+                        android:hint="No address associated"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/app_text_size"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:visibility="gone"/>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -598,6 +658,21 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
+                    <EditText
+                        android:id="@+id/uidNameFive"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_weight=".6"
+                        android:background="@drawable/rounded_gray_border"
+                        android:hint="No address associated"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/app_text_size"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:visibility="gone"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -727,7 +802,20 @@
                         android:textColor="#000"
                         android:textSize="16sp"
                         android:textStyle="bold" />
-
+                    <EditText
+                        android:id="@+id/uidNameSix"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_weight=".6"
+                        android:background="@drawable/rounded_gray_border"
+                        android:hint="No address associated"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/app_text_size"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:visibility="gone"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -857,6 +945,21 @@
                         android:textColor="#000"
                         android:textSize="16sp"
                         android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/uidNameSeven"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_weight=".6"
+                        android:background="@drawable/rounded_gray_border"
+                        android:hint="No address associated"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/app_text_size"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:visibility="gone"/>
 
 
                     <LinearLayout
@@ -988,6 +1091,21 @@
                         android:textColor="#000"
                         android:textSize="16sp"
                         android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/uidNameEight"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_weight=".6"
+                        android:background="@drawable/rounded_gray_border"
+                        android:hint="No address associated"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/app_text_size"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:visibility="gone"/>
 
 
                     <LinearLayout

@@ -23,18 +23,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.CustomProgress.CustomDialog.AnimatedProgress;
-import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
 import com.inferrix.lightsmart.EncodeDecodeModule.ByteQueue;
 import com.inferrix.lightsmart.InterfaceModule.AdvertiseResultInterface;
 import com.inferrix.lightsmart.InterfaceModule.ReceiverResultInterface;
-import com.inferrix.lightsmart.PogoClasses.DeviceClass;
-import com.inferrix.lightsmart.PogoClasses.GroupDetailsClass;
 import com.inferrix.lightsmart.R;
 import com.inferrix.lightsmart.ServiceModule.AdvertiseTask;
 import com.inferrix.lightsmart.ServiceModule.ScannerTask;
 import com.inferrix.lightsmart.activity.AppHelper;
 import com.inferrix.lightsmart.activity.HelperActivity;
 import com.inferrix.lightsmart.constant.Constants;
+import com.inferrix.lightsmart.constant.PreferencesManager;
+import com.inferrix.lightsmart.DatabaseModule.DatabaseConstant;
+import com.inferrix.lightsmart.PogoClasses.GroupDetailsClass;
 import com.niftymodaldialogeffects.Effectstype;
 import com.niftymodaldialogeffects.NiftyDialogBuilder;
 
@@ -44,10 +44,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_PROGRESS;
 import static com.inferrix.lightsmart.EncodeDecodeModule.RxMethodType.LIGHT_LEVEL_GROUP_COMMAND;
 import static com.inferrix.lightsmart.EncodeDecodeModule.TxMethodType.LIGHT_LEVEL_GROUP_COMMAND_RESPONSE;
 import static com.inferrix.lightsmart.activity.AppHelper.sqlHelper;
+import static com.inferrix.lightsmart.DatabaseModule.DatabaseConstant.COLUMN_GROUP_PROGRESS;
 
 
 public class GroupAdapter extends BaseAdapter implements Filterable, AdvertiseResultInterface, ReceiverResultInterface {
@@ -65,7 +65,7 @@ public class GroupAdapter extends BaseAdapter implements Filterable, AdvertiseRe
         activity = context;
         arrayList = new ArrayList<>();
         filterarrayList = new ArrayList<>();
-        animatedProgress = new AnimatedProgress(activity);
+        animatedProgress = new AnimatedProgress (activity);
 
     }
 
@@ -80,7 +80,7 @@ public class GroupAdapter extends BaseAdapter implements Filterable, AdvertiseRe
     public void getAllGroups()
     {
         arrayList.clear();
-        Cursor cursor = sqlHelper.getAllGroup();
+        Cursor cursor = sqlHelper.getAllGroup(Integer.parseInt (PreferencesManager.getInstance (activity).getFkProjectId ()));
         if (cursor.moveToFirst())
         {
             do {
@@ -98,27 +98,26 @@ public class GroupAdapter extends BaseAdapter implements Filterable, AdvertiseRe
         cursor.close();
     }
 
-    public ArrayList<DeviceClass> getGroupLight(int groupId)
-    {
-        ArrayList<DeviceClass> deviceClasses=new ArrayList<>();
-        Cursor cursor = sqlHelper.getLightInGroup(groupId);
-        if (cursor.moveToFirst()) {
-            do {
-                DeviceClass deviceClass = new DeviceClass();
-                deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
-                deviceClass.setDeviceUID(cursor.getLong(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
-                deviceClass.setDeriveType(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DERIVE_TYPE)));
-                deviceClass.setDeviceDimming(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_PROGRESS)));
-                deviceClass.setGroupId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ID)));
-                deviceClass.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_STATUS))==1);
-                // do what ever you want here
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-//        setList(arrayList);
-        return deviceClasses;
-    }
+//    public ArrayList<DeviceClass> getGroupLight(int groupId) {
+//        ArrayList<DeviceClass> deviceClasses=new ArrayList<>();
+//        Cursor cursor = sqlHelper.getLightInGroup(groupId);
+//        if (cursor.moveToFirst()) {
+//            do {
+//                DeviceClass deviceClass = new DeviceClass();
+//                deviceClass.setDeviceName(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_NAME)));
+//                deviceClass.setDeviceUID(cursor.getLong(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_UID)));
+//                deviceClass.setDeriveType(cursor.getString(cursor.getColumnIndex(DatabaseConstant.COLUMN_DERIVE_TYPE)));
+//                deviceClass.setDeviceDimming(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_PROGRESS)));
+//                deviceClass.setGroupId(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_GROUP_ID)));
+//                deviceClass.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseConstant.COLUMN_DEVICE_STATUS))==1);
+//                // do what ever you want here
+//            } while (cursor.moveToNext());
+//        }
+//
+//        cursor.close();
+////        setList(arrayList);
+//        return deviceClasses;
+//    }
 
     @Override
     public int getCount() {
@@ -132,8 +131,7 @@ public class GroupAdapter extends BaseAdapter implements Filterable, AdvertiseRe
         return arrayList.get(position);
     }
 
-    public void showDialog(int index)
-    {
+    public void showDialog(int index) {
         final Dialog dialog = new Dialog(activity);
         GroupDetailsClass groupDetails =arrayList.get(index);
 
@@ -176,8 +174,9 @@ public class GroupAdapter extends BaseAdapter implements Filterable, AdvertiseRe
 
                 ByteQueue byteQueue=new ByteQueue();
                 byteQueue.push(requestCode);   //// Light Level Group Command method type
+                byteQueue.push(0x02);
                 byteQueue.push(groupDetails.getGroupId());
-                byteQueue.push(hex);    ////0x00-0x64
+                byteQueue.push(seekBarProgress);    ////0x00-0x64
                 advertiseTask=new AdvertiseTask(GroupAdapter.this,activity,5*1000);
                 advertiseTask.setByteQueue(byteQueue);
                 advertiseTask.setSearchRequestCode(LIGHT_LEVEL_GROUP_COMMAND_RESPONSE);
@@ -244,6 +243,7 @@ public class GroupAdapter extends BaseAdapter implements Filterable, AdvertiseRe
             activity.startActivity(intent);
         });
         viewHolder.groupName.setText(groupDetails.getGroupName());
+        viewHolder.groupCustomize.setVisibility (View.INVISIBLE);
         return convertView;
     }
 
@@ -257,7 +257,7 @@ public class GroupAdapter extends BaseAdapter implements Filterable, AdvertiseRe
 
     @Override
     public void onSuccess(String message) {
-//        animatedProgress.showProgress();
+        animatedProgress.showProgress();
         Log.w(TAG,"Advertising start");
     }
 

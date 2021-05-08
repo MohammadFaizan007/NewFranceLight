@@ -55,6 +55,10 @@ public class RxMethodType {
     public static final int ADD_ASSOCIATE_SEVEN=0x57;
     public static final int ADD_ASSOCIATE_EIGHT=0x58;
 
+    public static final int PIR_MOTION_INFO=0x7b;
+    public static final int LUX_THRESH_HOLD=0x7c;
+    public static final int LIGHT_STATE_INFO=0x00;
+
 
 
 //    public static final int LIGHT_INFO=0xEF;

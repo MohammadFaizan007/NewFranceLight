@@ -45,6 +45,29 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+
+
+        <activity
+            android:name=".activity.EnterProjectActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+
+        <activity
+            android:name=".activity.CreateProjectActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+
+        <activity
+            android:name=".activity.AvailableProject"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            >
+
+        </activity>
         <activity android:name=".activity.HelperActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"/>

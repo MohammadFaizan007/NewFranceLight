@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import com.inferrix.lightsmart.PogoClasses.Project;
 import com.inferrix.lightsmart.R;
 import com.inferrix.lightsmart.constant.Constants;
 import com.inferrix.lightsmart.fragments.AddDeviceFragment;
@@ -42,71 +43,109 @@ public class HelperActivity extends AppCompatActivity /*implements BeaconConsume
     @BindView(R.id.title)
     TextView title_tv;
     private Fragment currentFragment;
+    String projectID;
+    private Project project;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        super.onCreate (savedInstanceState);
+        if (getSupportActionBar () != null) {
+            getSupportActionBar ().setDisplayHomeAsUpEnabled (true);
+            getSupportActionBar ().setDisplayShowHomeEnabled (true);
 //
         }
-        setContentView(R.layout.activity_helper);
-        Intent intent = getIntent();
-        String Test = intent.getStringExtra("Unique_Key");
-        String key1 = intent.getStringExtra("first_key");
-        String key2 = intent.getStringExtra("second_key");
-        String key3 = intent.getStringExtra("third_key");
-        String key4 = intent.getStringExtra("fourth_key");
+        setContentView (R.layout.activity_helper);
+        Intent intent = getIntent ();
+
+        if (intent != null) {
+            projectID = intent.getStringExtra ("projectId");
+//            Log.e ("Project_id=====>", projectID.toString ());
+        }
+
+        String Test = intent.getStringExtra ("Unique_Key");
+        String key1 = intent.getStringExtra ("first_key");
+        String key2 = intent.getStringExtra ("second_key");
+        String key3 = intent.getStringExtra ("third_key");
+        String key4 = intent.getStringExtra ("fourth_key");
+
+
         if (intent == null) {
-            finish();
+            finish ();
             return;
         }
-        if (intent.hasExtra(Constants.MAIN_KEY)) {
-            switch (intent.getIntExtra(Constants.MAIN_KEY, 0)) {
+        if (intent.hasExtra (Constants.MAIN_KEY)) {
+            switch (intent.getIntExtra (Constants.MAIN_KEY, 0)) {
                 case Constants.MY_NETWORK_CODE:
-                    setTitle("Create Group");
-                    Toast.makeText(this, "Will be soon", Toast.LENGTH_SHORT).show();
-                    break;
+//                    EditEnterGroupActivity editEnterGroupActivity = new EditEnterGroupActivity ();
+//                    Bundle bundlenew = new Bundle ();
+//                    bundlenew.putString ("projectID", String.valueOf (project.getProjectId ()));
+//                    bundlenew.putString ("projectName", String.valueOf (project.getProjectNname ()));
+//                    editEnterGroupActivity.setArguments (bundlenew);
+//                    setTitle("Edit Group");
+//                    loadFragment(editEnterGroupActivity);
+//                    break;
+//                    loadFragment (new EditEnterGroupFragment ());
+//                    Toast.makeText (this, "Will be soon", Toast.LENGTH_SHORT).show ();
 
                 case Constants.SMART_DEVICE_CODE:
-                    setTitle("Smart Device");
-                    loadFragment(new AddDeviceFragment());
+                    AddDeviceFragment addDeviceFragment = new AddDeviceFragment ();
+                    Bundle bundle = new Bundle ();
+                    bundle.putString ("projectID", projectID);
+                    addDeviceFragment.setArguments (bundle);
+                    setTitle ("Smart Device");
+                    loadFragment (addDeviceFragment);
                     break;
 
                 case Constants.DASHBOARD_CODE:
-                    setTitle("Dashboard");
-                    loadFragment(new DashboardFragment());
-                    break;
-
-                case Constants.GROUP_CODE:
-                    setTitle("Group");
-                    loadFragment(new GroupFragment());
+                    DashboardFragment dashboardFragment = new DashboardFragment ();
+                    Bundle bundle1 = new Bundle ();
+                    bundle1.putString ("projectID", projectID);
+                    dashboardFragment.setArguments (bundle1);
+                    setTitle ("Dashboard");
+                    loadFragment (dashboardFragment);
+//                    setTitle("Dashboard");
+//                    loadFragment(new DashboardFragment());
                     break;
 //
+                case Constants.GROUP_CODE:
+                    GroupFragment groupFragment = new GroupFragment ();
+                    Bundle bundle2 = new Bundle ();
+                    bundle2.putString ("projectID", projectID);
+                    groupFragment.setArguments (bundle2);
+                    setTitle ("Group");
+                    loadFragment (groupFragment);
+//                    setTitle("Group");
+//                    loadFragment(new GroupFragment ());
+                    break;
+
+                case Constants.CREATE_GROUP:
+                    setTitle ("Create Group");
+                    loadFragment (new CreateGroup ());
+                    break;
+////
                 case Constants.EDIT_GROUP:
-                    EditGroupFragment editGroupFragment = new EditGroupFragment();
+                    EditGroupFragment editGroupFragment = new EditGroupFragment ();
                     editGroupFragment.setGroupDetailsClass(intent.getParcelableExtra(Constants.GROUP_DETAIL_KEY));
                     setTitle("Edit Group");
                     loadFragment(editGroupFragment);
                     break;
 
                 case Constants.EDIT_SITE_GROUP:
-                    EditGroupSiteFragment editSiteGroupFragment = new EditGroupSiteFragment();
-                    editSiteGroupFragment.setSiteGroupDetailsClass(intent.getParcelableExtra(Constants.SITE_GROUP_DETAIL_KEY));
-                    setTitle("Edit Site Group");
-                    loadFragment(editSiteGroupFragment);
+                    EditGroupSiteFragment editSiteGroupFragment = new EditGroupSiteFragment ();
+                    editSiteGroupFragment.setSiteGroupDetailsClass (intent.getParcelableExtra (Constants.SITE_GROUP_DETAIL_KEY));
+                    setTitle ("Edit Site Group");
+                    loadFragment (editSiteGroupFragment);
                     break;
 
                 case Constants.EDIT_BUILDING_GROUP:
-                    EditGroupBuildingFragment editBuildingGroupFragment = new EditGroupBuildingFragment();
+                    EditGroupBuildingFragment editBuildingGroupFragment = new EditGroupBuildingFragment ();
                     editBuildingGroupFragment.setSiteGroupDetailsClass(intent.getParcelableExtra(Constants.BUILDIN_GROUP_DETAIL_KEY));
                     setTitle("Edit Building Group");
                     loadFragment(editBuildingGroupFragment);
                     break;
-
+//
                 case Constants.EDIT_LEVEL_GROUP:
-                    EditGroupLevelFragment editLevelGroupFragment = new EditGroupLevelFragment();
+                    EditGroupLevelFragment editLevelGroupFragment = new EditGroupLevelFragment ();
                     editLevelGroupFragment.setSiteGroupDetailsClass(intent.getParcelableExtra(Constants.BUILDIN_GROUP_DETAIL_KEY));
                     setTitle("Edit Level Group");
                     loadFragment(editLevelGroupFragment);
@@ -118,50 +157,47 @@ public class HelperActivity extends AppCompatActivity /*implements BeaconConsume
                     setTitle("Edit Room Group");
                     loadFragment(editGroupRoomFragment);
                     break;
+
                 case Constants.EDIT_LIGHT:
-                    EditDeviceFragment editDeviceFragment = new EditDeviceFragment();
+                    EditDeviceFragment editDeviceFragment = new EditDeviceFragment ();
                     editDeviceFragment.setDeviceData(intent.getParcelableExtra(Constants.LIGHT_DETAIL_KEY));
                     setTitle("Edit Light");
                     loadFragment(editDeviceFragment);
                     break;
-                case Constants.CREATE_GROUP:
-                    setTitle("Create Group");
-//                     Toast.makeText(this, "Will be soon", Toast.LENGTH_SHORT).show();
-                    loadFragment(new CreateGroup());
-                    break;
-//
-                case Constants.DEMO_CODE:
-                    setTitle("Backup");
-                    loadFragment(new BackUpFragment());
 
-                    break;
+////
+//                case Constants.DEMO_CODE:
+//                    setTitle("Backup");
+//                    loadFragment(new BackUpFragment());
 //
+//                    break;
+////
                 case Constants.ASSOCIATE:
                     setTitle("Associate");
-                    loadFragment(new AssociateFragment());
+                    loadFragment(new AssociateFragment ());
                     break;
-//
-//                case Constants.READ_ASSOCIATE:
-//                    AssociateReadFragment associateReadFragment=new AssociateReadFragment();
-//                    associateReadFragment.setDeviceData(intent.getParcelableExtra(Constants.LIGHT_DETAIL_KEY));
-//                    setTitle("Read Status");
-//                    loadFragment(associateReadFragment);
-//                    break;
-//
+////
+////                case Constants.READ_ASSOCIATE:
+////                    AssociateReadFragment associateReadFragment=new AssociateReadFragment();
+////                    associateReadFragment.setDeviceData(intent.getParcelableExtra(Constants.LIGHT_DETAIL_KEY));
+////                    setTitle("Read Status");
+////                    loadFragment(associateReadFragment);
+////                    break;
+////
                 case Constants.ADD_ASSOCIATE:
                     LastDemoAddFragment associateAddFragment = new LastDemoAddFragment();
                     associateAddFragment.setDeviceData(intent.getParcelableExtra(Constants.LIGHT_DETAIL_KEY));
                     setTitle("Add Associate");
                     loadFragment(associateAddFragment);
                     break;
-//
+////
                 case Constants.READ_DETAILS:
-                    AddGroupFragment detailsFragment = new AddGroupFragment();
+                    AddGroupFragment detailsFragment = new AddGroupFragment ();
                     detailsFragment.setDeviceData(intent.getParcelableExtra(Constants.LIGHT_DETAIL_KEY));
                     setTitle("Edit All Group");
                     loadFragment(detailsFragment);
                     break;
-
+//
 
             }
         }
@@ -169,29 +205,29 @@ public class HelperActivity extends AppCompatActivity /*implements BeaconConsume
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            getSupportFragmentManager().popBackStackImmediate();
+        if (getSupportFragmentManager ().getBackStackEntryCount () > 1) {
+            getSupportFragmentManager ().popBackStackImmediate ();
         } else
-            finish();
+            finish ();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch (item.getItemId ()) {
             case android.R.id.home:
-                onBackPressed();
+                onBackPressed ();
                 return true;
 
 
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected (item);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
 //        menu.findItem(R.id.miProfile).setIcon(resizeImage(R.drawable.inferrixlogo,108,100));
         return true;
     }
@@ -215,28 +251,28 @@ public class HelperActivity extends AppCompatActivity /*implements BeaconConsume
 
 
     public void loadFragment(Fragment fragment) {
-        String backStateName = fragment.getClass().getSimpleName();
-        Log.w("LoadFragment", backStateName + " " + fragment.getClass().getName());
+        String backStateName = fragment.getClass ().getSimpleName ();
+        Log.w ("LoadFragment", backStateName + " " + fragment.getClass ().getName ());
         this.fragment = fragment;
-        FragmentManager manager = getSupportFragmentManager();
-        if (manager.findFragmentByTag(backStateName) == null) {
-            FragmentTransaction fragmentTransaction = manager.beginTransaction();
-            fragmentTransaction.replace(R.id.main_frame_layout, fragment, backStateName);
-            fragmentTransaction.addToBackStack(backStateName);
-            fragmentTransaction.commitAllowingStateLoss();
+        FragmentManager manager = getSupportFragmentManager ();
+        if (manager.findFragmentByTag (backStateName) == null) {
+            FragmentTransaction fragmentTransaction = manager.beginTransaction ();
+            fragmentTransaction.replace (R.id.main_frame_layout, fragment, backStateName);
+            fragmentTransaction.addToBackStack (backStateName);
+            fragmentTransaction.commitAllowingStateLoss ();
 //            return;
         } else {
-            for (int i = manager.getBackStackEntryCount() - 1; i >= 0; i--) {
-                Log.w("ClassName", manager.getBackStackEntryAt(i).getName());
-                if (!manager.getBackStackEntryAt(i).getName().equalsIgnoreCase(backStateName)) {
-                    Log.w("ClassName", manager.getBackStackEntryAt(i).getName());
-                    manager.popBackStack();
+            for (int i = manager.getBackStackEntryCount () - 1; i >= 0; i--) {
+                Log.w ("ClassName", manager.getBackStackEntryAt (i).getName ());
+                if (!manager.getBackStackEntryAt (i).getName ().equalsIgnoreCase (backStateName)) {
+                    Log.w ("ClassName", manager.getBackStackEntryAt (i).getName ());
+                    manager.popBackStack ();
                 } else {
-                    manager.popBackStack();
-                    FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                    fragmentTransaction.replace(R.id.main_frame_layout, fragment, backStateName);
-                    fragmentTransaction.addToBackStack(backStateName);
-                    fragmentTransaction.commitAllowingStateLoss();
+                    manager.popBackStack ();
+                    FragmentTransaction fragmentTransaction = manager.beginTransaction ();
+                    fragmentTransaction.replace (R.id.main_frame_layout, fragment, backStateName);
+                    fragmentTransaction.addToBackStack (backStateName);
+                    fragmentTransaction.commitAllowingStateLoss ();
                     break;
                 }
 //                if (i==0)

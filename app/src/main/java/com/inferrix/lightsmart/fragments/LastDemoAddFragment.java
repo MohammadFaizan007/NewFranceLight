@@ -159,6 +159,24 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
     @BindView(R.id.btn_remove8)
     Button btnRemove8;
     String valueOne = "", valueTwo = "", valueThree = "", valueFour = "", valueFive = "", valueSix = "", valueSeven = "", valueEight = "";
+    @BindView(R.id.uidName)
+    EditText uidName;
+    @BindView(R.id.card_six)
+    CardView cardSix;
+    @BindView(R.id.uidNameTwo)
+    EditText uidNameTwo;
+    @BindView(R.id.uidNameThree)
+    EditText uidNameThree;
+    @BindView(R.id.uidNameFour)
+    EditText uidNameFour;
+    @BindView(R.id.uidNameFive)
+    EditText uidNameFive;
+    @BindView(R.id.uidNameSix)
+    EditText uidNameSix;
+    @BindView(R.id.uidNameSeven)
+    EditText uidNameSeven;
+    @BindView(R.id.uidNameEight)
+    EditText uidNameEight;
 
     public LastDemoAddFragment() {
         // Required empty public constructor
@@ -233,6 +251,61 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
             uidNo8.setHint( "No address associated" );
         } else {
             uidNo8.setText( deviceClass.getNumberEight() );
+        }
+
+        if (deviceClass.getUidNameOne().equalsIgnoreCase( "" )) {
+            uidName.setVisibility( View.GONE );
+        } else {
+            uidName.setVisibility( View.VISIBLE );
+            uidName.setText( deviceClass.getUidNameOne() );
+        }
+
+        if (deviceClass.getUidNameTwo().equalsIgnoreCase( "" )) {
+            uidNameTwo.setVisibility( View.GONE );
+        } else {
+            uidNameTwo.setVisibility( View.VISIBLE );
+            uidNameTwo.setText( deviceClass.getUidNameTwo() );
+        }
+        if (deviceClass.getUidNameThree().equalsIgnoreCase( "" )) {
+            uidNameThree.setVisibility( View.GONE );
+        } else {
+            uidNameThree.setVisibility( View.VISIBLE );
+            uidNameThree.setText( deviceClass.getUidNameThree() );
+        }
+
+        if (deviceClass.getUidNameFour().equalsIgnoreCase( "" )) {
+            uidNameFour.setVisibility( View.GONE );
+        } else {
+            uidNameFour.setVisibility( View.VISIBLE );
+            uidNameFour.setText( deviceClass.getUidNameFour() );
+        }
+
+        if (deviceClass.getUidNameFive().equalsIgnoreCase( "" )) {
+            uidNameFive.setVisibility( View.GONE );
+        } else {
+            uidNameFive.setVisibility( View.VISIBLE );
+            uidNameFive.setText( deviceClass.getUidNameFive() );
+        }
+
+        if (deviceClass.getUidNameSix().equalsIgnoreCase( "" )) {
+            uidNameSix.setVisibility( View.GONE );
+        } else {
+            uidNameSix.setVisibility( View.VISIBLE );
+            uidNameSix.setText( deviceClass.getUidNameSix() );
+        }
+
+        if (deviceClass.getUidNameSeven().equalsIgnoreCase( "" )) {
+            uidNameSeven.setVisibility( View.GONE );
+        } else {
+            uidNameSeven.setVisibility( View.VISIBLE );
+            uidNameSeven.setText( deviceClass.getUidNameSeven() );
+        }
+
+        if (deviceClass.getUidNameEight().equalsIgnoreCase( "" )) {
+            uidNameEight.setVisibility( View.GONE );
+        } else {
+            uidNameEight.setVisibility( View.VISIBLE );
+            uidNameEight.setText( deviceClass.getUidNameEight() );
         }
 
         if (deviceClass.getItemOne().equalsIgnoreCase( "" )) {
@@ -336,8 +409,20 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
         listPopupWindow.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                uidNo1.setText( deviceList.get( position ).getDeviceName() );
+                uidNo1.setText( String.valueOf( deviceList.get( position ).getDeviceUID() ) );
+                uidName.setVisibility( View.VISIBLE );
+                uidName.setText( deviceList.get( position ).getDeviceName() );
                 Log.e( "UID_ONE>>>", String.valueOf( deviceList.get( position ).getDeviceUID() ) );
+                if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E2:15" )) {
+                    selectItem1.setText( "Switch" );
+                    typeOne.setVisibility( View.VISIBLE );
+                } else if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E5:00" )) {
+                    selectItem1.setText( "PIR" );
+                    typeOne.setVisibility( View.GONE );
+                } else {
+                    selectItem1.setText( "Day Light" );
+                    typeOne.setVisibility( View.GONE );
+                }
                 valueOne = String.valueOf( deviceList.get( position ).getDeviceUID() );
                 listPopupWindow.dismiss();
             }
@@ -359,9 +444,21 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
         listPopupWindowTwo.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                uidNo2.setText( ListTwo.get( position ).getDeviceName() );
+                uidNo2.setText( String.valueOf( ListTwo.get( position ).getDeviceUID() ) );
+                uidNameTwo.setVisibility( View.VISIBLE );
+                uidNameTwo.setText( deviceList.get( position ).getDeviceName() );
                 Log.e( "UID_TWO>>>", String.valueOf( ListTwo.get( position ).getDeviceUID() ) );
                 valueTwo = String.valueOf( ListTwo.get( position ).getDeviceUID() );
+                if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E2:15" )) {
+                    selectItem2.setText( "Switch" );
+                    typeTwo.setVisibility( View.VISIBLE );
+                } else if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E5:00" )) {
+                    selectItem2.setText( "PIR" );
+                    typeTwo.setVisibility( View.GONE );
+                } else {
+                    selectItem2.setText( "Day Light" );
+                    typeTwo.setVisibility( View.GONE );
+                }
                 listPopupWindowTwo.dismiss();
             }
         } );
@@ -383,8 +480,20 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
         listPopupWindowThree.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                uidNo3.setText( deviceList.get( position ).getDeviceName() );
+                uidNo3.setText( String.valueOf( deviceList.get( position ).getDeviceUID() ) );
+                uidNameThree.setVisibility( View.VISIBLE );
+                uidNameThree.setText( deviceList.get( position ).getDeviceName() );
                 Log.e( "UID_THREE>>>", String.valueOf( deviceList.get( position ).getDeviceUID() ) );
+                if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E2:15" )) {
+                    selectItem3.setText( "Switch" );
+                    typeThree.setVisibility( View.VISIBLE );
+                } else if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E5:00" )) {
+                    selectItem3.setText( "PIR" );
+                    typeThree.setVisibility( View.GONE );
+                } else {
+                    selectItem3.setText( "Day Light" );
+                    typeThree.setVisibility( View.GONE );
+                }
                 listPopupWindowThree.dismiss();
                 valueThree = String.valueOf( deviceList.get( position ).getDeviceUID() );
             }
@@ -407,9 +516,21 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
         listPopupWindowFour.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                uidNo4.setText( deviceList.get( position ).getDeviceName() );
+                uidNo4.setText( String.valueOf( deviceList.get( position ).getDeviceUID() ) );
+                uidNameFour.setVisibility( View.VISIBLE );
+                uidNameFour.setText( deviceList.get( position ).getDeviceName() );
                 Log.e( "UID_FOUR>>>", String.valueOf( deviceList.get( position ).getDeviceUID() ) );
                 valueFour = String.valueOf( deviceList.get( position ).getDeviceUID() );
+                if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E2:15" )) {
+                    selectItem4.setText( "Switch" );
+                    typeFour.setVisibility( View.VISIBLE );
+                } else if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E5:00" )) {
+                    selectItem4.setText( "PIR" );
+                    typeFour.setVisibility( View.GONE );
+                } else {
+                    selectItem4.setText( "Day Light" );
+                    typeFour.setVisibility( View.GONE );
+                }
                 listPopupWindowFour.dismiss();
             }
         } );
@@ -430,9 +551,21 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
         listPopupWindowFive.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                uidNo5.setText( deviceList.get( position ).getDeviceName() );
+                uidNo5.setText( String.valueOf( deviceList.get( position ).getDeviceUID() ) );
+                uidNameFive.setVisibility( View.VISIBLE );
+                uidNameFive.setText( deviceList.get( position ).getDeviceName() );
                 Log.e( "UID_FIVE>>>", String.valueOf( deviceList.get( position ).getDeviceUID() ) );
                 valueFive = String.valueOf( deviceList.get( position ).getDeviceUID() );
+                if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E2:15" )) {
+                    selectItem5.setText( "Switch" );
+                    typeFive.setVisibility( View.VISIBLE );
+                } else if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E5:00" )) {
+                    selectItem5.setText( "PIR" );
+                    typeFive.setVisibility( View.GONE );
+                } else {
+                    selectItem5.setText( "Day Light" );
+                    typeFive.setVisibility( View.GONE );
+                }
                 listPopupWindowFive.dismiss();
             }
         } );
@@ -454,9 +587,21 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
         listPopupWindowSix.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                uidNo6.setText( deviceList.get( position ).getDeviceName() );
+                uidNo6.setText( String.valueOf( deviceList.get( position ).getDeviceUID() ) );
+                uidNameSix.setVisibility( View.VISIBLE );
+                uidNameSix.setText( deviceList.get( position ).getDeviceName() );
                 Log.e( "UID_SIX>>>", String.valueOf( deviceList.get( position ).getDeviceUID() ) );
                 valueSix = String.valueOf( deviceList.get( position ).getDeviceUID() );
+                if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E2:15" )) {
+                    selectItem6.setText( "Switch" );
+                    typeSix.setVisibility( View.VISIBLE );
+                } else if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E5:00" )) {
+                    selectItem6.setText( "PIR" );
+                    typeSix.setVisibility( View.GONE );
+                } else {
+                    selectItem6.setText( "Day Light" );
+                    typeSix.setVisibility( View.GONE );
+                }
                 listPopupWindowSix.dismiss();
             }
         } );
@@ -478,9 +623,21 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
         listPopupWindowSeven.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                uidNo7.setText( deviceList.get( position ).getDeviceName() );
+                uidNo7.setText( String.valueOf( deviceList.get( position ).getDeviceUID() ) );
+                uidNameSeven.setVisibility( View.VISIBLE );
+                uidNameSeven.setText( deviceList.get( position ).getDeviceName() );
                 Log.e( "UID_SEVEN>>>", String.valueOf( deviceList.get( position ).getDeviceUID() ) );
                 valueSeven = String.valueOf( deviceList.get( position ).getDeviceUID() );
+                if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E2:15" )) {
+                    selectItem7.setText( "Switch" );
+                    typeSeven.setVisibility( View.VISIBLE );
+                } else if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E5:00" )) {
+                    selectItem7.setText( "PIR" );
+                    typeSeven.setVisibility( View.GONE );
+                } else {
+                    selectItem7.setText( "Day Light" );
+                    typeSeven.setVisibility( View.GONE );
+                }
                 listPopupWindowSeven.dismiss();
             }
         } );
@@ -502,9 +659,21 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
         listPopupWindowEight.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                uidNo8.setText( deviceList.get( position ).getDeviceName() );
+                uidNo8.setText( String.valueOf( deviceList.get( position ).getDeviceUID() ) );
+                uidNameEight.setVisibility( View.VISIBLE );
+                uidNameEight.setText( deviceList.get( position ).getDeviceName() );
                 Log.e( "UID_SEVEN>>>", String.valueOf( deviceList.get( position ).getDeviceUID() ) );
                 valueEight = String.valueOf( deviceList.get( position ).getDeviceUID() );
+                if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E2:15" )) {
+                    selectItem8.setText( "Switch" );
+                    typeEight.setVisibility( View.VISIBLE );
+                } else if (deviceList.get( position ).getTypeCode().equalsIgnoreCase( "55811" ) && deviceList.get( position ).getMacAddress().startsWith( "E5:00" )) {
+                    selectItem8.setText( "PIR" );
+                    typeEight.setVisibility( View.GONE );
+                } else {
+                    selectItem8.setText( "Day Light" );
+                    typeEight.setVisibility( View.GONE );
+                }
                 listPopupWindowEight.dismiss();
 
             }
@@ -512,6 +681,67 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
 
 
         return view;
+    }
+
+    public void getDevice() {
+        deviceList.clear();
+        DeviceClass noGroupData = new DeviceClass();
+        noGroupData.setDeviceName( "No Associate" );
+        deviceList.add( noGroupData );
+        Cursor cursor = sqlHelper.getAllDevice( DatabaseConstant.ADD_DEVICE_TABLE );
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "533" ) ||
+                        (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "55811" ) && cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ).startsWith( "E2:15" )) ||
+                        (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "55811" ) && cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ).startsWith( "E5:00" ))) {
+                    DeviceClass deviceData = new DeviceClass();
+                    deviceData.setDeviceName( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_NAME ) ) );
+                    deviceData.setDeviceUID( cursor.getLong( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_UID ) ) );
+                    deviceData.setTypeCode( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ) );
+                    deviceData.setMacAddress( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ) );
+                    deviceList.add( deviceData );
+                }
+
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+//        adapterSite.notifyDataSetChanged();
+
+    }
+
+    public void getDeviceTwo() {
+        ListTwo.clear();
+        DeviceClass noGroupData = new DeviceClass();
+        noGroupData.setDeviceName( "No Associate" );
+        ListTwo.add( noGroupData );
+        Cursor cursor = sqlHelper.getAllDevice( DatabaseConstant.ADD_DEVICE_TABLE );
+//        int i = 1;
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "533" ) ||
+                        (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "55811" ) && cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ).startsWith( "E2:15" )) ||
+                        (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "55811" ) && cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ).startsWith( "E5:00" ))) {
+
+                    DeviceClass deviceData = new DeviceClass();
+                    deviceData.setDeviceName( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_NAME ) ) );
+                    deviceData.setDeviceUID( cursor.getLong( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_UID ) ) );
+                    deviceData.setTypeCode( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ) );
+                    deviceData.setMacAddress( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ) );
+                    ListTwo.add( deviceData );
+                }
+
+
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+
+    }
+
+
+    public void setDeviceData(DeviceClass deviceData) {
+        this.deviceClass = deviceData;
     }
 
     @OnClick({R.id.uid_no1, R.id.uid_no2, R.id.uid_no3, R.id.uid_no4, R.id.uid_no5, R.id.uid_no6, R.id.uid_no7, R.id.uid_no8,
@@ -816,11 +1046,28 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 contentValues.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_ONE, uidNo1.getText().toString() );
                 contentValues.put( DatabaseConstant.COLUMN_DEVICE_ITEM_ONE, selectItem1.getText().toString() );
                 contentValues.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_ONE, typeOne.getText().toString() );
+                contentValues.put( DatabaseConstant.COLUMN_DEVICE_NAME_ONE, uidName.getText().toString() );
 
                 AdvertiseTask advertiseTask = new AdvertiseTask( activity );
                 ByteQueue byteQueue = new ByteQueue();
                 byteQueue.push( ADD_ASSOCIATE );
-                byteQueue.push( 0x03 );
+                if (selectItem1.getText().toString().equalsIgnoreCase( "Switch" )) {
+                    if (typeOne.getText().toString().equalsIgnoreCase( "Site" )) {
+                        byteQueue.push( 0x53 );
+                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Building" )) {
+                        byteQueue.push( 0x43 );
+                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Level" )) {
+                        byteQueue.push( 0x33 );
+                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Room" )) {
+                        byteQueue.push( 0x23 );
+                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Group" )) {
+                        byteQueue.push( 0x13 );
+                    }
+                } else {
+                    byteQueue.push( 0x03 );
+                    contentValues.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_ONE, "" );
+                }
+
                 byteQueue.pushU4B( deviceClass.getDeviceUID() );
                 if (selectItem1.getText().toString().equalsIgnoreCase( "PIR" )) {
                     byteQueue.push( 0x11 );
@@ -829,23 +1076,23 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem1.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueue.push( 0x13 );
                 }
-//                byteQueue.pushU4B(Long.valueOf(valueOne));
-                byteQueue.push( valueOne );
-                if (selectItem1.getText().toString().equalsIgnoreCase( "Switch" )){
-                    if (typeOne.getText().toString().equalsIgnoreCase( "Site" )) {
-                        byteQueue.push( 0x05 );
-                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Building" )) {
-                        byteQueue.push( 0x04 );
-                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Level" )) {
-                        byteQueue.push( 0x03 );
-                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Room" )) {
-                        byteQueue.push( 0x02 );
-                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Group" )) {
-                        byteQueue.push( 0x01 );
-                    }
-                }else {
-                    contentValues.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_ONE, "");
-                }
+                byteQueue.pushU4B( Long.valueOf( uidNo1.getText().toString() ) );
+//                byteQueue.push( valueOne );
+//                if (selectItem1.getText().toString().equalsIgnoreCase( "Switch" )){
+//                    if (typeOne.getText().toString().equalsIgnoreCase( "Site" )) {
+//                        byteQueue.push( 0x05 );
+//                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Building" )) {
+//                        byteQueue.push( 0x04 );
+//                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Level" )) {
+//                        byteQueue.push( 0x03 );
+//                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Room" )) {
+//                        byteQueue.push( 0x02 );
+//                    } else if (typeOne.getText().toString().equalsIgnoreCase( "Group" )) {
+//                        byteQueue.push( 0x01 );
+//                    }
+//                }else {
+//                    contentValues.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_ONE, "");
+//                }
 
                 advertiseTask = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
                 animatedProgress.setText( "Uploading" );
@@ -866,7 +1113,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem2.getText().toString().length() == 0) {
                     showError( "Please select sensor type two", selectItem2 );
                     return;
-                }else if (selectItem2.getText().toString().equalsIgnoreCase( "Switch" ) && typeTwo.getText().toString().length() == 0) {
+                } else if (selectItem2.getText().toString().equalsIgnoreCase( "Switch" ) && typeTwo.getText().toString().length() == 0) {
                     showError( "Please select add type ", typeTwo );
                     return;
                 }
@@ -874,11 +1121,28 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 contentValues2.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_TWO, uidNo2.getText().toString() );
                 contentValues2.put( DatabaseConstant.COLUMN_DEVICE_ITEM_TWO, selectItem2.getText().toString() );
                 contentValues2.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_TWO, typeTwo.getText().toString() );
+                contentValues2.put( DatabaseConstant.COLUMN_DEVICE_NAME_TWO, uidNameTwo.getText().toString() );
 
                 AdvertiseTask advertiseTask2 = new AdvertiseTask( activity );
                 ByteQueue byteQueue2 = new ByteQueue();
                 byteQueue2.push( ADD_ASSOCIATE );
-                byteQueue2.push( 0x03 );
+                if (selectItem2.getText().toString().equalsIgnoreCase( "Switch" )) {
+                    if (typeTwo.getText().toString().equalsIgnoreCase( "Site" )) {
+                        byteQueue2.push( 0x53 );
+                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Building" )) {
+                        byteQueue2.push( 0x43 );
+                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Level" )) {
+                        byteQueue2.push( 0x33 );
+                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Room" )) {
+                        byteQueue2.push( 0x23 );
+                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Group" )) {
+                        byteQueue2.push( 0x13 );
+                    }
+                } else {
+                    byteQueue2.push( 0x03 );
+                    contentValues2.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_TWO, "" );
+                }
+
                 byteQueue2.pushU4B( deviceClass.getDeviceUID() );
                 if (selectItem2.getText().toString().equalsIgnoreCase( "PIR" )) {
                     byteQueue2.push( 0x21 );
@@ -887,24 +1151,24 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem2.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueue2.push( 0x23 );
                 }
-//                byteQueue2.pushU4B(Long.valueOf(uid_no2.getText().toString().trim()));
-                byteQueue2.push( valueTwo );
+                byteQueue2.pushU4B( Long.valueOf( uidNo2.getText().toString().trim() ) );
+//                byteQueue2.push( valueTwo );
 //                byteQueue2.pushU4B(Long.valueOf(valueTwo));
-                if (selectItem2.getText().toString().equalsIgnoreCase( "Switch" )){
-                    if (typeTwo.getText().toString().equalsIgnoreCase( "Site" )) {
-                        byteQueue2.push( 0x05 );
-                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Building" )) {
-                        byteQueue2.push( 0x04 );
-                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Level" )) {
-                        byteQueue2.push( 0x03 );
-                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Room" )) {
-                        byteQueue2.push( 0x02 );
-                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Group" )) {
-                        byteQueue2.push( 0x01 );
-                    }
-                }else {
-                    contentValues2.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_TWO, "");
-                }
+//                if (selectItem2.getText().toString().equalsIgnoreCase( "Switch" )){
+//                    if (typeTwo.getText().toString().equalsIgnoreCase( "Site" )) {
+//                        byteQueue2.push( 0x05 );
+//                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Building" )) {
+//                        byteQueue2.push( 0x04 );
+//                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Level" )) {
+//                        byteQueue2.push( 0x03 );
+//                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Room" )) {
+//                        byteQueue2.push( 0x02 );
+//                    } else if (typeTwo.getText().toString().equalsIgnoreCase( "Group" )) {
+//                        byteQueue2.push( 0x01 );
+//                    }
+//                }else {
+//                    contentValues2.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_TWO, "");
+//                }
 
                 advertiseTask2 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
                 animatedProgress.setText( "Uploading" );
@@ -923,8 +1187,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem3.getText().toString().length() == 0) {
                     showError( "Please select sensor type three", selectItem3 );
                     return;
-                }
-                else if (selectItem3.getText().toString().equalsIgnoreCase( "Switch" ) && typeThree.getText().toString().length() == 0) {
+                } else if (selectItem3.getText().toString().equalsIgnoreCase( "Switch" ) && typeThree.getText().toString().length() == 0) {
                     showError( "Please select add type ", typeThree );
                     return;
                 }
@@ -932,11 +1195,28 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 contentValues3.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_THREE, uidNo3.getText().toString() );
                 contentValues3.put( DatabaseConstant.COLUMN_DEVICE_ITEM_THREE, selectItem3.getText().toString() );
                 contentValues3.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_THREE, typeThree.getText().toString() );
+                contentValues3.put( DatabaseConstant.COLUMN_DEVICE_NAME_THREE, uidNameThree.getText().toString() );
 
                 AdvertiseTask advertiseTask3 = new AdvertiseTask( activity );
                 ByteQueue byteQueue3 = new ByteQueue();
                 byteQueue3.push( ADD_ASSOCIATE );
-                byteQueue3.push( 0x03 );
+                if (selectItem3.getText().toString().equalsIgnoreCase( "Switch" )) {
+                    if (typeThree.getText().toString().equalsIgnoreCase( "Site" )) {
+                        byteQueue3.push( 0x53 );
+                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Building" )) {
+                        byteQueue3.push( 0x43 );
+                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Level" )) {
+                        byteQueue3.push( 0x33 );
+                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Room" )) {
+                        byteQueue3.push( 0x23 );
+                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Group" )) {
+                        byteQueue3.push( 0x13 );
+                    }
+                } else {
+                    byteQueue3.push( 0x03 );
+                    contentValues3.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_THREE, "" );
+                }
+
                 byteQueue3.pushU4B( deviceClass.getDeviceUID() );
                 if (selectItem3.getText().toString().equalsIgnoreCase( "PIR" )) {
                     byteQueue3.push( 0x31 );
@@ -945,24 +1225,24 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem3.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueue3.push( 0x33 );
                 }
-//                byteQueue3.pushU4B(Long.valueOf(uid_no3.getText().toString().trim()));
-                byteQueue3.push( valueThree );
+                byteQueue3.pushU4B( Long.valueOf( uidNo3.getText().toString().trim() ) );
+//                byteQueue3.push( valueThree );
 //                byteQueue3.pushU4B(Long.valueOf(valueThree));
-                if (selectItem3.getText().toString().equalsIgnoreCase( "Switch" )){
-                    if (typeThree.getText().toString().equalsIgnoreCase( "Site" )) {
-                        byteQueue3.push( 0x05 );
-                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Building" )) {
-                        byteQueue3.push( 0x04 );
-                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Level" )) {
-                        byteQueue3.push( 0x03 );
-                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Room" )) {
-                        byteQueue3.push( 0x02 );
-                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Group" )) {
-                        byteQueue3.push( 0x01 );
-                    }
-                }else {
-                    contentValues3.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_THREE, "");
-                }
+//                if (selectItem3.getText().toString().equalsIgnoreCase( "Switch" )){
+//                    if (typeThree.getText().toString().equalsIgnoreCase( "Site" )) {
+//                        byteQueue3.push( 0x05 );
+//                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Building" )) {
+//                        byteQueue3.push( 0x04 );
+//                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Level" )) {
+//                        byteQueue3.push( 0x03 );
+//                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Room" )) {
+//                        byteQueue3.push( 0x02 );
+//                    } else if (typeThree.getText().toString().equalsIgnoreCase( "Group" )) {
+//                        byteQueue3.push( 0x01 );
+//                    }
+//                }else {
+//                    contentValues3.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_THREE, "");
+//                }
 
                 advertiseTask3 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
                 animatedProgress.setText( "Uploading" );
@@ -981,7 +1261,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem4.getText().toString().length() == 0) {
                     showError( "Please select sensor type four", selectItem4 );
                     return;
-                }else if (selectItem4.getText().toString().equalsIgnoreCase( "Switch" ) && typeFour.getText().toString().length() == 0) {
+                } else if (selectItem4.getText().toString().equalsIgnoreCase( "Switch" ) && typeFour.getText().toString().length() == 0) {
                     showError( "Please select add type ", typeFour );
                     return;
                 }
@@ -990,11 +1270,28 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 contentValues4.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_FOUR, uidNo4.getText().toString() );
                 contentValues4.put( DatabaseConstant.COLUMN_DEVICE_ITEM_FOUR, selectItem4.getText().toString() );
                 contentValues4.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FOUR, typeFour.getText().toString() );
+                contentValues4.put( DatabaseConstant.COLUMN_DEVICE_NAME_FOUR, uidNameFour.getText().toString() );
 
                 AdvertiseTask advertiseTask4 = new AdvertiseTask( activity );
                 ByteQueue byteQueue4 = new ByteQueue();
                 byteQueue4.push( ADD_ASSOCIATE );
-                byteQueue4.push( 0x03 );
+                if (selectItem4.getText().toString().equalsIgnoreCase( "Switch" )) {
+                    if (typeFour.getText().toString().equalsIgnoreCase( "Site" )) {
+                        byteQueue4.push( 0x53 );
+                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Building" )) {
+                        byteQueue4.push( 0x43 );
+                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Level" )) {
+                        byteQueue4.push( 0x33 );
+                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Room" )) {
+                        byteQueue4.push( 0x23 );
+                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Group" )) {
+                        byteQueue4.push( 0x13 );
+                    }
+                } else {
+                    byteQueue4.push( 0x03 );
+                    contentValues4.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FOUR, "" );
+                }
+
                 byteQueue4.pushU4B( deviceClass.getDeviceUID() );
                 if (selectItem4.getText().toString().equalsIgnoreCase( "PIR" )) {
                     byteQueue4.push( 0x41 );
@@ -1003,24 +1300,24 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem4.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueue4.push( 0x43 );
                 }
-//                byteQueue4.pushU4B(Long.valueOf(uid_no4.getText().toString().trim()));
-                byteQueue4.push( valueFour );
+                byteQueue4.pushU4B( Long.valueOf( uidNo4.getText().toString().trim() ) );
+//                byteQueue4.push( valueFour );
 //                byteQueue4.pushU4B(Long.valueOf(valueFour));
-                if (selectItem4.getText().toString().equalsIgnoreCase( "Switch" )){
-                    if (typeFour.getText().toString().equalsIgnoreCase( "Site" )) {
-                        byteQueue4.push( 0x05 );
-                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Building" )) {
-                        byteQueue4.push( 0x04 );
-                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Level" )) {
-                        byteQueue4.push( 0x03 );
-                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Room" )) {
-                        byteQueue4.push( 0x02 );
-                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Group" )) {
-                        byteQueue4.push( 0x01 );
-                    }
-                }else {
-                    contentValues4.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FOUR, "");
-                }
+//                if (selectItem4.getText().toString().equalsIgnoreCase( "Switch" )){
+//                    if (typeFour.getText().toString().equalsIgnoreCase( "Site" )) {
+//                        byteQueue4.push( 0x05 );
+//                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Building" )) {
+//                        byteQueue4.push( 0x04 );
+//                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Level" )) {
+//                        byteQueue4.push( 0x03 );
+//                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Room" )) {
+//                        byteQueue4.push( 0x02 );
+//                    } else if (typeFour.getText().toString().equalsIgnoreCase( "Group" )) {
+//                        byteQueue4.push( 0x01 );
+//                    }
+//                }else {
+//                    contentValues4.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FOUR, "");
+//                }
 
                 advertiseTask4 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
                 animatedProgress.setText( "Uploading" );
@@ -1039,7 +1336,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem5.getText().toString().length() == 0) {
                     showError( "Please select sensor type five", selectItem5 );
                     return;
-                }else if (selectItem5.getText().toString().equalsIgnoreCase( "Switch" ) && typeFive.getText().toString().length() == 0) {
+                } else if (selectItem5.getText().toString().equalsIgnoreCase( "Switch" ) && typeFive.getText().toString().length() == 0) {
                     showError( "Please select add type ", typeFive );
                     return;
                 }
@@ -1047,12 +1344,29 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 contentValues5.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_FIVE, uidNo5.getText().toString() );
                 contentValues5.put( DatabaseConstant.COLUMN_DEVICE_ITEM_FIVE, selectItem5.getText().toString() );
                 contentValues5.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FIVE, typeFive.getText().toString() );
+                contentValues5.put( DatabaseConstant.COLUMN_DEVICE_NAME_FIVE, uidNameFive.getText().toString() );
 
 
                 AdvertiseTask advertiseTask5 = new AdvertiseTask( activity );
                 ByteQueue byteQueue5 = new ByteQueue();
                 byteQueue5.push( ADD_ASSOCIATE );
-                byteQueue5.push( 0x03 );
+                if (selectItem5.getText().toString().equalsIgnoreCase( "Switch" )) {
+                    if (typeFive.getText().toString().equalsIgnoreCase( "Site" )) {
+                        byteQueue5.push( 0x53 );
+                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Building" )) {
+                        byteQueue5.push( 0x43 );
+                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Level" )) {
+                        byteQueue5.push( 0x33 );
+                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Room" )) {
+                        byteQueue5.push( 0x23 );
+                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Group" )) {
+                        byteQueue5.push( 0x13 );
+                    }
+                } else {
+                    byteQueue5.push( 0x03 );
+                    contentValues5.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FIVE, "" );
+                }
+
                 byteQueue5.pushU4B( deviceClass.getDeviceUID() );
                 if (selectItem5.getText().toString().equalsIgnoreCase( "PIR" )) {
                     byteQueue5.push( 0x51 );
@@ -1061,24 +1375,24 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem5.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueue5.push( 0x53 );
                 }
-//                byteQueue5.pushU4B(Long.valueOf(uid_no5.getText().toString().trim()));
-                byteQueue5.push( valueFive );
+                byteQueue5.pushU4B( Long.valueOf( uidNo5.getText().toString().trim() ) );
+//                byteQueue5.push( valueFive );
 //                byteQueue5.pushU4B(Long.valueOf(valueFive));
-                if (selectItem5.getText().toString().equalsIgnoreCase( "Switch" )){
-                    if (typeFive.getText().toString().equalsIgnoreCase( "Site" )) {
-                        byteQueue5.push( 0x05 );
-                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Building" )) {
-                        byteQueue5.push( 0x04 );
-                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Level" )) {
-                        byteQueue5.push( 0x03 );
-                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Room" )) {
-                        byteQueue5.push( 0x02 );
-                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Group" )) {
-                        byteQueue5.push( 0x01 );
-                    }
-                }else {
-                    contentValues5.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FIVE, "");
-                }
+//                if (selectItem5.getText().toString().equalsIgnoreCase( "Switch" )){
+//                    if (typeFive.getText().toString().equalsIgnoreCase( "Site" )) {
+//                        byteQueue5.push( 0x05 );
+//                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Building" )) {
+//                        byteQueue5.push( 0x04 );
+//                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Level" )) {
+//                        byteQueue5.push( 0x03 );
+//                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Room" )) {
+//                        byteQueue5.push( 0x02 );
+//                    } else if (typeFive.getText().toString().equalsIgnoreCase( "Group" )) {
+//                        byteQueue5.push( 0x01 );
+//                    }
+//                }else {
+//                    contentValues5.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FIVE, "");
+//                }
 
                 advertiseTask5 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
                 animatedProgress.setText( "Uploading" );
@@ -1098,7 +1412,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem6.getText().toString().length() == 0) {
                     showError( "Please select sensor type six", selectItem6 );
                     return;
-                }else if (selectItem6.getText().toString().equalsIgnoreCase( "Switch" ) && typeSix.getText().toString().length() == 0) {
+                } else if (selectItem6.getText().toString().equalsIgnoreCase( "Switch" ) && typeSix.getText().toString().length() == 0) {
                     showError( "Please select add type ", typeSix );
                     return;
                 }
@@ -1106,11 +1420,27 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 contentValues6.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_SIX, uidNo6.getText().toString() );
                 contentValues6.put( DatabaseConstant.COLUMN_DEVICE_ITEM_SIX, selectItem6.getText().toString() );
                 contentValues6.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SIX, typeSix.getText().toString() );
+                contentValues6.put( DatabaseConstant.COLUMN_DEVICE_NAME_SIX, uidNameSix.getText().toString() );
 
                 AdvertiseTask advertiseTask6 = new AdvertiseTask( activity );
                 ByteQueue byteQueue6 = new ByteQueue();
                 byteQueue6.push( ADD_ASSOCIATE );
-                byteQueue6.push( 0x03 );
+                if (selectItem6.getText().toString().equalsIgnoreCase( "Switch" )) {
+                    if (typeSix.getText().toString().equalsIgnoreCase( "Site" )) {
+                        byteQueue6.push( 0x53 );
+                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Building" )) {
+                        byteQueue6.push( 0x43 );
+                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Level" )) {
+                        byteQueue6.push( 0x33 );
+                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Room" )) {
+                        byteQueue6.push( 0x23 );
+                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Group" )) {
+                        byteQueue6.push( 0x13 );
+                    }
+                } else {
+                    byteQueue6.push( 0x03 );
+                    contentValues6.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SIX, "" );
+                }
                 byteQueue6.pushU4B( deviceClass.getDeviceUID() );
                 if (selectItem6.getText().toString().equalsIgnoreCase( "PIR" )) {
                     byteQueue6.push( 0x61 );
@@ -1119,24 +1449,24 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem6.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueue6.push( 0x63 );
                 }
-//                byteQueue6.pushU4B(Long.valueOf(uid_no6.getText().toString().trim()));
-                byteQueue6.push( valueSix );
+                byteQueue6.pushU4B( Long.valueOf( uidNo6.getText().toString().trim() ) );
+//                byteQueue6.push( valueSix );
 //                byteQueue6.pushU4B(Long.valueOf(valueSix));
-                if (selectItem6.getText().toString().equalsIgnoreCase( "Switch" )){
-                    if (typeSix.getText().toString().equalsIgnoreCase( "Site" )) {
-                        byteQueue6.push( 0x05 );
-                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Building" )) {
-                        byteQueue6.push( 0x04 );
-                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Level" )) {
-                        byteQueue6.push( 0x03 );
-                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Room" )) {
-                        byteQueue6.push( 0x02 );
-                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Group" )) {
-                        byteQueue6.push( 0x01 );
-                    }
-                }else {
-                    contentValues6.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SIX, "");
-                }
+//                if (selectItem6.getText().toString().equalsIgnoreCase( "Switch" )){
+//                    if (typeSix.getText().toString().equalsIgnoreCase( "Site" )) {
+//                        byteQueue6.push( 0x05 );
+//                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Building" )) {
+//                        byteQueue6.push( 0x04 );
+//                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Level" )) {
+//                        byteQueue6.push( 0x03 );
+//                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Room" )) {
+//                        byteQueue6.push( 0x02 );
+//                    } else if (typeSix.getText().toString().equalsIgnoreCase( "Group" )) {
+//                        byteQueue6.push( 0x01 );
+//                    }
+//                }else {
+//                    contentValues6.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SIX, "");
+//                }
 
                 advertiseTask6 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
                 animatedProgress.setText( "Uploading" );
@@ -1156,7 +1486,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem7.getText().toString().length() == 0) {
                     showError( "Please select sensor type seven", selectItem7 );
                     return;
-                }else if (selectItem7.getText().toString().equalsIgnoreCase( "Switch" ) && typeSeven.getText().toString().length() == 0) {
+                } else if (selectItem7.getText().toString().equalsIgnoreCase( "Switch" ) && typeSeven.getText().toString().length() == 0) {
                     showError( "Please select add type ", typeSeven );
                     return;
                 }
@@ -1164,11 +1494,28 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 contentValues7.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_SEVEN, uidNo7.getText().toString() );
                 contentValues7.put( DatabaseConstant.COLUMN_DEVICE_ITEM_SEVEN, selectItem7.getText().toString() );
                 contentValues7.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SEVEN, typeSeven.getText().toString() );
+                contentValues7.put( DatabaseConstant.COLUMN_DEVICE_NAME_SEVEN, uidNameSeven.getText().toString() );
 
                 AdvertiseTask advertiseTask7 = new AdvertiseTask( activity );
                 ByteQueue byteQueue7 = new ByteQueue();
                 byteQueue7.push( ADD_ASSOCIATE );
-                byteQueue7.push( 0x03 );
+                if (selectItem7.getText().toString().equalsIgnoreCase( "Switch" )) {
+                    if (typeSeven.getText().toString().equalsIgnoreCase( "Site" )) {
+                        byteQueue7.push( 0x53 );
+                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Building" )) {
+                        byteQueue7.push( 0x43 );
+                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Level" )) {
+                        byteQueue7.push( 0x33 );
+                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Room" )) {
+                        byteQueue7.push( 0x23 );
+                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Group" )) {
+                        byteQueue7.push( 0x13 );
+                    }
+                } else {
+                    byteQueue7.push( 0x03 );
+                    contentValues7.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SEVEN, "" );
+                }
+
                 byteQueue7.pushU4B( deviceClass.getDeviceUID() );
                 if (selectItem7.getText().toString().equalsIgnoreCase( "PIR" )) {
                     byteQueue7.push( 0x71 );
@@ -1177,24 +1524,24 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem7.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueue7.push( 0x73 );
                 }
-//                byteQueue7.pushU4B(Long.valueOf(uid_no7.getText().toString().trim()));
-                byteQueue7.push( valueSeven );
+                byteQueue7.pushU4B( Long.valueOf( uidNo7.getText().toString().trim() ) );
+//                byteQueue7.push( valueSeven );
 //                byteQueue7.pushU4B(Long.valueOf(valueSeven));
-                if (selectItem7.getText().toString().equalsIgnoreCase( "Switch" )){
-                    if (typeSeven.getText().toString().equalsIgnoreCase( "Site" )) {
-                        byteQueue7.push( 0x05 );
-                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Building" )) {
-                        byteQueue7.push( 0x04 );
-                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Level" )) {
-                        byteQueue7.push( 0x03 );
-                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Room" )) {
-                        byteQueue7.push( 0x02 );
-                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Group" )) {
-                        byteQueue7.push( 0x01 );
-                    }
-                }else {
-                    contentValues7.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SEVEN, "");
-                }
+//                if (selectItem7.getText().toString().equalsIgnoreCase( "Switch" )){
+//                    if (typeSeven.getText().toString().equalsIgnoreCase( "Site" )) {
+//                        byteQueue7.push( 0x05 );
+//                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Building" )) {
+//                        byteQueue7.push( 0x04 );
+//                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Level" )) {
+//                        byteQueue7.push( 0x03 );
+//                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Room" )) {
+//                        byteQueue7.push( 0x02 );
+//                    } else if (typeSeven.getText().toString().equalsIgnoreCase( "Group" )) {
+//                        byteQueue7.push( 0x01 );
+//                    }
+//                }else {
+//                    contentValues7.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SEVEN, "");
+//                }
 
                 advertiseTask7 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
                 animatedProgress.setText( "Uploading" );
@@ -1214,8 +1561,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem8.getText().toString().length() == 0) {
                     showError( "Please select sensor type eight", selectItem8 );
                     return;
-                }
-                else if (selectItem8.getText().toString().equalsIgnoreCase( "Switch" ) && typeEight.getText().toString().length() == 0) {
+                } else if (selectItem8.getText().toString().equalsIgnoreCase( "Switch" ) && typeEight.getText().toString().length() == 0) {
                     showError( "Please select add type ", typeEight );
                     return;
                 }
@@ -1223,11 +1569,28 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 contentValues8.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_EIGET, uidNo8.getText().toString() );
                 contentValues8.put( DatabaseConstant.COLUMN_DEVICE_ITEM_EIGET, selectItem8.getText().toString() );
                 contentValues8.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_EIGHT, typeEight.getText().toString() );
+                contentValues8.put( DatabaseConstant.COLUMN_DEVICE_NAME_EIGHT, uidNameEight.getText().toString() );
 
                 AdvertiseTask advertiseTask8 = new AdvertiseTask( activity );
                 ByteQueue byteQueue8 = new ByteQueue();
                 byteQueue8.push( ADD_ASSOCIATE );
-                byteQueue8.push( 0x03 );
+                if (selectItem8.getText().toString().equalsIgnoreCase( "Switch" )) {
+                    if (typeEight.getText().toString().equalsIgnoreCase( "Site" )) {
+                        byteQueue8.push( 0x3 );
+                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Building" )) {
+                        byteQueue8.push( 0x43 );
+                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Level" )) {
+                        byteQueue8.push( 0x33 );
+                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Room" )) {
+                        byteQueue8.push( 0x23 );
+                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Group" )) {
+                        byteQueue8.push( 0x13 );
+                    }
+                } else {
+                    byteQueue8.push( 0x03 );
+                    contentValues8.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_EIGHT, "" );
+                }
+
                 byteQueue8.pushU4B( deviceClass.getDeviceUID() );
                 if (selectItem8.getText().toString().equalsIgnoreCase( "PIR" )) {
                     byteQueue8.push( 0x81 );
@@ -1236,24 +1599,24 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem8.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueue8.push( 0x83 );
                 }
-//                byteQueue8.pushU4B(Long.valueOf(uid_no8.getText().toString().trim()));
-                byteQueue8.push( valueEight );
+                byteQueue8.pushU4B( Long.valueOf( uidNo8.getText().toString().trim() ) );
+//                byteQueue8.push( valueEight );
 //                byteQueue8.pushU4B(Long.valueOf(valueEight));
-                if (selectItem8.getText().toString().equalsIgnoreCase( "Switch" )){
-                    if (typeEight.getText().toString().equalsIgnoreCase( "Site" )) {
-                        byteQueue8.push( 0x05 );
-                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Building" )) {
-                        byteQueue8.push( 0x04 );
-                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Level" )) {
-                        byteQueue8.push( 0x03 );
-                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Room" )) {
-                        byteQueue8.push( 0x02 );
-                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Group" )) {
-                        byteQueue8.push( 0x01 );
-                    }
-                }else {
-                    contentValues8.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_EIGHT, "");
-                }
+//                if (selectItem8.getText().toString().equalsIgnoreCase( "Switch" )){
+//                    if (typeEight.getText().toString().equalsIgnoreCase( "Site" )) {
+//                        byteQueue8.push( 0x05 );
+//                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Building" )) {
+//                        byteQueue8.push( 0x04 );
+//                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Level" )) {
+//                        byteQueue8.push( 0x03 );
+//                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Room" )) {
+//                        byteQueue8.push( 0x02 );
+//                    } else if (typeEight.getText().toString().equalsIgnoreCase( "Group" )) {
+//                        byteQueue8.push( 0x01 );
+//                    }
+//                }else {
+//                    contentValues8.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_EIGHT, "");
+//                }
 
                 advertiseTask8 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
                 animatedProgress.setText( "Uploading" );
@@ -1278,7 +1641,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 ContentValues contentValuesRemove = new ContentValues();
                 contentValuesRemove.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_ONE, "" );
                 contentValuesRemove.put( DatabaseConstant.COLUMN_DEVICE_ITEM_ONE, "" );
-                contentValuesRemove.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_ONE, "");
+                contentValuesRemove.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_ONE, "" );
                 if (sqlHelper.updateDevice( deviceClass.getDeviceUID(), contentValuesRemove )) {
                 }
                 AdvertiseTask advertiseTask1 = new AdvertiseTask( activity );
@@ -1293,12 +1656,12 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem1.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueue1.push( 0x13 );
                 }
-                if (deviceClass.getNumberOne().equalsIgnoreCase( "" )) {
-//                    byteQueue1.pushU4B( Long.valueOf( uidNo1.getText().toString().trim() ) );
-                    byteQueue1.pushU4B( Long.valueOf( valueOne ) );
-                } else {
-                    byteQueue1.pushU4B( Long.parseLong( deviceClass.getNumberOne() ) );
-                }
+//                if (deviceClass.getNumberOne().equalsIgnoreCase( "" )) {
+////                    byteQueue1.pushU4B( Long.valueOf( uidNo1.getText().toString().trim() ) );
+//                    byteQueue1.pushU4B( Long.valueOf( valueOne ) );
+//                } else {
+//                    byteQueue1.`pushU4B( Long.parseLong( deviceClass.getNumberOne() ) );
+//                }
                 advertiseTask1 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
                 animatedProgress.setText( "Uploading" );
                 advertiseTask1.setByteQueue( byteQueue1 );
@@ -1321,7 +1684,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 ContentValues contentValuesRemove2 = new ContentValues();
                 contentValuesRemove2.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_TWO, "" );
                 contentValuesRemove2.put( DatabaseConstant.COLUMN_DEVICE_ITEM_TWO, "" );
-                contentValuesRemove2.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_TWO, "");
+                contentValuesRemove2.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_TWO, "" );
                 if (sqlHelper.updateDevice( deviceClass.getDeviceUID(), contentValuesRemove2 )) {
                 }
                 AdvertiseTask advertiseTaskRemove2 = new AdvertiseTask( activity );
@@ -1336,12 +1699,12 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem2.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueueRemove2.push( 0x23 );
                 }
-                if (deviceClass.getNumberTwo().equalsIgnoreCase( "" )) {
-//                    byteQueueRemove2.pushU4B( Long.valueOf( uidNo2.getText().toString().trim() ) );
-                    byteQueueRemove2.pushU4B( Long.valueOf( valueTwo ) );
-                } else {
-                    byteQueueRemove2.pushU4B( Long.parseLong( deviceClass.getNumberTwo() ) );
-                }
+//                if (deviceClass.getNumberTwo().equalsIgnoreCase( "" )) {
+////                    byteQueueRemove2.pushU4B( Long.valueOf( uidNo2.getText().toString().trim() ) );
+//                    byteQueueRemove2.pushU4B( Long.valueOf( valueTwo ) );
+//                } else {
+//                    byteQueueRemove2.pushU4B( Long.parseLong( deviceClass.getNumberTwo() ) );
+//                }
 //                byteQueue1.push(PIR_INFO);
 //                byteQueueRemove2.pushU4B(Long.parseLong(deviceClass.getNumberTwo()));
                 advertiseTaskRemove2 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
@@ -1368,7 +1731,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 ContentValues contentValuesRemove3 = new ContentValues();
                 contentValuesRemove3.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_THREE, "" );
                 contentValuesRemove3.put( DatabaseConstant.COLUMN_DEVICE_ITEM_THREE, "" );
-                contentValuesRemove3.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_THREE, "");
+                contentValuesRemove3.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_THREE, "" );
                 if (sqlHelper.updateDevice( deviceClass.getDeviceUID(), contentValuesRemove3 )) {
                 }
                 AdvertiseTask advertiseTaskRemove3 = new AdvertiseTask( activity );
@@ -1383,12 +1746,12 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem3.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueueRemove3.push( 0x33 );
                 }
-                if (deviceClass.getNumberThree().equalsIgnoreCase( "" )) {
-//                    byteQueueRemove3.pushU4B( Long.valueOf( uidNo3.getText().toString().trim() ) );
-                    byteQueueRemove3.pushU4B( Long.valueOf( valueThree ) );
-                } else {
-                    byteQueueRemove3.pushU4B( Long.parseLong( deviceClass.getNumberThree() ) );
-                }
+//                if (deviceClass.getNumberThree().equalsIgnoreCase( "" )) {
+////                    byteQueueRemove3.pushU4B( Long.valueOf( uidNo3.getText().toString().trim() ) );
+//                    byteQueueRemove3.pushU4B( Long.valueOf( valueThree ) );
+//                } else {
+//                    byteQueueRemove3.pushU4B( Long.parseLong( deviceClass.getNumberThree() ) );
+//                }
 //                byteQueue1.push(PIR_INFO);
 //                byteQueueRemove3.pushU4B(Long.parseLong(deviceClass.getNumberThree()));
                 advertiseTaskRemove3 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
@@ -1412,7 +1775,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 ContentValues contentValuesRemove4 = new ContentValues();
                 contentValuesRemove4.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_FOUR, "" );
                 contentValuesRemove4.put( DatabaseConstant.COLUMN_DEVICE_ITEM_FOUR, "" );
-                contentValuesRemove4.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FOUR, "");
+                contentValuesRemove4.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FOUR, "" );
                 if (sqlHelper.updateDevice( deviceClass.getDeviceUID(), contentValuesRemove4 )) {
                 }
                 AdvertiseTask advertiseTaskRemove4 = new AdvertiseTask( activity );
@@ -1429,12 +1792,12 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 }
 //                byteQueue1.push(PIR_INFO);
 //                byteQueueRemove4.pushU4B(Long.parseLong(deviceClass.getNumberFour()));
-                if (deviceClass.getNumberFour().equalsIgnoreCase( "" )) {
-//                    byteQueueRemove4.pushU4B( Long.valueOf( uidNo4.getText().toString().trim() ) );
-                    byteQueueRemove4.pushU4B( Long.valueOf( valueFour ) );
-                } else {
-                    byteQueueRemove4.pushU4B( Long.parseLong( deviceClass.getNumberFour() ) );
-                }
+//                if (deviceClass.getNumberFour().equalsIgnoreCase( "" )) {
+////                    byteQueueRemove4.pushU4B( Long.valueOf( uidNo4.getText().toString().trim() ) );
+//                    byteQueueRemove4.pushU4B( Long.valueOf( valueFour ) );
+//                } else {
+//                    byteQueueRemove4.pushU4B( Long.parseLong( deviceClass.getNumberFour() ) );
+//                }
                 advertiseTaskRemove4 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
                 animatedProgress.setText( "Uploading" );
                 advertiseTaskRemove4.setByteQueue( byteQueueRemove4 );
@@ -1456,7 +1819,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 ContentValues contentValuesRemove5 = new ContentValues();
                 contentValuesRemove5.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_FIVE, "" );
                 contentValuesRemove5.put( DatabaseConstant.COLUMN_DEVICE_ITEM_FIVE, "" );
-                contentValuesRemove5.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FIVE, "");
+                contentValuesRemove5.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_FIVE, "" );
                 if (sqlHelper.updateDevice( deviceClass.getDeviceUID(), contentValuesRemove5 )) {
                 }
                 AdvertiseTask advertiseTaskRemove5 = new AdvertiseTask( activity );
@@ -1471,12 +1834,12 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem5.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueueRemove5.push( 0x53 );
                 }
-                if (deviceClass.getNumberFive().equalsIgnoreCase( "" )) {
-                    byteQueueRemove5.pushU4B( Long.valueOf( valueFive ) );
-//                    byteQueueRemove5.pushU4B( Long.valueOf( uidNo5.getText().toString().trim() ) );
-                } else {
-                    byteQueueRemove5.pushU4B( Long.parseLong( deviceClass.getNumberFive() ) );
-                }
+//                if (deviceClass.getNumberFive().equalsIgnoreCase( "" )) {
+//                    byteQueueRemove5.pushU4B( Long.valueOf( valueFive ) );
+////                    byteQueueRemove5.pushU4B( Long.valueOf( uidNo5.getText().toString().trim() ) );
+//                } else {
+//                    byteQueueRemove5.pushU4B( Long.parseLong( deviceClass.getNumberFive() ) );
+//                }
 //                byteQueue1.push(PIR_INFO);
 //                byteQueueRemove5.pushU4B(Long.parseLong(deviceClass.getNumberFive()));
                 advertiseTaskRemove5 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
@@ -1501,7 +1864,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 ContentValues contentValuesRemove6 = new ContentValues();
                 contentValuesRemove6.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_SIX, "" );
                 contentValuesRemove6.put( DatabaseConstant.COLUMN_DEVICE_ITEM_SIX, "" );
-                contentValuesRemove6.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SIX, "");
+                contentValuesRemove6.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SIX, "" );
                 if (sqlHelper.updateDevice( deviceClass.getDeviceUID(), contentValuesRemove6 )) {
                 }
                 AdvertiseTask advertiseTaskRemove6 = new AdvertiseTask( activity );
@@ -1516,12 +1879,12 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem6.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueueRemove6.push( 0x63 );
                 }
-                if (deviceClass.getNumberSix().equalsIgnoreCase( "" )) {
-                    byteQueueRemove6.pushU4B( Long.valueOf( valueSix ) );
-//                    byteQueueRemove6.pushU4B( Long.valueOf( uidNo6.getText().toString().trim() ) );
-                } else {
-                    byteQueueRemove6.pushU4B( Long.parseLong( deviceClass.getNumberSix() ) );
-                }
+//                if (deviceClass.getNumberSix().equalsIgnoreCase( "" )) {
+//                    byteQueueRemove6.pushU4B( Long.valueOf( valueSix ) );
+////                    byteQueueRemove6.pushU4B( Long.valueOf( uidNo6.getText().toString().trim() ) );
+//                } else {
+//                    byteQueueRemove6.pushU4B( Long.parseLong( deviceClass.getNumberSix() ) );
+//                }
 //                byteQueue1.push(PIR_INFO);
 //                byteQueueRemove6.pushU4B(Long.parseLong(deviceClass.getNumberSix()));
                 advertiseTaskRemove6 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
@@ -1546,7 +1909,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 ContentValues contentValuesRemove7 = new ContentValues();
                 contentValuesRemove7.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_SEVEN, "" );
                 contentValuesRemove7.put( DatabaseConstant.COLUMN_DEVICE_ITEM_SEVEN, "" );
-                contentValuesRemove7.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SEVEN, "");
+                contentValuesRemove7.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_SEVEN, "" );
                 if (sqlHelper.updateDevice( deviceClass.getDeviceUID(), contentValuesRemove7 )) {
                 }
                 AdvertiseTask advertiseTaskRemove7 = new AdvertiseTask( activity );
@@ -1561,12 +1924,12 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem7.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueueRemove7.push( 0x73 );
                 }
-                if (deviceClass.getNumberSeven().equalsIgnoreCase( "" )) {
-                    byteQueueRemove7.pushU4B( Long.valueOf( valueSeven ) );
-//                    byteQueueRemove7.pushU4B( Long.valueOf( uidNo8.getText().toString().trim() ) );
-                } else {
-                    byteQueueRemove7.pushU4B( Long.parseLong( deviceClass.getNumberSeven() ) );
-                }
+//                if (deviceClass.getNumberSeven().equalsIgnoreCase( "" )) {
+//                    byteQueueRemove7.pushU4B( Long.valueOf( valueSeven ) );
+////                    byteQueueRemove7.pushU4B( Long.valueOf( uidNo8.getText().toString().trim() ) );
+//                } else {
+//                    byteQueueRemove7.pushU4B( Long.parseLong( deviceClass.getNumberSeven() ) );
+//                }
 //                byteQueue1.push(PIR_INFO);
 //                byteQueueRemove7.pushU4B(Long.parseLong(deviceClass.getNumberSeven()));
                 advertiseTaskRemove7 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
@@ -1591,7 +1954,7 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 ContentValues contentValuesRemove8 = new ContentValues();
                 contentValuesRemove8.put( DatabaseConstant.COLUMN_DEVICE_NUMBER_EIGET, "" );
                 contentValuesRemove8.put( DatabaseConstant.COLUMN_DEVICE_ITEM_EIGET, "" );
-                contentValuesRemove8.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_EIGHT, "");
+                contentValuesRemove8.put( DatabaseConstant.COLUMN_DEVICE_GROUP_TYPE_EIGHT, "" );
                 if (sqlHelper.updateDevice( deviceClass.getDeviceUID(), contentValuesRemove8 )) {
                 }
                 AdvertiseTask advertiseTaskRemove8 = new AdvertiseTask( activity );
@@ -1606,12 +1969,12 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
                 } else if (selectItem8.getText().toString().equalsIgnoreCase( "Day Light" )) {
                     byteQueueRemove8.push( 0x83 );
                 }
-                if (deviceClass.getNumberEight().equalsIgnoreCase( "" )) {
-                    byteQueueRemove8.pushU4B( Long.valueOf( valueFive ) );
-//                    byteQueueRemove8.pushU4B( Long.valueOf( uidNo8.getText().toString().trim() ) );
-                } else {
-                    byteQueueRemove8.pushU4B( Long.parseLong( deviceClass.getNumberEight() ) );
-                }
+//                if (deviceClass.getNumberEight().equalsIgnoreCase( "" )) {
+//                    byteQueueRemove8.pushU4B( Long.valueOf( valueFive ) );
+////                    byteQueueRemove8.pushU4B( Long.valueOf( uidNo8.getText().toString().trim() ) );
+//                } else {
+//                    byteQueueRemove8.pushU4B( Long.parseLong( deviceClass.getNumberEight() ) );
+//                }
 //                byteQueue1.push(PIR_INFO);
 //                byteQueueRemove8.pushU4B(Long.parseLong(deviceClass.getNumberEight()));
                 advertiseTaskRemove8 = new AdvertiseTask( LastDemoAddFragment.this, activity, 5 * 1000 );
@@ -1627,67 +1990,6 @@ public class LastDemoAddFragment extends Fragment implements AdvertiseResultInte
 
 
         }
-    }
-
-    public void getDevice() {
-        deviceList.clear();
-        DeviceClass noGroupData = new DeviceClass();
-        noGroupData.setDeviceName( "No Associate" );
-        deviceList.add( noGroupData );
-        Cursor cursor = sqlHelper.getAllDevice( DatabaseConstant.ADD_DEVICE_TABLE );
-        if (cursor.moveToFirst()) {
-            do {
-                if (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "533" ) ||
-                        (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "55811" ) && cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ).startsWith( "E2:15" )) ||
-                        (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "55811" ) && cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ).startsWith( "E5:00" ))) {
-                    DeviceClass deviceData = new DeviceClass();
-                    deviceData.setDeviceName( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_NAME ) ) );
-                    deviceData.setDeviceUID( cursor.getLong( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_UID ) ) );
-                    deviceData.setTypeCode( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ) );
-                    deviceData.setMacAddress( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ) );
-                    deviceList.add( deviceData );
-                }
-
-            }
-            while (cursor.moveToNext());
-        }
-        cursor.close();
-//        adapterSite.notifyDataSetChanged();
-
-    }
-
-    public void getDeviceTwo() {
-        ListTwo.clear();
-        DeviceClass noGroupData = new DeviceClass();
-        noGroupData.setDeviceName( "No Associate" );
-        ListTwo.add( noGroupData );
-        Cursor cursor = sqlHelper.getAllDevice( DatabaseConstant.ADD_DEVICE_TABLE );
-//        int i = 1;
-        if (cursor.moveToFirst()) {
-            do {
-                if (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "533" ) ||
-                        (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "55811" ) && cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ).startsWith( "E2:15" )) ||
-                        (cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ).equalsIgnoreCase( "55811" ) && cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ).startsWith( "E5:00" ))) {
-
-                    DeviceClass deviceData = new DeviceClass();
-                    deviceData.setDeviceName( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_NAME ) ) );
-                    deviceData.setDeviceUID( cursor.getLong( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_UID ) ) );
-                    deviceData.setTypeCode( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_TYPE_CODE ) ) );
-                    deviceData.setMacAddress( cursor.getString( cursor.getColumnIndex( DatabaseConstant.COLUMN_DEVICE_MAC_ADDRESSS ) ) );
-                    ListTwo.add( deviceData );
-                }
-
-
-            }
-            while (cursor.moveToNext());
-        }
-        cursor.close();
-
-    }
-
-
-    public void setDeviceData(DeviceClass deviceData) {
-        this.deviceClass = deviceData;
     }
 
 

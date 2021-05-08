@@ -25,11 +25,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inferrix.lightsmart.InterfaceModule.AdvertiseResultInterface;
+import com.inferrix.lightsmart.PogoClasses.Project;
 import com.inferrix.lightsmart.ReceiverModule.BLEBroadcastReceiver;
 import com.inferrix.lightsmart.ServiceModule.AdvertiseTask;
 import com.inferrix.lightsmart.ServiceModule.ScannerTask;
 import com.inferrix.lightsmart.activity.HelperActivity;
 import com.inferrix.lightsmart.constant.Constants;
+import com.inferrix.lightsmart.constant.PreferencesManager;
 import com.niftymodaldialogeffects.Effectstype;
 import com.niftymodaldialogeffects.NiftyDialogBuilder;
 
@@ -63,12 +65,22 @@ public class MainActivity extends AppCompatActivity implements AdvertiseResultIn
     protected LocationManager locationManager;
     NiftyDialogBuilder dialogBuilder;
     Dialog cancel_dialog;
+    private Project project;
+    private String projectID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         title.setText("Home");
+        Intent intent = getIntent();
+        project = (Project) intent.getSerializableExtra("project");
+
+//        Log.e ("Project_id=====>", String.valueOf (project.getProjectId ()));
+
+        projectID = String.valueOf (project.getProjectId ());
+        PreferencesManager.getInstance (getApplicationContext ()).setFkProjectId (String.valueOf(project.getProjectId ()));
+
 //        smartDevice.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -96,10 +108,10 @@ public class MainActivity extends AppCompatActivity implements AdvertiseResultIn
         }
 
         enableBT();
-        backgroundPowerSaver = new BackgroundPowerSaver(this);
+        backgroundPowerSaver = new BackgroundPowerSaver (this);
 
 //        initiateBeaconService();
-        bleBroadcastReceiver=new BLEBroadcastReceiver();
+        bleBroadcastReceiver=new BLEBroadcastReceiver ();
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(bleBroadcastReceiver, filter);
     }
@@ -116,12 +128,16 @@ public class MainActivity extends AppCompatActivity implements AdvertiseResultIn
                 break;
             case R.id.smart_device:
 //               keyDialog();
+                intent.putExtra ("projectId",projectID);
                 intent.putExtra(Constants.MAIN_KEY, Constants.SMART_DEVICE_CODE);
+
                 break;
             case R.id.dashboard:
+                intent.putExtra ("projectId",projectID);
                 intent.putExtra(Constants.MAIN_KEY, Constants.DASHBOARD_CODE);
                 break;
             case R.id.group:
+                intent.putExtra ("projectId",projectID);
                 intent.putExtra(Constants.MAIN_KEY, Constants.GROUP_CODE);
                 break;
             case R.id.back_up:
@@ -129,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements AdvertiseResultIn
                 break;
 
             case R.id.associate:
+                intent.putExtra ("projectId",projectID);
                 intent.putExtra(Constants.MAIN_KEY, Constants.ASSOCIATE);
                 break;
         }

@@ -28,6 +28,17 @@ public class DeviceClass implements Parcelable {
     String itemSix="";
     String itemSeven="";
     String itemEight="";
+
+    String uidNameOne="";
+    String uidNameTwo="";
+    String uidNameThree="";
+    String uidNameFour="";
+    String uidNameFive="";
+    String uidNameSix="";
+    String uidNameSeven="";
+    String uidNameEight="";
+
+
     String groupTypeOne="";
     String groupTypeTwo="";
     String groupTypeThree="";
@@ -437,6 +448,67 @@ public class DeviceClass implements Parcelable {
         return dimmingLevelFour;
     }
 
+    public void setUidNameOne(String uidNameOne) {
+        this.uidNameOne = uidNameOne;
+    }
+
+    public String getUidNameOne() {
+        return uidNameOne;
+    }
+    public void setUidNameTwo(String uidNameTwo) {
+        this.uidNameTwo = uidNameTwo;
+    }
+
+    public String getUidNameTwo() {
+        return uidNameTwo;
+    }
+    public void setUidNameThree(String uidNameThree) {
+        this.uidNameThree = uidNameThree;
+    }
+
+    public String getUidNameThree() {
+        return uidNameThree;
+    }
+    public void setUidNameFour(String uidNameFour) {
+        this.uidNameFour = uidNameFour;
+    }
+
+    public String getUidNameFour() {
+        return uidNameFour;
+    }
+    public void setUidNameFive(String uidNameFive) {
+        this.uidNameFive = uidNameFive;
+    }
+
+    public String getUidNameFive() {
+        return uidNameFive;
+    }
+    public void setUidNameSix(String uidNameSix) {
+        this.uidNameSix = uidNameSix;
+    }
+
+    public String getUidNameSix() {
+        return uidNameSix;
+    }
+
+    public void setUidNameSeven(String uidNameSeven) {
+        this.uidNameSeven = uidNameSeven;
+    }
+
+    public String getUidNameSeven() {
+        return uidNameSeven;
+    }
+
+    public void setUidNameEight(String uidNameEight) {
+        this.uidNameEight = uidNameEight;
+    }
+
+    public String getUidNameEight() {
+        return uidNameEight;
+    }
+
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -483,6 +555,14 @@ public class DeviceClass implements Parcelable {
         dest.writeString(this.dimmingLevelTwo);
         dest.writeString(this.dimmingLevelThre);
         dest.writeString(this.dimmingLevelFour);
+        dest.writeString(this.uidNameOne);
+        dest.writeString(this.uidNameTwo);
+        dest.writeString(this.uidNameThree);
+        dest.writeString(this.uidNameFour);
+        dest.writeString(this.uidNameFive);
+        dest.writeString(this.uidNameSix);
+        dest.writeString(this.uidNameSeven);
+        dest.writeString(this.uidNameEight);
         dest.writeInt(this.groupId);
         dest.writeInt(this.groupSiteId);
         dest.writeInt(this.groupBuildingId);
@@ -536,6 +616,16 @@ public class DeviceClass implements Parcelable {
         this.dimmingLevelTwo = in.readString();
         this.dimmingLevelThre = in.readString();
         this.dimmingLevelFour = in.readString();
+
+        this.uidNameOne = in.readString();
+        this.uidNameTwo = in.readString();
+        this.uidNameThree = in.readString();
+        this.uidNameFour = in.readString();
+        this.uidNameFive = in.readString();
+        this.uidNameSix = in.readString();
+        this.uidNameSeven = in.readString();
+        this.uidNameEight = in.readString();
+
         this.groupId = in.readInt();
         this.groupSiteId = in.readInt();
         this.groupBuildingId = in.readInt();

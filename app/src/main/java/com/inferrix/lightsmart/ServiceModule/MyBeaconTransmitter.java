@@ -158,9 +158,12 @@ public class MyBeaconTransmitter {
                     }
 
                     AdvertiseSettings.Builder settingsBuilder = new AdvertiseSettings.Builder();
+
                     settingsBuilder.setAdvertiseMode(this.mAdvertiseMode);
                     settingsBuilder.setTxPowerLevel(this.mAdvertiseTxPowerLevel);
                     settingsBuilder.setConnectable(this.mConnectable);
+
+
                     Log.w(TAG,this.mAdvertiseTimeout+" timeout");
                     settingsBuilder.setTimeout(this.mAdvertiseTimeout);
 
